@@ -1,3 +1,13 @@
 :root{
-    --bg: red; 
+    --bg: #212D3F; 
+    --contrast-color: #fff;
+    --text-color: #fff;
+    --button-color: #0091BF;
+    --link-color: #24C6FB;
 }
+
+[data-theme="light"] {
+    --bg: #fff; 
+    --contrast-color: rgb(37, 37, 37);
+    --text-color: rgb(27, 27, 27);
+} 

@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import logo from './logo.svg';
-import './App.css';
 import firebase from "./utils/Firebase";
 import 'firebase/auth'
 import styled from 'styled-components';
 import Auth from './pages/Auth';
-//require('firebase/auth')
+import './styles/variables.css'
+import './index.css';
 
 
 function App() {

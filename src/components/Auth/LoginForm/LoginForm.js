@@ -1,8 +1,40 @@
-import React from 'react'
+import React, {useState} from 'react'
+import { LoginContainer, FormInput, ButtonSection, SubmitButton } from '../Components'
 
-const LoginForm = () => {
+const LoginForm = ( {setSelectedForm} ) => {
+  
+  const data = {
+    email: '',
+    password: ''
+  }
+
+  const [formData, setFormData] = useState(data);
+
+  const onChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    })
+  }
+
+  const onSubmit = (el) => {
+    console.log(formData)
+    el.preventDefault()
+  }
+
   return (
-    <div>LoginForm</div>
+    <LoginContainer>
+      <h1>Welcome!</h1>
+      <p>Login to your account</p>
+      <form onChange={onChange} onSubmit={onSubmit}>
+        <FormInput placeholder='EMAIL' name="email" />
+        <FormInput placeholder='PASSWORD' name="password" type='password' />
+        <ButtonSection>
+            <SubmitButton type="submit" >Login</SubmitButton>
+        </ButtonSection>
+      </form>
+      <p>Don’t have an account? <a href="#" onClick={ () => setSelectedForm('register') }>Create your account here</a></p>
+    </LoginContainer>
   )
 }
 
