@@ -1,5 +1,7 @@
 import React, {useState} from 'react'
 import { LoginContainer, FormInput, ButtonSection, SubmitButton } from '../Components'
+import { validateEmail } from '../../../utils/Validations'
+
 
 const LoginForm = ( {setSelectedForm} ) => {
   
@@ -18,6 +20,7 @@ const LoginForm = ( {setSelectedForm} ) => {
   }
 
   const onSubmit = (el) => {
+    console.log(validateEmail(formData.email))
     console.log(formData)
     el.preventDefault()
   }
