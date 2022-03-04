@@ -3,10 +3,8 @@ import { LoginContainer, FormInput, ButtonSection, SubmitButton } from '../Compo
 import { validateEmail } from '../../../utils/Validations'
 import { toast } from 'react-toastify';
 import { BeatLoader } from 'react-spinners';
-import { GoogleAuthProvider } from 'firebase'
-import firebase from '../../../utils/Firebase';
-
-
+import firebase from '../../../utils/firebase';
+import {firebase as fb} from 'firebase/app';
 
 const LoginForm = ( {setSelectedForm} ) => {
   
@@ -71,8 +69,7 @@ const LoginForm = ( {setSelectedForm} ) => {
   const signUpByGoogle = (e) => {
     e.preventDefault();
     setLoading(true);
-    var provider =  firebase.auth.GoogleAuthProvider();
-    console.log(provider)
+    
   }
 
   return (

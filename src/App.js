@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import logo from './logo.svg';
-import firebase from "./utils/Firebase";
+import firebase from "./utils/firebase";
 import 'firebase/auth'
 import styled from 'styled-components';
 import Auth from './pages/Auth';

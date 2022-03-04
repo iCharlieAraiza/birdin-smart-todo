@@ -5,9 +5,8 @@ import { toast } from 'react-toastify';
 import { LoginContainer, FormInput, LabelCheckbox, ButtonSection, SubmitButton, ErrorLabel } from '../Components'
 import { validateEmail } from '../../../utils/Validations'
 import { BeatLoader } from 'react-spinners';
-import { Checkbox } from 'semantic-ui-react'
-import firebase from '../../../utils/Firebase';
-
+import { Checkbox } from 'semantic-ui-react'
+import firebase from '../../../utils/firebase';
 
 
 const RegisterForm = ( { setSelectedForm} ) => {
