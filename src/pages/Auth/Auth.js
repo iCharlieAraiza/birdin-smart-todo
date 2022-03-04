@@ -65,7 +65,7 @@ const TitleFrame = styled.div`
   padding: 1.5rem 1rem;
   margin-top: 6rem;
   img{
-    width: 250px;
+    width: 200px;
     margin-left: 2rem;
   }
 `
@@ -76,7 +76,7 @@ const FooterText = styled.div`
   position: absolute;
   bottom: 1rem;
   width: 22rem;
-  background-size: 115% 115%;
+  background-size: 110% 110%;
   opacity: 0.5;
   margin-left: 1.5rem;
 `

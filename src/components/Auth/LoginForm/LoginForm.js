@@ -1,6 +1,11 @@
 import React, {useState} from 'react'
 import { LoginContainer, FormInput, ButtonSection, SubmitButton } from '../Components'
 import { validateEmail } from '../../../utils/Validations'
+import { toast } from 'react-toastify';
+import { BeatLoader } from 'react-spinners';
+import { GoogleAuthProvider } from 'firebase'
+import firebase from '../../../utils/Firebase';
+
 
 
 const LoginForm = ( {setSelectedForm} ) => {
@@ -11,6 +16,10 @@ const LoginForm = ( {setSelectedForm} ) => {
   }
 
   const [formData, setFormData] = useState(data);
+  const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [user, setUser] = useState(null);
+  const [userActive, setUserActive] = useState(false);
 
   const onChange = (e) => {
     setFormData({
@@ -20,9 +29,50 @@ const LoginForm = ( {setSelectedForm} ) => {
   }
 
   const onSubmit = (el) => {
-    console.log(validateEmail(formData.email))
-    console.log(formData)
+    let isValid = true;
+    setError({});
+    let error = {};
+    let formOk = true;
+
     el.preventDefault()
+
+    if(!validateEmail(formData.email)){
+      toast.error('Ups! Your email is not valid')
+      error.email = true;
+      formOk = false;
+    }
+
+    if(formData.password.length < 6){
+      toast.error('Invalid password.')
+      error.password = true;
+      formOk = false;
+    }
+
+    setError(error);
+
+    if(formOk){
+      setLoading(true);
+      firebase.auth().signInWithEmailAndPassword(formData.email, formData.password)
+      .then(res => {
+        setLoading(false);
+        setUser(res.user);
+        setUserActive(true);
+        setSelectedForm('home');
+      })
+      .catch(err => {
+        setLoading(false);
+        toast.error(err.message);
+      });
+    }
+
+    console.log(formData)
+  }
+
+  const signUpByGoogle = (e) => {
+    e.preventDefault();
+    setLoading(true);
+    var provider =  firebase.auth.GoogleAuthProvider();
+    console.log(provider)
   }
 
   return (
@@ -35,6 +85,7 @@ const LoginForm = ( {setSelectedForm} ) => {
         <ButtonSection>
             <SubmitButton type="submit" >Login</SubmitButton>
         </ButtonSection>
+        <button onClick={signUpByGoogle}>Sign up by Google</button>
       </form>
       <p>Don’t have an account? <a href="#" onClick={ () => setSelectedForm('register') }>Create your account here</a></p>
     </LoginContainer>

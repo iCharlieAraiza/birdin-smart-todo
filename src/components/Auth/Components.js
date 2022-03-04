@@ -20,6 +20,11 @@ margin-bottom: 0.6rem;
 &:focus{
   outline: none;
 }
+
+&:after{
+    content: "Is no Valid";
+}
+
 `
 
 export const LabelCheckbox = styled.p`
@@ -39,6 +44,11 @@ export const SubmitButton = styled.button`
   &:hover{
     opacity: 0.9;
   }
+  &[disabled]{
+    opacity: 0.8;
+    cursor: inherit;
+  }
+
 `
 
 export const ButtonSection = styled.div`
@@ -46,3 +56,7 @@ export const ButtonSection = styled.div`
     justify-content: end;
     `
 
+export const ErrorLabel = styled.label`
+    color: #d95656;
+    display: block;
+`
