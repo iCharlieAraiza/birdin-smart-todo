@@ -4,7 +4,7 @@ import { validateEmail } from '../../../utils/Validations'
 import { toast } from 'react-toastify';
 import { BeatLoader } from 'react-spinners';
 import firebase from '../../../utils/firebase';
-import {firebase as fb} from 'firebase/app';
+import { provider } from '../../../utils/SocialMedia';
 
 const LoginForm = ( {setSelectedForm} ) => {
   
@@ -50,7 +50,7 @@ const LoginForm = ( {setSelectedForm} ) => {
 
     if(formOk){
       setLoading(true);
-      firebase.auth().signInWithEmailAndPassword(formData.email, formData.password)
+      fb.auth().signInWithEmailAndPassword(formData.email, formData.password)
       .then(res => {
         setLoading(false);
         setUser(res.user);
@@ -69,7 +69,18 @@ const LoginForm = ( {setSelectedForm} ) => {
   const signUpByGoogle = (e) => {
     e.preventDefault();
     setLoading(true);
-    
+    firebase.auth().signInWithPopup(provider)
+    .then(res => {
+      setLoading(false);
+      setUser(res.user);
+      setUserActive(true);
+      setSelectedForm('home');
+    }
+    ).catch(err => {
+      setLoading(false);
+      toast.error(err.message);
+    })
+
   }
 
   return (
