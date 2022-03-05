@@ -1,37 +1,43 @@
 import React from 'react'
 import styled from 'styled-components'
+import { BrowserRouter } from 'react-router-dom'
+import AllRoutes from '../../routes/AllRoutes'
+import Menu from '../../components/Menu'
 
 const LoggedLayout = ({ user }) => {
   return (
-    <Layout>
-        <Navbar>
-            <h1>Hello {user.displayName}</h1>
-        </Navbar>
-        <Main>
-            <h2>Hello</h2>
-        </Main>
-    </Layout>
+    <BrowserRouter>
+         <Layout>
+            <Navbar>
+                <Menu user={user} />
+            </Navbar>
+            <MainContainer>
+                <AllRoutes />
+            </MainContainer>
+        </Layout>
+    </BrowserRouter>
   )
 }
 
 const Layout = styled.div`
-    background-color: var(--bg);
+    background-color: var(--navbar-bg-color);
     box-sizing: border-box;
     display: flex;
     height: 100vh;
 `
 
 const Navbar = styled.div`
-    flex-basis: 20rem;
+    flex-basis: 18rem;
     flex-grow: 1;
 `
 
 
-const Main = styled.div`
+const MainContainer = styled.div`
+    padding-top: 3rem;
     flex-basis: 0;
     flex-grow: 999;
     min-width: 60%;
-    background-color: var(--navbar-color);
+    background-color: var(--bg);
     `
 
 

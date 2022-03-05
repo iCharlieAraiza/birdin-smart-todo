@@ -4,7 +4,8 @@
     --text-color: #fff;
     --button-color: #0091BF;
     --link-color: #24C6FB;
-    --navbar-color: #28374D;
+    --navbar-bg-color: #28374D;
+    --active-menu-bg-color: var(--bg);
 }
 
 [data-theme="light"] {
