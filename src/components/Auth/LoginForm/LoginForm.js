@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import { LoginContainer, FormInput, ButtonSection, SubmitButton } from '../Components'
+import { LoginContainer, FormInput, ButtonSection, SubmitButton, ErrorLabel } from '../Components'
 import { validateEmail } from '../../../utils/Validations'
 import { toast } from 'react-toastify';
 import { BeatLoader } from 'react-spinners';
@@ -46,24 +46,28 @@ const LoginForm = ( {setSelectedForm} ) => {
       formOk = false;
     }
 
-    setError(error);
-
     if(formOk){
       setLoading(true);
-      fb.auth().signInWithEmailAndPassword(formData.email, formData.password)
+      firebase.auth().signInWithEmailAndPassword(formData.email, formData.password)
       .then(res => {
-        setLoading(false);
         setUser(res.user);
         setUserActive(true);
         setSelectedForm('home');
+        if(!res.user.emailVerified){
+          toast.warning('Please verify your email.')
+          error.emailConfirmation = true;
+        }else{
+          toast.success('Welcome!')
+        }
       })
       .catch(err => {
+        toast.error("Your email or password is incorrect.");
+        error.login = true;
+      }).finally(() => {
         setLoading(false);
-        toast.error(err.message);
-      });
+      })
     }
-
-    console.log(formData)
+    setError(error);
   }
 
   const signUpByGoogle = (e) => {
@@ -74,6 +78,7 @@ const LoginForm = ( {setSelectedForm} ) => {
       setLoading(false);
       setUser(res.user);
       setUserActive(true);
+      toast.success('Welcome!')
       setSelectedForm('home');
     }
     ).catch(err => {
@@ -88,10 +93,20 @@ const LoginForm = ( {setSelectedForm} ) => {
       <h1>Welcome!</h1>
       <p>Login to your account</p>
       <form onChange={onChange} onSubmit={onSubmit}>
+        {error.login && <ErrorLabel>* Invalid email or password </ErrorLabel>}
+        {error.emailConfirmation && <ErrorLabel>* Your account is not active yet. Check your email and confirm your account. </ErrorLabel>}
         <FormInput placeholder='EMAIL' name="email" />
         <FormInput placeholder='PASSWORD' name="password" type='password' />
         <ButtonSection>
-            <SubmitButton type="submit" >Login</SubmitButton>
+          {loading ? (
+              <SubmitButton type="submit" disabled>
+                  <BeatLoader size={ 8 } />
+              </SubmitButton>
+          ) : (  
+              <SubmitButton type='input'>
+                  'Sign up'
+              </SubmitButton>
+            )}   
         </ButtonSection>
         <button onClick={signUpByGoogle}>Sign up by Google</button>
       </form>
