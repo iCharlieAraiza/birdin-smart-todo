@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { BiTask } from 'react-icons/bi'
 import { BsFileBarGraph } from 'react-icons/bs'
+import { Link, withRouter } from 'react-router-dom'
 
 const Menu = ({ user }) => {
   return (
@@ -74,7 +75,7 @@ const MenuItem = styled.li`
     }
 `
 
-const MenuItemLink = styled.a`
+const MenuItemLink = styled(Link)`
     display: flex; 
     align-items: center;
 `
@@ -88,6 +89,7 @@ const MenuItemIcon = styled.div`
         opacity: 0.6;
     }
     `
+
 const MenuItemText = styled.div`
     margin-left: 1rem;
     text-transform: capitalize;

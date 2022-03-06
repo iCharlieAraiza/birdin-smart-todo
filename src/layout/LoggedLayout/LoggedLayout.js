@@ -1,22 +1,23 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import styled from 'styled-components'
 import { BrowserRouter } from 'react-router-dom'
 import AllRoutes from '../../routes/AllRoutes'
 import Menu from '../../components/Menu'
 
 const LoggedLayout = ({ user }) => {
-  return (
-    <BrowserRouter>
-         <Layout>
-            <Navbar>
-                <Menu user={user} />
-            </Navbar>
-            <MainContainer>
-                <AllRoutes />
-            </MainContainer>
-        </Layout>
-    </BrowserRouter>
-  )
+
+    return (
+        <BrowserRouter>
+            <Layout>
+                <Navbar>
+                    <Menu user={user} />
+                </Navbar>
+                <MainContainer>
+                    <AllRoutes />
+                </MainContainer>
+            </Layout>
+        </BrowserRouter>
+    )
 }
 
 const Layout = styled.div`
@@ -33,11 +34,12 @@ const Navbar = styled.div`
 
 
 const MainContainer = styled.div`
-    padding-top: 3rem;
+    padding-top: 2rem;
     flex-basis: 0;
     flex-grow: 999;
     min-width: 60%;
     background-color: var(--bg);
+    padding: 3.5rem 2rem 0 2rem;
     `
 
 

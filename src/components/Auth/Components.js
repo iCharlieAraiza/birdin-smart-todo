@@ -60,3 +60,14 @@ export const ErrorLabel = styled.label`
     color: #d95656;
     display: block;
 `
+
+export const TaskSectionTitle = styled.div`
+  display: flex;
+  align-items: center;
+  font-size: 1.5rem;
+
+  svg {
+    margin-left: 0.5rem;
+    opacity: 0.5;
+  }
+`

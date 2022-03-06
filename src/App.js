@@ -1,12 +1,11 @@
 
 import React, { useState } from 'react';
-import logo from './logo.svg';
 import firebase from "./utils/firebase";
 import 'firebase/auth'
 import styled from 'styled-components';
 import Auth from './pages/Auth';
 import { ToastContainer } from 'react-toastify';
-
+//import 'semantic-ui-css/semantic.min.css' 
 
 import './styles/variables.css'
 import 'react-toastify/dist/ReactToastify.css';

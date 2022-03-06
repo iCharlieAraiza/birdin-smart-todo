@@ -1,9 +1,18 @@
 import React from 'react'
+import { TaskSectionTitle } from '../../components/General'
+
 
 const Statistics = () => {
   return (
-    <div>Statistics</div>
+    <>
+      <TaskSectionTitle>
+        Statistics
+      </TaskSectionTitle>
+    </>
+
   )
 }
+
+
 
 export default Statistics
