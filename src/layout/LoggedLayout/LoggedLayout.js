@@ -10,7 +10,7 @@ const LoggedLayout = ({ user }) => {
         <BrowserRouter>
             <Layout>
                 <Navbar>
-                    <Menu user={user} />
+                    <Menu />
                 </Navbar>
                 <MainContainer>
                     <AllRoutes />

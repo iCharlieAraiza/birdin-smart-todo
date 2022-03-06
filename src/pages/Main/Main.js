@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{ useState } from 'react'
 import styled from 'styled-components'
 import { getMonth } from '../../utils/calendarUtils'
 import { Popup } from 'semantic-ui-react'
@@ -8,7 +8,7 @@ import { TaskSectionTitle } from '../../components/General'
 
 
 const Main = () => {
-  console.table(getMonth(2))
+  const [currentMonth, setCurrentMonth] = useState(getMonth())
 
   return (
     <TaskSection>
@@ -16,7 +16,7 @@ const Main = () => {
         <TaskSectionTitle>
           Tasks <Popup content='In this section, you will manage all your scheduled tasks' trigger={<AiFillInfoCircle />} />
         </TaskSectionTitle>
-        <Calendar />
+        <Calendar month={currentMonth} />
       </CalendarSection>
     </TaskSection>
   )

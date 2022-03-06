@@ -1,37 +1,46 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import { BiTask } from 'react-icons/bi'
 import { BsFileBarGraph } from 'react-icons/bs'
 import { Link, withRouter } from 'react-router-dom'
 
-const Menu = ({ user }) => {
-  return (
-    <MenuContainer>
-        <UserCard>
-            <ProfileAvatar />
-            <UserName>{user.name != null? user.name : 'new user' }</UserName>
-        </UserCard>
-        <MenuList>
-            <MenuItem className='active'>
-                <MenuItemLink to="/">
-                    <MenuItemIcon>
-                        <BiTask />
-                    </MenuItemIcon>
-                    <MenuItemText>Taks</MenuItemText>
-                </MenuItemLink>
-            </MenuItem>
-            <MenuItem>
-                <MenuItemLink to="/statistics">
-                    <MenuItemIcon>
-                        <BsFileBarGraph />
-                    </MenuItemIcon>
-                    <MenuItemText>Reports</MenuItemText>
-                </MenuItemLink>
-            </MenuItem>
-        </MenuList>
+const Menu = (props) => {
+    const [active, setActive] = useState(window.location.pathname)
+    
+    const user = null
 
-    </MenuContainer>
-  )
+    const handlerMenu = (e) => {
+        console.log(e.view.location.pathname)
+        setActive(e.view.location.pathname)
+    }
+
+    return (
+        <MenuContainer>
+            <UserCard>
+                <ProfileAvatar />
+                <UserName>{user?.name != null? user.name : 'new user' }</UserName>
+            </UserCard>
+            <MenuList>
+                <MenuItem className={active === '/' && 'active'}>
+                    <MenuItemLink to="/"onClick={() => setActive('/')}>
+                        <MenuItemIcon>
+                            <BiTask />
+                        </MenuItemIcon>
+                        <MenuItemText>Taks</MenuItemText>
+                    </MenuItemLink>
+                </MenuItem>
+                <MenuItem className={active === '/statistics' && 'active'}>
+                    <MenuItemLink  onClick={() => setActive('/statistics')} to="/statistics">
+                        <MenuItemIcon>
+                            <BsFileBarGraph />
+                        </MenuItemIcon>
+                        <MenuItemText>Reports</MenuItemText>
+                    </MenuItemLink>
+                </MenuItem>
+            </MenuList>
+
+        </MenuContainer>
+    )
 }
 
 const MenuContainer = styled.div`
