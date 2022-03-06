@@ -9,6 +9,8 @@ let mainWindow;
 
 function createWindow() {
   mainWindow = new BrowserWindow({width: 900, height: 680, title: 'Smart Todo', titleBarStyle: 'customButtonsOnHover', frame: false, titleBarStyle: 'hiddenInset' ,webPreferences: {nativeWindowOpen: true}});
+  
+  mainWindow.maximize();
   mainWindow.loadURL(isDev ? 'http://localhost:3000' : `file://${path.join(__dirname, '../build/index.html')}`);
  
   if (isDev) {

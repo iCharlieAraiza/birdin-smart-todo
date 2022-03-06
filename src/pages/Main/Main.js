@@ -4,6 +4,8 @@ import { getMonth } from '../../utils/calendarUtils'
 import { Popup } from 'semantic-ui-react'
 import {AiFillInfoCircle} from 'react-icons/ai'
 import Calendar from '../../components/Calendar'
+import { TaskSectionTitle } from '../../components/General'
+
 
 const Main = () => {
   console.table(getMonth(2))
@@ -28,16 +30,6 @@ const CalendarSection = styled.div`
   flex-basis: 40rem;
   flex-grow: 999;
   min-width: 60%;
-`
-
-const TaskSectionTitle = styled.div`
-  display: flex;
-  align-items: center;
-  font-size: 1.5rem;
-  svg {
-    margin-left: 0.5rem;
-    opacity: 0.5;
-  }
 `
 
 
