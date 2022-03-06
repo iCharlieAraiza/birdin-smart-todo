@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
-
+import Day from './Day'
+import CalendarHeader from './CalendarHeader'
 
 const Calendar = ({ month }) => {
   const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
@@ -8,6 +9,7 @@ const Calendar = ({ month }) => {
   return (
     <>
       <CalendarSection>
+        <CalendarHeader />
         <DaysOfWeek>
           {daysOfWeek.map(day => (
             <div key={day}>{day}</div>
@@ -20,9 +22,7 @@ const Calendar = ({ month }) => {
                 <Week key={index}>
                   {week.map((day, index) => {
                     return (
-                      <Day key={index}>
-                        {day.format('DD')}
-                      </Day>
+                      <Day key={index} day={day} />
                     )
                   }
                   )}
@@ -60,9 +60,15 @@ const Week = styled.div`
   grid-template-columns: repeat(7, 1fr);
 `
 
+
+/*
 const Day = styled.div`
   border: 1px solid #ccc;
   height: 8rem ;
 `
 
+const DayNumber = styled.div`
+  font-size: 1.5rem;
+`
+*/
 export default Calendar

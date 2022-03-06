@@ -6,6 +6,7 @@
     --link-color: #24C6FB;
     --navbar-bg-color: #28374D;
     --active-menu-bg-color: var(--bg);
+    --today-calendar-bg-color: #354863;
 }
 
 [data-theme="light"] {

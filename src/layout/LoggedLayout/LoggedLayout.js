@@ -1,11 +1,10 @@
-import React,{useEffect} from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import { BrowserRouter } from 'react-router-dom'
 import AllRoutes from '../../routes/AllRoutes'
 import Menu from '../../components/Menu'
 
-const LoggedLayout = ({ user }) => {
-
+const LoggedLayout = ({ user }) => {    
     return (
         <BrowserRouter>
             <Layout>

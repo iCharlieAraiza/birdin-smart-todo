@@ -1,14 +1,21 @@
-import React,{ useState } from 'react'
+import React,{ useState, useContext, useEffect } from 'react'
 import styled from 'styled-components'
 import { getMonth } from '../../utils/calendarUtils'
 import { Popup } from 'semantic-ui-react'
 import {AiFillInfoCircle} from 'react-icons/ai'
 import Calendar from '../../components/Calendar'
 import { TaskSectionTitle } from '../../components/General'
+import GlobalContext from '../../context/GlobalContext'
 
 
 const Main = () => {
   const [currentMonth, setCurrentMonth] = useState(getMonth())
+  const { monthIndex } = useContext(GlobalContext)
+
+  useEffect(() => {
+    setCurrentMonth( getMonth(monthIndex) )
+  }, [monthIndex])
+
 
   return (
     <TaskSection>
