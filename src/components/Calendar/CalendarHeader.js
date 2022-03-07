@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from 'react-icons/ai'
 import GlobalContext from '../../context/GlobalContext'
 import dayjs from 'dayjs'
+import { BsArrowReturnLeft } from 'react-icons/bs'
 
 const CalendarHeader = () => {
     const { monthIndex, setMonthIndex } = useContext(GlobalContext)
@@ -15,16 +16,28 @@ const CalendarHeader = () => {
         setMonthIndex(monthIndex + 1)
     }
 
+    const handleResetMonth = () => {
+        setMonthIndex(dayjs().month())
+    }
+
     return (
         <Header>
-            <Button onClick={handlePreviousMonth}>
+            <ButtonToday onClick={ handleResetMonth }>
+                Today
+                <BsArrowReturnLeft />
+            </ButtonToday>
+
+            <Button onClick={ handlePreviousMonth }>
                 <AiOutlineArrowLeft  />
             </Button>
-            <Button onClick={handleNextMonth}>
+            <Button onClick={ handleNextMonth }>
                 <AiOutlineArrowRight />
             </Button>
             <Month>
-                { dayjs( new Date(dayjs().year(), monthIndex)).format('MMMM YYYY') }
+                { dayjs( new Date(dayjs().month(), monthIndex)).format('MMMM') }
+                <Year>
+                { dayjs( new Date(dayjs().year(), monthIndex)).format('YYYY') }
+                </Year>
             </Month>
         </Header>
     )
@@ -32,6 +45,7 @@ const CalendarHeader = () => {
 
 const Header = styled.div`
     display: flex;
+    align-items: center;
     margin: 1rem 0;
 `
 
@@ -43,11 +57,29 @@ const Month = styled.div`
 const Button = styled.button`
     background: transparent;
     border: 1px solid gray;
-    border-radius: 5px;
+    border-radius: 6px;
+    padding: 0.3rem 1rem;
     cursor: pointer ;
 `
 
+const ButtonToday = styled.button`
+    background: transparent;
+    border-radius: 6px;
+    border: none;
+    padding: 0.3rem 1rem;
+    cursor: pointer ;
+    display: flex;
+    svg {
+        width: 1.1rem;
+        height: 1.1rem;
+        margin-left: 0.5rem;
+    }
+`
 
+const Year = styled.span`
+    font-weight: 200;
+    margin-left: 0.2rem;
+`
 
 
 export default CalendarHeader

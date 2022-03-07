@@ -1,10 +1,14 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import styled from 'styled-components'
 import Day from './Day'
 import CalendarHeader from './CalendarHeader'
+import GlobalContext from '../../context/GlobalContext'
+import dayjs from 'dayjs'
 
 const Calendar = ({ month }) => {
   const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+  const { monthIndex } = useContext(GlobalContext)
+
 
   return (
     <>
@@ -12,7 +16,7 @@ const Calendar = ({ month }) => {
         <CalendarHeader />
         <DaysOfWeek>
           {daysOfWeek.map(day => (
-            <div key={day}>{day}</div>
+            <div key={day} >{day}</div>
           ))}
         </DaysOfWeek>
         <CalendarWrapper>
@@ -20,9 +24,9 @@ const Calendar = ({ month }) => {
             month.map((week, index) => {
               return (
                 <Week key={index}>
-                  {week.map((day, index) => {
+                  { week.map((day, index) => {
                     return (
-                      <Day key={index} day={day} />
+                      <Day key={index} month={monthIndex} day={day} index={index} />
                     )
                   }
                   )}
