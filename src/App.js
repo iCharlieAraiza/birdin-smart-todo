@@ -11,11 +11,12 @@ import 'react-toastify/dist/ReactToastify.css';
 import './index.css';
 import LoggedLayout from './layout/LoggedLayout';
 
+
+
 function App() {
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [reloadApp, setReloadApp] = useState(false);
-
 
 
   firebase.auth().onAuthStateChanged(currentUser => {

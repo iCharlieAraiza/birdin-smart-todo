@@ -5,8 +5,26 @@ import AllRoutes from '../../routes/AllRoutes'
 import Menu from '../../components/Menu'
 
 const LoggedLayout = ({ user }) => {    
+
+    const resizeWindow = (e) => {
+        if (e.detail == 2) {
+
+            if(window.innerWidth >= screen.width) {
+                const originalWidth = window.innerWidth
+                const left = (screen.width - (originalWidth - 200) ) / 2;
+                window.resizeTo(screen.width-200, screen.height - 100, true);
+                
+                window.moveTo( left , 0);
+            }else{
+                window.moveTo(0, 0);
+                window.resizeTo(screen.width, screen.height, true);
+            }
+        }
+    }
+
     return (
         <BrowserRouter>
+            <TopBar id="topbar" clasName='topbar' onClick={ resizeWindow }/>
             <Layout>
                 <Navbar>
                     <Menu />
@@ -18,6 +36,15 @@ const LoggedLayout = ({ user }) => {
         </BrowserRouter>
     )
 }
+
+
+const TopBar = styled.div`
+    position: absolute;
+    top: 0;
+    width: 100% ;
+    height: 15px;
+    background-color: transparent;
+`
 
 const Layout = styled.div`
     background-color: var(--navbar-bg-color);
