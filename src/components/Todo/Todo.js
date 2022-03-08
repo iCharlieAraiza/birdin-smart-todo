@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import styled from 'styled-components'
 import { TaskSectionTitle } from '../General'
 import GlobalContext from '../../context/GlobalContext'
@@ -6,10 +6,42 @@ import dayjs from 'dayjs'
 
 /*
     Min: 1:37
+    Min: 1:58. Add labels
 */
 
 const Todo = () => {
-    const {title, setTitle, daySelected, setDaySelected} = useContext(GlobalContext)
+    const {title, 
+            setTitle, 
+            daySelected, 
+            setDaySelected, 
+            dispatchCalEvent,
+            savedEvents} = useContext(GlobalContext)
+
+    const [description, setDescription] = useState('')
+    
+    const [dayEvents, setDayEvents] = useState([])
+    
+    useEffect(() => {
+        const events = savedEvents.filter(evt => dayjs(evt.date).format('DD-MM-YYYY') === daySelected.format('DD-MM-YYYY'))
+        setDayEvents(events)
+    }, [daySelected, savedEvents])
+
+    const labels = ['Important','Personal', 'Work', 'Shopping', 'Other']
+
+    const handleKeypress = e => {
+      if (e.keyCode === 13 && e.target.value.trim() !== '') {
+        console.log("Enter pressed", e.target.value)
+        const newEvent = {
+            title,
+            description,
+            date: daySelected.valueOf(),
+            id: window.Date.now()
+        }
+        dispatchCalEvent({type: 'push', payload: newEvent})
+        setTitle('')
+      }
+    };
+  
 
     return (
         <TodoWrapper>
@@ -20,7 +52,11 @@ const Todo = () => {
                 {daySelected==null ? 'Hello' : daySelected.format('dddd DD MMMM YYYY')} 
             </Date>
             <TaskList>
-
+                {dayEvents.map((evt, idx ) => (
+                    <Task key={idx}>
+                        <TaskTitle>{evt.title}</TaskTitle>
+                    </Task>))
+                    }
             </TaskList>
             <InputContainer>
                 <InputAddTask 
@@ -28,7 +64,9 @@ const Todo = () => {
                 placeholder='Add task' 
                 value={title}
                 reqired
-                onChange={(e) => setTitle(e.target.value)} />
+                onChange={(e) => setTitle(e.target.value)} 
+                onKeyUp={handleKeypress}
+                />
             </InputContainer>
         </TodoWrapper>
     )
@@ -63,5 +101,11 @@ const Date = styled.div`
     font-weight: 200;
     font-size: 14px;
  `
+
+const Task = styled.div`
+`
+
+const TaskTitle = styled.div`
+`
 
 export default Todo

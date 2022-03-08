@@ -6,7 +6,7 @@ import dayjs from 'dayjs'
 import { BsArrowReturnLeft } from 'react-icons/bs'
 
 const CalendarHeader = () => {
-    const { monthIndex, setMonthIndex } = useContext(GlobalContext)
+    const { monthIndex, setMonthIndex, setDaySelected } = useContext(GlobalContext)
 
     const handlePreviousMonth = () => {
         setMonthIndex(monthIndex - 1)
@@ -18,6 +18,7 @@ const CalendarHeader = () => {
 
     const handleResetMonth = () => {
         setMonthIndex(dayjs().month())
+        setDaySelected(dayjs())
     }
 
     return (
