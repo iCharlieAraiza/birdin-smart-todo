@@ -8,7 +8,6 @@ const Calendar = ({ month }) => {
   const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
   const { monthIndex, daySelected, setDaySelected } = useContext(GlobalContext)
 
-
   return (
     <>
       <CalendarSection>

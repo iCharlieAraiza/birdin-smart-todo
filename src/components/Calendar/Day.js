@@ -13,7 +13,8 @@ const Day = ({day, month, index}) => {
 
     const handeDayClick = () => {
         setDaySelected(day)
-    }
+        console.log('clicked day: ', day.format('DD-MM-YYYY'))
+    } 
 
     const getDayClass = (day) => {
         const format = 'DD-MM-YYYY'

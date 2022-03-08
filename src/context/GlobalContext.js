@@ -8,6 +8,8 @@ const GlobalContext = React.createContext({
     setSmallCalendarMonth: (index) => {},
     daySelected: null,
     setDaySelected: (day) => {},
+    title: "",
+    setTitle: (title) => {},
 });
 
 export default GlobalContext;
