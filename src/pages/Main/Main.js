@@ -6,7 +6,7 @@ import {AiFillInfoCircle} from 'react-icons/ai'
 import Calendar from '../../components/Calendar'
 import { TaskSectionTitle } from '../../components/General'
 import GlobalContext from '../../context/GlobalContext'
-
+import Todo from '../../components/Todo'
 
 const Main = () => {
   const [currentMonth, setCurrentMonth] = useState(getMonth())
@@ -25,12 +25,17 @@ const Main = () => {
         </TaskSectionTitle>
         <Calendar month={currentMonth} />
       </CalendarSection>
+      <Todo />
     </TaskSection>
   )
 }
 
 const TaskSection = styled.div`
   display: flex;
+  flex-basis: 40rem;
+  flex-grow: 999;
+  min-width: 60%;
+
 `
 
 const CalendarSection = styled.div`

@@ -3,11 +3,10 @@ import styled from 'styled-components'
 import Day from './Day'
 import CalendarHeader from './CalendarHeader'
 import GlobalContext from '../../context/GlobalContext'
-import dayjs from 'dayjs'
 
 const Calendar = ({ month }) => {
   const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
-  const { monthIndex } = useContext(GlobalContext)
+  const { monthIndex, daySelected, setDaySelected } = useContext(GlobalContext)
 
 
   return (
@@ -42,7 +41,9 @@ const Calendar = ({ month }) => {
 }
 
 const CalendarSection = styled.div` 
-  max-width: 1200px;
+  max-width: 1280px;
+  margin-top: 1.5rem;
+  overflow: scroll;
 `
 
 
@@ -53,6 +54,7 @@ const DaysOfWeek = styled.div`
   text-align: center;
   font-weight: bold;
   font-size: 16px;
+  margin-bottom: 10px;
 `
 
 const CalendarWrapper = styled.div`
@@ -64,15 +66,4 @@ const Week = styled.div`
   grid-template-columns: repeat(7, 1fr);
 `
 
-
-/*
-const Day = styled.div`
-  border: 1px solid #ccc;
-  height: 8rem ;
-`
-
-const DayNumber = styled.div`
-  font-size: 1.5rem;
-`
-*/
 export default Calendar

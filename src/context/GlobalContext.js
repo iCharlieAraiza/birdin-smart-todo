@@ -4,6 +4,10 @@ const GlobalContext = React.createContext({
     isDarkMode: true,
     monthIndex: 0,
     setMonthIndex: (index) => {},
+    smallCalendarMonth: 0,
+    setSmallCalendarMonth: (index) => {},
+    daySelected: null,
+    setDaySelected: (day) => {},
 });
 
 export default GlobalContext;

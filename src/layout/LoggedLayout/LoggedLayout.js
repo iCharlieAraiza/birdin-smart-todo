@@ -60,12 +60,13 @@ const Navbar = styled.div`
 
 
 const MainContainer = styled.div`
-    padding-top: 2rem;
     flex-basis: 0;
     flex-grow: 999;
     min-width: 60%;
     background-color: var(--bg);
-    padding: 3.5rem 2rem 0 2rem;
+    padding-left: 2rem;
+    overflow: scroll;
+
     `
 
 
