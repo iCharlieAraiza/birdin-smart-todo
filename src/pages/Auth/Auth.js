@@ -21,12 +21,12 @@ const Auth = () => {
 
     return (
         <LoginWrapper>
-        <InfoSection>
-          <TitleFrame>
-            <img src={LogoDarkmode} alt="logo" />
-          </TitleFrame>
-          <FooterText/>
-        </InfoSection>
+          <InfoSection>
+            <TitleFrame>
+              <img src={LogoDarkmode} alt="logo" />
+            </TitleFrame>
+            <FooterText/>
+          </InfoSection>
   
         <LoginSection>
             {handlerForm()}
@@ -37,13 +37,13 @@ const Auth = () => {
 }
 
 const AuthContainer = styled.div`
-    background-color:
 `
 
 const LoginWrapper = styled.div`
   //background-image: url(${LoginBackground});
   background-color: var(--bg);
   display: flex;
+  -webkit-app-region: drag;
 `
 
 const InfoSection = styled.div`

@@ -41,9 +41,10 @@ const LoggedLayout = ({ user }) => {
 const TopBar = styled.div`
     position: absolute;
     top: 0;
-    width: 100% ;
-    height: 15px;
+    width: 100%;
+    height: 45px;
     background-color: transparent;
+    -webkit-app-region: drag;
 `
 
 const Layout = styled.div`
@@ -65,9 +66,16 @@ const MainContainer = styled.div`
     min-width: 60%;
     background-color: var(--bg);
     padding-left: 2rem;
-    overflow: scroll;
-
+    //overflow: scroll;
     `
+
+const SideBarContainer = styled.div`
+    flex-basis: 18;
+    flex-grow: 1;
+    min-width: 40%;
+    padding-left: 2rem;
+    overflow: scroll;
+`
 
 
 export default LoggedLayout;

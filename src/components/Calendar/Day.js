@@ -3,9 +3,8 @@ import styled from 'styled-components'
 import dayjs from 'dayjs'
 import GlobalContext from '../../context/GlobalContext'
 
-
 const Day = ({day, month, index}) => {
-    const { daySelected, setDaySelected } = useContext(GlobalContext)
+    const { daySelected, setDaySelected, setTitle } = useContext(GlobalContext)
 
     const getCurrentDay = () => {  
         return day.format('DD-MM-YYYY') === dayjs().format('DD-MM-YYYY');
@@ -13,6 +12,7 @@ const Day = ({day, month, index}) => {
 
     const handeDayClick = () => {
         setDaySelected(day)
+        setTitle('')
         console.log('clicked day: ', day.format('DD-MM-YYYY'))
     } 
 

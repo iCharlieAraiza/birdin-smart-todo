@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from 'react'
 import styled from 'styled-components'
 import { TaskSectionTitle } from '../General'
 import GlobalContext from '../../context/GlobalContext'
+import ListSection from '../List/ListSection'
 import dayjs from 'dayjs'
 
 /*
@@ -52,16 +53,18 @@ const Todo = () => {
                 {daySelected==null ? 'Hello' : daySelected.format('dddd DD MMMM YYYY')} 
             </Date>
             <TaskList>
-                {dayEvents.map((evt, idx ) => (
+                { <ListSection items={dayEvents} /> }
+
+                { /*dayEvents.map((evt, idx ) => (
                     <Task key={idx}>
                         <TaskTitle>{evt.title}</TaskTitle>
                     </Task>))
-                    }
+                */ }
             </TaskList>
             <InputContainer>
                 <InputAddTask 
                 name="title" 
-                placeholder='Add task' 
+                placeholder='+ Add task' 
                 value={title}
                 reqired
                 onChange={(e) => setTitle(e.target.value)} 
@@ -73,18 +76,17 @@ const Todo = () => {
 }
 
 const TodoWrapper = styled.div`
-    padding:0 1rem;
+    padding:0 1.2rem;
     border-left: 1px solid #ffffff36;
     height: 100vh;
     width: 18rem;
-    margin-left: 1.5rem;
 `
 const TaskList = styled.div`
-    height: calc(100vh - 10rem);
+    height: calc(100vh - 11rem);
     overflow-y: scroll;
     `
 const InputContainer = styled.div`
-    height: 4rem;
+    height: 3rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -96,6 +98,11 @@ const InputAddTask = styled.input`
     padding: 0.3rem ;
     font-size: 1rem;
     background-color:transparent ;
+    &:focus {
+        outline: none;
+        border: 1 solid gray;
+    }
+    
 `
 const Date = styled.div`
     font-weight: 200;

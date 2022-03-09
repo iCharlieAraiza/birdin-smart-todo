@@ -5,7 +5,7 @@ export const TaskSectionTitle = styled.div`
 display: flex;
 align-items: center;
 font-size: 1.5rem!important;
-margin-top: 4rem;
+padding-top: 4rem;
 
 svg {
   margin-left: 0.5rem;

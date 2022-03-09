@@ -5,6 +5,7 @@
 
 html {
   font-size: 14px;
+  background-color: var(--bg);
 }
 
 body{
@@ -27,3 +28,12 @@ a{
 .Toastify .Toastify__toast-theme--dark {
   background-color: #171f2a;
 }
+
+@keyframes fadein {
+from {
+  opacity:0;
+      }
+      to {
+          opacity:1;
+      }
+  }

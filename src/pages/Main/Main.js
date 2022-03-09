@@ -25,7 +25,9 @@ const Main = () => {
         </TaskSectionTitle>
         <Calendar month={currentMonth} />
       </CalendarSection>
-      <Todo />
+      <FixedTodoBar>
+        <Todo />
+      </FixedTodoBar>
     </TaskSection>
   )
 }
@@ -42,7 +44,16 @@ const CalendarSection = styled.div`
   flex-basis: 40rem;
   flex-grow: 999;
   min-width: 60%;
+  height: 98vh;
+  padding-right: 1.5rem;
+  overflow: scroll;
 `
 
+
+
+const FixedTodoBar = styled.div`
+  background-color: var(--bg);
+  position: relative;
+`
 
 export default Main
