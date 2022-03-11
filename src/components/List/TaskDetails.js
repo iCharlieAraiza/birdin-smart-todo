@@ -6,7 +6,7 @@ import { AiOutlineArrowRight } from 'react-icons/ai'
 import CheckButton from './CheckButton.js'
 
 const TaskDetails = () => {
-    const { selectedEvent, setSelectedEvent, dispatchCalEvent } = useContext(GlobalContext)
+    const { selectedEvent, setSelectedEvent, savedEvents, dispatchCalEvent } = useContext(GlobalContext)
     const [id, setId  ]= useState(selectedEvent.id);
     const [title, setTitle] = useState(selectedEvent.title)
     const [description, setDescription] = useState(selectedEvent.description)
@@ -26,7 +26,8 @@ const TaskDetails = () => {
         setDate(selectedEvent.date)
         setLabels(selectedEvent.labels)
         setId(selectedEvent.id)
-        console.log('selectedEvent update: ', selectedEvent)
+        setIsChecked(selectedEvent.isChecked)
+        console.log('Is selectedEvent updated: ', selectedEvent)
     }
 
     const createUpdateEvent = () => {

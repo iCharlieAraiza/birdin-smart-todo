@@ -1,25 +1,45 @@
-import React, {useContext} from 'react'
+import React, {useContext, useState} from 'react'
 import styled from 'styled-components'
 import GlobalContext from '../../context/GlobalContext'
 import TaskDetails from './TaskDetails'
+import CheckButton from './CheckButton'
 /*
   2:29 implement the select button
 */
 
 
 const ListSection = ({items}) => {
-  const { selectedEvent, setSelectedEvent } = useContext(GlobalContext)
+  const { selectedEvent, setSelectedEvent, dispatchCalEvent } = useContext(GlobalContext)
+  const [isChecked, setIsChecked] = useState(false)
 
-  console.log('selectedEvent: ', selectedEvent)
+
+  const handleSelect = (e, item) => {
+    if(e.target.classList.contains('card') || e.target.classList.contains('text')) {
+      setSelectedEvent(item)
+      setIsChecked(true)
+    }
+  }
+
+  const handlerCheck = (item) => {
+    const newEvent = {
+      ...item,
+      isChecked: !item.isChecked
+    }
+    setSelectedEvent(newEvent)
+    dispatchCalEvent({type: 'update', payload: newEvent})
+    //setSelectedEvent(newEvent)
+  }
+      
+
   return (
     <ListWrapper>
         {selectedEvent && <TaskDetails />}
         {items.map(item => (
-            <ListItem key={item.id} onClick={()=>setSelectedEvent(item)} className={ item.isChecked ? 'checked' : ''}>
-                <SelectButton>
-                    <CheckCircle />
+            <ListItem key={item.id} onClick={(ev)=>handleSelect(ev, item)} className={`card ${item.isChecked ? 'checked' : ''}`}>
+                <SelectButton className="check-button">
+                    <CheckButton check={ item.isChecked } handlerCheck={()=>handlerCheck(item)} />
                 </SelectButton>
-                <Title className='text'>
+                <Title className='text'  >
                   { item.title }
                 </Title>
                 <LabelTag>
@@ -46,7 +66,7 @@ const ListItem = styled.div`
       .text{
         text-decoration: line-through;
         opacity: 0.5;
-        
+
       }
     }
 
@@ -67,6 +87,7 @@ const CheckCircle = styled.div`
 const Title = styled.div`
   margin-right: auto;
   margin-left: 0.5rem;
+  width: 100%;
 `
 
 const LabelTag = styled.div`
