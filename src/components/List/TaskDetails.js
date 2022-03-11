@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import GlobalContext from '../../context/GlobalContext'
 import dayjs from 'dayjs'
 import { AiOutlineArrowRight } from 'react-icons/ai'
-
+import CheckButton from './CheckButton.js'
 
 const TaskDetails = () => {
     const { selectedEvent, setSelectedEvent, dispatchCalEvent } = useContext(GlobalContext)
@@ -12,6 +12,7 @@ const TaskDetails = () => {
     const [description, setDescription] = useState(selectedEvent.description)
     const [date, setDate] = useState(selectedEvent.date)
     const [labels, setLabels] = useState(selectedEvent.labels)
+    const [isChecked, setIsChecked] = useState(selectedEvent.isChecked == undefined ? false : selectedEvent.isChecked)
     const [showTitleInp, setShowTitleInp] = useState(false)
 
 
@@ -50,15 +51,33 @@ const TaskDetails = () => {
     }
 
     const handlerFocus = (el) => {
-        setTitle(el.target.textContent)
-        //console.log(  el.target.textContent )
+        if ( el.target.textContent != title) {
+            setTitle(el.target.textContent)
+            const newEvent = {
+                title: el.target.textContent,
+                description,
+                date,
+                id,
+                labels
+            }
+            dispatchCalEvent({type: 'update', payload: newEvent})
+        }else{
+            console.log('same title')
+        }
+    }
+
+    const handlerCheck = () => {
+        console.log('isChecked: ', isChecked)
         const newEvent = {
-            title: el.target.textContent,
+            title,
             description,
             date,
             id,
-            labels
+            labels,
+            isChecked: !isChecked
         }
+        setIsChecked(!isChecked)
+        console.log('isChecked: ', isChecked)
         dispatchCalEvent({type: 'update', payload: newEvent})
     }
 
@@ -67,9 +86,12 @@ const TaskDetails = () => {
             <Overlay onClick={ () => setSelectedEvent(null)}>
             </Overlay>
             <TaskMenu>
-                <TitleInput value={title} onBlur={handlerFocus} role="textbox" contentEditable={true} suppressContentEditableWarning={true}>
-                    { title }  
-                </TitleInput>
+                <CheckSection>
+                    <CheckButton check={isChecked} handlerCheck={handlerCheck} />
+                    <TitleInput className={isChecked&& 'checked' } value={title} onBlur={handlerFocus} role="textbox" contentEditable={true} suppressContentEditableWarning={true}>
+                        { title }  
+                    </TitleInput>
+                </CheckSection>
                 <Separator/>
                 <DateSection>
                     { date!=null&& dayjs(date). format('DD / MMMM / YYYY') }
@@ -96,16 +118,26 @@ const TaskDetails = () => {
 }
 
 
+const CheckSection = styled.div`
+    margin-top: 4rem;
+    display: flex;
+    align-items: center;
+`
+
 const TitleInput = styled.span`
     width: 100%;
     background-color: transparent;
     font-size: 1.5rem;
     border: none;
     display: block;
-    margin-top: 4rem;
 
     &:focus {
         outline: none;
+    }
+
+    &.checked{
+        text-decoration: line-through;
+        opacity: 0.5;
     }
 `
 
@@ -199,6 +231,5 @@ const SaveBtn = styled.div `
     cursor: pointer;
     color: bisque;
 `
-
 
 export default TaskDetails

@@ -20,7 +20,7 @@ const ListSection = ({items}) => {
                     <CheckCircle />
                 </SelectButton>
                 <Title>
-                  {item.title}
+                  { item.title }
                 </Title>
                 <LabelTag>
                     <Square />
