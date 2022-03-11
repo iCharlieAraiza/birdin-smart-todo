@@ -15,11 +15,11 @@ const ListSection = ({items}) => {
     <ListWrapper>
         {selectedEvent && <TaskDetails />}
         {items.map(item => (
-            <ListItem key={item.id} onClick={()=>setSelectedEvent(item)}>
+            <ListItem key={item.id} onClick={()=>setSelectedEvent(item)} className={ item.isChecked ? 'checked' : ''}>
                 <SelectButton>
                     <CheckCircle />
                 </SelectButton>
-                <Title>
+                <Title className='text'>
                   { item.title }
                 </Title>
                 <LabelTag>
@@ -42,6 +42,14 @@ const ListItem = styled.div`
     align-items: center;
     justify-content: space-between;
     margin-bottom: 8px;
+    &.checked {
+      .text{
+        text-decoration: line-through;
+        opacity: 0.5;
+        
+      }
+    }
+
 `
 
 const SelectButton = styled.div`
