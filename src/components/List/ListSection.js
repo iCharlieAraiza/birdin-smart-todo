@@ -16,21 +16,12 @@ const ListSection = ({items, setItems}) => {
   const [isChecked, setIsChecked] = useState(false)
   const [moved, setMoved] = useState(false)
   const [newState, setNewState] = useState([...items].sort((a, b) => a.position - b.position))
+
+
   const handleSelect = (e, item) => {
     if(e.target.classList.contains('card') || e.target.classList.contains('text')) {
       setSelectedEvent(item)
       setIsChecked(true)
-    }
-    
-    if(moved){   
-      const newItems = items.map((item, index) => {
-        item.position = index
-        return item;
-      })
-
-      newItems.forEach(element => {
-        dispatchCalEvent({type: 'update', payload: element})
-      });
     }
   }
 
@@ -41,7 +32,6 @@ const ListSection = ({items, setItems}) => {
     }
     setSelectedEvent(newEvent)
     dispatchCalEvent({type: 'update', payload: newEvent})
-
     //setSelectedEvent(newEvent)
   }
 
@@ -110,7 +100,6 @@ const ListSection = ({items, setItems}) => {
   return (
     <ListWrapper>
       {selectedEvent && <TaskDetails />}
-      <h2 onClick={updateLocalstorage}>SAVE</h2>
       <ReactSortable list={items} setList={setItems} options={sortableOptions} onEnd={expOnEnd} >
       
       {items.map((item, index) => (
@@ -124,9 +113,6 @@ const ListSection = ({items, setItems}) => {
               <LabelTag>
                   <Square />
               </LabelTag>
-              <h3>
-                { item.position }
-              </h3>
           </ListItem>
       ))}
       </ReactSortable>
