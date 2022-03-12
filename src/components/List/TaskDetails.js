@@ -26,7 +26,7 @@ const TaskDetails = () => {
         setDate(selectedEvent.date)
         setLabels(selectedEvent.labels)
         setId(selectedEvent.id)
-        setIsChecked(selectedEvent.isChecked)
+        setIsChecked(selectedEvent.isChecked),
         console.log('Is selectedEvent updated: ', selectedEvent)
     }
 
@@ -36,7 +36,7 @@ const TaskDetails = () => {
             description,
             date,
             id,
-            labels
+            labels,
         }
         dispatchCalEvent({type: 'update', payload: newEvent})
         //setSelectedEvent(null)

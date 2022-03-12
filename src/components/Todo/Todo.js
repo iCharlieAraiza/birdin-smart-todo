@@ -23,7 +23,7 @@ const Todo = () => {
     const [dayEvents, setDayEvents] = useState([])
     
     useEffect(() => {
-        const events = savedEvents.filter(evt => dayjs(evt.date).format('DD-MM-YYYY') === daySelected.format('DD-MM-YYYY'))
+        const events = savedEvents.sort((a,b)=>a.position-b.position).filter(evt => dayjs(evt.date).format('DD-MM-YYYY') === daySelected.format('DD-MM-YYYY'))
         setDayEvents(events)
     }, [daySelected, savedEvents])
 
@@ -53,7 +53,7 @@ const Todo = () => {
                 {daySelected==null ? 'Hello' : daySelected.format('dddd DD MMMM YYYY')} 
             </Date>
             <TaskList>
-                { <ListSection items={dayEvents} /> }
+                { <ListSection items={dayEvents} setItems={setDayEvents}/> }
 
                 { /*dayEvents.map((evt, idx ) => (
                     <Task key={idx}>
