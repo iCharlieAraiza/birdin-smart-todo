@@ -1,6 +1,14 @@
-# Getting Started with Create React App
+# Smart todo
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## About
+
+Smart Todo is a project managment application for desktop.
+
+
+## 🚧 Roadmap
+
+This project is currently in alpha phase (0.1). 
+
 
 ## Available Scripts
 

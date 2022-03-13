@@ -29,6 +29,7 @@ const ContextWrapper = (props) => {
     const [title, setTitle] = useState('')
     const [selectedEvent, setSelectedEvent] = useState(null)
     const [savedEvents, dispatchCalEvent] = useReducer(savedEventsReducer, [], initEvents)
+    const [leftBarWidth, setLeftBarWidth] = useState(19*14)
 
     useEffect(() => {
         localStorage.setItem('saveEvents', JSON.stringify(savedEvents))
@@ -50,7 +51,9 @@ const ContextWrapper = (props) => {
                                         dispatchCalEvent,
                                         savedEvents,
                                         setSelectedEvent,
-                                        selectedEvent
+                                        selectedEvent,
+                                        leftBarWidth,
+                                        setLeftBarWidth,
                                         }}>
             { props.children }
         </GlobalContext.Provider>

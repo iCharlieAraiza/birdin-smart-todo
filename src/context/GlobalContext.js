@@ -13,7 +13,9 @@ const GlobalContext = React.createContext({
     dispatchCalEvent: ({type, payload}) => {},
     savedEvents: [],
     setSelectedEvent: (event) => {},
-    selectedEvent: null
+    selectedEvent: null,
+    leftBarWidth: 0,
+    setLeftBarWidth: (width) => {}, 
 });
 
 export default GlobalContext;

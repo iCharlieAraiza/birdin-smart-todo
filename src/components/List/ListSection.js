@@ -109,6 +109,9 @@ const ListSection = ({items, setItems}) => {
               </SelectButton>
               <Title className='text'  >
                 { item.title }
+                <TimeDescription>
+                { item.estimatedTime && 'Estimated Time ' + item.estimatedTime + ' ' + item.kindOfEstimated }
+              </TimeDescription>
               </Title>
               <LabelTag>
                   <Square />
@@ -167,9 +170,11 @@ const Square = styled.div`
     height: 12px;
     border-radius: 8px;
     `
-  
-
-
+const TimeDescription = styled.div`
+    font-size: 12px;
+    color: #b3b3b3;
+    margin-top: 3px;
+`
 
 
 export default ListSection

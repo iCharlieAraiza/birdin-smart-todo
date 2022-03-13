@@ -4,6 +4,8 @@ import { TaskSectionTitle } from '../General'
 import GlobalContext from '../../context/GlobalContext'
 import ListSection from '../List/ListSection'
 import dayjs from 'dayjs'
+import { Resizable } from "re-resizable";
+
 
 /*
     Min: 1:37
@@ -15,8 +17,11 @@ const Todo = () => {
             setTitle, 
             daySelected, 
             setDaySelected, 
+            setSelectedEvent,
+            selectedEvent,
             dispatchCalEvent,
-            savedEvents} = useContext(GlobalContext)
+            savedEvents, 
+            setLeftBarWidth} = useContext(GlobalContext)
 
     const [description, setDescription] = useState('')
     
@@ -43,9 +48,34 @@ const Todo = () => {
       }
     };
   
+    const style = {
+        padding:"0 1.2rem",
+        borderLeft: "1px solid #ffffff36",
+        height: "100vh",
+        width: "19rem"
+    }
+
+    const handleResize = (e) => {
+        let width = window.screen.width - e.screenX
+        width = width < 220 ? 220 : width
+        setLeftBarWidth(width > 370 ? 370 : width)
+    }
+
+    const resizeTo = () => {
+        if(setSelectedEvent!=null) {
+            setSelectedEvent(null)
+        }
+    }
 
     return (
-        <TodoWrapper>
+        <Resizable style={style} 
+                    defaultSize={{
+                        width:270,
+                    }}
+                    maxWidth="370" 
+                    minWidth="220"
+                    onResizeStart={resizeTo} 
+                    onResizeStop={handleResize} >
             <TaskSectionTitle>
                 To Do
             </TaskSectionTitle>
@@ -71,7 +101,7 @@ const Todo = () => {
                 onKeyUp={handleKeypress}
                 />
             </InputContainer>
-        </TodoWrapper>
+        </Resizable>
     )
 }
 
@@ -79,7 +109,7 @@ const TodoWrapper = styled.div`
     padding:0 1.2rem;
     border-left: 1px solid #ffffff36;
     height: 100vh;
-    width: 18rem;
+    width: 19rem;
 `
 const TaskList = styled.div`
     height: calc(100vh - 11rem);

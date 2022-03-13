@@ -4,15 +4,19 @@ import GlobalContext from '../../context/GlobalContext'
 import dayjs from 'dayjs'
 import { AiOutlineArrowRight } from 'react-icons/ai'
 import CheckButton from './CheckButton.js'
+import { MdOutlineTimer } from 'react-icons/md'
+
 
 const TaskDetails = () => {
-    const { selectedEvent, setSelectedEvent, savedEvents, dispatchCalEvent } = useContext(GlobalContext)
+    const { selectedEvent, setSelectedEvent, savedEvents, dispatchCalEvent, leftBarWidth } = useContext(GlobalContext)
     const [id, setId  ]= useState(selectedEvent.id);
     const [title, setTitle] = useState(selectedEvent.title)
     const [description, setDescription] = useState(selectedEvent.description)
     const [date, setDate] = useState(selectedEvent.date)
     const [labels, setLabels] = useState(selectedEvent.labels)
     const [isChecked, setIsChecked] = useState(selectedEvent.isChecked == undefined ? false : selectedEvent.isChecked)
+    const [estimatedTime, setEstimatedTime] = useState(selectedEvent.estimatedTime == undefined ? 0 : selectedEvent.estimatedTime)
+    const [kindOfEstimated, setKindOfEstimated] = useState(selectedEvent.kindOfEstimated == undefined ? 'minutes' : selectedEvent.kindOfEstimated)
     const [showTitleInp, setShowTitleInp] = useState(false)
 
 
@@ -30,12 +34,21 @@ const TaskDetails = () => {
         console.log('Is selectedEvent updated: ', selectedEvent)
     }
 
-    const createUpdateEvent = () => {
+    const KIND_OF_ESTIMATED_OPTIONS = [
+        {value: 'minutes', label: 'Minutes'},
+        {value: 'hours', label: 'Hours'},
+        {value: 'pomodoro', label: 'Pomodoro'},
+    ]
+
+
+    function createUpdateEvent() {
         const newEvent = {
             title,
             description,
             date,
             id,
+            estimatedTime,
+            kindOfEstimated,
             labels,
         }
         dispatchCalEvent({type: 'update', payload: newEvent})
@@ -44,6 +57,20 @@ const TaskDetails = () => {
     
     const updateTitle = (el)=>{
         setTitle(el.target.value)
+    }
+
+    const updateTime = (el) =>{
+        console.log('el.target.value: ', el.target.value)
+        if (el.target.value != selectedEvent.estimatedTime ) {
+            createUpdateEvent()
+        }
+    }
+
+    const updateKindOfEstimated = (el) =>{
+        console.log('el.target.value: ', el.target.value)
+        if (el.target.value != selectedEvent.kindOfEstimated ) {
+            createUpdateEvent()
+        }
     }
 
     const updateDescription = (el) => {
@@ -59,6 +86,8 @@ const TaskDetails = () => {
                 description,
                 date,
                 id,
+                estimatedTime,
+                kindOfEstimated,
                 labels
             }
             dispatchCalEvent({type: 'update', payload: newEvent})
@@ -75,6 +104,7 @@ const TaskDetails = () => {
             date,
             id,
             labels,
+            kindOfEstimated,
             isChecked: !isChecked
         }
         setIsChecked(!isChecked)
@@ -83,7 +113,7 @@ const TaskDetails = () => {
     }
 
     return (
-        <TaskDetailsBar>
+        <TaskDetailsBar width={leftBarWidth + 'px'}>
             <Overlay onClick={ () => setSelectedEvent(null)}>
             </Overlay>
             <TaskMenu>
@@ -103,6 +133,26 @@ const TaskDetails = () => {
                         High <Label></Label>
                     </PriorityLabel>
                 </Priority>
+                <Separator/>
+                <TimeToComplete>
+                    <MdOutlineTimer />
+                    <InputTime type="number" min='0' 
+                    value={estimatedTime} 
+                    onChange={(e)=>setEstimatedTime(e.target.value)}
+                    onBlur={updateTime}>
+                    </InputTime>
+                    <SelectKindOfTime 
+                    value={kindOfEstimated} 
+                    onChange={(e)=>setKindOfEstimated(e.target.value)} 
+                    onBlur={updateKindOfEstimated}>
+                        {KIND_OF_ESTIMATED_OPTIONS.map(option => (
+                            <option key={option.value} value={option.value}>
+                                {option.label}
+                            </option>
+                        ))}
+                    </SelectKindOfTime>
+
+                </TimeToComplete>
                 <Separator/>
                 <Description placeholder='Add a note' value={description} onChange={updateDescription}>
                 </Description>
@@ -128,9 +178,10 @@ const CheckSection = styled.div`
 const TitleInput = styled.span`
     width: 100%;
     background-color: transparent;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     border: none;
     display: block;
+    margin-left: 6px;
 
     &:focus {
         outline: none;
@@ -142,15 +193,6 @@ const TitleInput = styled.span`
     }
 `
 
-const TaskTitle = styled.div`
-    display: block;
-    background: transparent;
-    border: none;
-    align-items: center;
-    font-size: 1.5rem!important;
-    margin-top: 4rem;
-`
-
 const Separator = styled.div`
     width: 100%;
     height: 1px;
@@ -158,11 +200,13 @@ const Separator = styled.div`
     margin: 1rem 0; 
 `
 
+
 const TaskDetailsBar = styled.div`
     position: absolute;
     top: 0;
-    right: 20.5rem;
-    width: calc(100vw - 20.5rem);
+    //right: 21.5rem;
+    right: ${props => props.width};
+    width: calc(100vw - ${props => props.width});
     height: 100vh;
     display: flex;
     animation:fadein .5s;
@@ -177,7 +221,7 @@ const Overlay = styled.div`
 
 const TaskMenu = styled.div`
     background: var(--navbar-bg-color);
-    width: 19rem;
+    width: 20rem;
     height: 100vh;
     padding: 0 1rem;
 `
@@ -215,6 +259,37 @@ const Description = styled.textarea`
 `
 
 const DateSection = styled.div`
+
+`
+
+const TimeToComplete = styled.div`
+    display: flex;
+    align-items: center;
+    svg {
+        width: 1.2rem;
+        height: 1.2rem;
+        margin-right: 0.5rem;
+    }
+`
+
+const InputTime = styled.input`
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid gray;
+    width: 2.8rem;
+    margin-right: 0.5rem;
+    &:focus{
+        outline: none;
+    }
+`
+
+const SelectKindOfTime = styled.select`
+    background-color: transparent;
+    border: none;
+    width: 6rem;
+    &:focus{
+        outline: none;
+    }
 `
 
 const SaveNote = styled.div`
@@ -232,5 +307,7 @@ const SaveBtn = styled.div `
     cursor: pointer;
     color: bisque;
 `
+
+
 
 export default TaskDetails
