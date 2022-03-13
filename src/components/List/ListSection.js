@@ -109,8 +109,8 @@ const ListSection = ({items, setItems}) => {
               </SelectButton>
               <Title className='text'  >
                 { item.title }
-                <TimeDescription>
-                { item.estimatedTime && 'Estimated Time ' + item.estimatedTime + ' ' + item.kindOfEstimated }
+                <TimeDescription className='text'>
+                { (item.estimatedTime || item.estimatedTime > 0) && 'Estimated time: ' + item.estimatedTime + ' ' + item.kindOfEstimated }
               </TimeDescription>
               </Title>
               <LabelTag>

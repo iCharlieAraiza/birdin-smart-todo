@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { BrowserRouter } from 'react-router-dom'
 import AllRoutes from '../../routes/AllRoutes'
 import Menu from '../../components/Menu'
+import { Resizable } from "re-resizable";
 
 const LoggedLayout = ({ user }) => {    
 
@@ -22,13 +23,20 @@ const LoggedLayout = ({ user }) => {
         }
     }
 
+    const style = {
+        with: "18%",
+        //flexBasis: "18rem",
+        //flexGrow: 1
+    }
+    
+
     return (
         <BrowserRouter>
             <TopBar id="topbar" clasName='topbar' onClick={ resizeWindow }/>
             <Layout>
-                <Navbar>
+                <Resizable style={style} minWidth="250">
                     <Menu />
-                </Navbar>
+                </Resizable>
                 <MainContainer>
                     <AllRoutes />
                 </MainContainer>

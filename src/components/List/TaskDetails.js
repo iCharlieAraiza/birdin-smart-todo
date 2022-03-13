@@ -5,7 +5,7 @@ import dayjs from 'dayjs'
 import { AiOutlineArrowRight } from 'react-icons/ai'
 import CheckButton from './CheckButton.js'
 import { MdOutlineTimer } from 'react-icons/md'
-
+import { BsCalendar3 } from 'react-icons/bs'
 
 const TaskDetails = () => {
     const { selectedEvent, setSelectedEvent, savedEvents, dispatchCalEvent, leftBarWidth } = useContext(GlobalContext)
@@ -125,7 +125,7 @@ const TaskDetails = () => {
                 </CheckSection>
                 <Separator/>
                 <DateSection>
-                    { date!=null&& dayjs(date). format('DD / MMMM / YYYY') }
+                    <BsCalendar3 /> { date!=null&& dayjs(date). format('DD / MMMM / YYYY') }
                 </DateSection>
                 <Separator/>
                 <Priority>
@@ -259,7 +259,10 @@ const Description = styled.textarea`
 `
 
 const DateSection = styled.div`
-
+    opacity: 0.65;
+    svg {
+        margin-right: 1rem;
+    }
 `
 
 const TimeToComplete = styled.div`
@@ -278,6 +281,7 @@ const InputTime = styled.input`
     border-bottom: 1px solid gray;
     width: 2.8rem;
     margin-right: 0.5rem;
+    text-align: center;
     &:focus{
         outline: none;
     }
