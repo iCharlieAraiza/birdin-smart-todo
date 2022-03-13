@@ -121,6 +121,7 @@ const ListSection = ({items, setItems}) => {
 }
 
 const ListWrapper = styled.div`
+  margin-top: 2rem;
 `
 
 const ListItem = styled.div`

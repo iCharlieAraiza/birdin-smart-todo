@@ -56,7 +56,7 @@ const DayWrapper = styled.div`
         background-color: var(--inactive-calendar-bg-color);
     }
     &.selected {
-        background-color: black;
+        background-color: #ffffff38;
     }
 `
 
