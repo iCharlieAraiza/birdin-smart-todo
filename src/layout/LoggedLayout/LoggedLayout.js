@@ -24,7 +24,7 @@ const LoggedLayout = ({ user }) => {
     }
 
     const style = {
-        with: "18%",
+        with: "250px",
         //flexBasis: "18rem",
         //flexGrow: 1
     }
@@ -34,7 +34,7 @@ const LoggedLayout = ({ user }) => {
         <BrowserRouter>
             <TopBar id="topbar" clasName='topbar' onClick={ resizeWindow }/>
             <Layout>
-                <Resizable style={style} minWidth="250">
+                <Resizable defaultSize={{width:250}} minWidth="230">
                     <Menu />
                 </Resizable>
                 <MainContainer>

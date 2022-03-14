@@ -6,6 +6,7 @@ import { AiOutlineArrowRight } from 'react-icons/ai'
 import CheckButton from './CheckButton.js'
 import { MdOutlineTimer } from 'react-icons/md'
 import { BsCalendar3 } from 'react-icons/bs'
+import { FlexCenter } from '../General'
 
 const TaskDetails = () => {
     const { selectedEvent, setSelectedEvent, savedEvents, dispatchCalEvent, leftBarWidth } = useContext(GlobalContext)
@@ -30,7 +31,9 @@ const TaskDetails = () => {
         setDate(selectedEvent.date)
         setLabels(selectedEvent.labels)
         setId(selectedEvent.id)
-        setIsChecked(selectedEvent.isChecked),
+        setIsChecked(selectedEvent.isChecked)
+        setEstimatedTime(selectedEvent.estimatedTime == undefined ? 0 : selectedEvent.estimatedTime)
+        setKindOfEstimated(selectedEvent.kindOfEstimated)
         console.log('Is selectedEvent updated: ', selectedEvent)
     }
 
@@ -125,32 +128,41 @@ const TaskDetails = () => {
                 </CheckSection>
                 <Separator/>
                 <DateSection>
-                    <BsCalendar3 /> { date!=null&& dayjs(date). format('DD / MMMM / YYYY') }
+                    <LabelSection>Date</LabelSection>
+                    <div>
+                        <BsCalendar3 /> { date!=null&& dayjs(date). format('DD / MMMM / YYYY') }
+                    </div>
                 </DateSection>
                 <Separator/>
                 <Priority>
+                    <LabelSection>Labels</LabelSection>
                     <PriorityLabel>
                         High <Label></Label>
                     </PriorityLabel>
                 </Priority>
                 <Separator/>
                 <TimeToComplete>
-                    <MdOutlineTimer />
-                    <InputTime type="number" min='0' 
-                    value={estimatedTime} 
-                    onChange={(e)=>setEstimatedTime(e.target.value)}
-                    onBlur={updateTime}>
-                    </InputTime>
-                    <SelectKindOfTime 
-                    value={kindOfEstimated} 
-                    onChange={(e)=>setKindOfEstimated(e.target.value)} 
-                    onBlur={updateKindOfEstimated}>
-                        {KIND_OF_ESTIMATED_OPTIONS.map(option => (
-                            <option key={option.value} value={option.value}>
-                                {option.label}
-                            </option>
-                        ))}
-                    </SelectKindOfTime>
+                    <LabelSection>Allocate time</LabelSection>
+                    <div>
+                        <MdOutlineTimer />
+                        <InputTime type="number" min='0' 
+                        value={estimatedTime} 
+                        onChange={(e)=>setEstimatedTime(e.target.value)}
+                        onBlur={updateTime}>
+                        </InputTime>
+                        <SelectKindOfTime 
+                        value={kindOfEstimated} 
+                        onChange={(e)=>{    
+                            setKindOfEstimated(e.target.value); 
+                            updateKindOfEstimated(e)}}
+                        onBlur={updateKindOfEstimated}>
+                            {KIND_OF_ESTIMATED_OPTIONS.map(option => (
+                                <option key={option.value} value={option.value}>
+                                    {option.label}
+                                </option>
+                            ))}
+                        </SelectKindOfTime>
+                    </div>
 
                 </TimeToComplete>
                 <Separator/>
@@ -260,6 +272,9 @@ const Description = styled.textarea`
 
 const DateSection = styled.div`
     opacity: 0.65;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     svg {
         margin-right: 1rem;
     }
@@ -268,6 +283,7 @@ const DateSection = styled.div`
 const TimeToComplete = styled.div`
     display: flex;
     align-items: center;
+    justify-content: space-between;
     svg {
         width: 1.2rem;
         height: 1.2rem;
@@ -312,6 +328,9 @@ const SaveBtn = styled.div `
     color: bisque;
 `
 
+const LabelSection = styled.span`
+    color: lightgrey!important;
+`
 
 
 export default TaskDetails

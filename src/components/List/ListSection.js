@@ -110,7 +110,7 @@ const ListSection = ({items, setItems}) => {
               <Title className='text'  >
                 { item.title }
                 <TimeDescription className='text'>
-                { (item.estimatedTime || item.estimatedTime > 0) && 'Estimated time: ' + item.estimatedTime + ' ' + item.kindOfEstimated }
+                { (item.estimatedTime || item.estimatedTime > 0) && 'Estimated time ' + item.estimatedTime + ' ' + (item.kindOfEstimated==undefined ? '' : item.kindOfEstimated) }
               </TimeDescription>
               </Title>
               <LabelTag>

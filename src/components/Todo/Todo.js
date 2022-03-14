@@ -6,7 +6,6 @@ import ListSection from '../List/ListSection'
 import dayjs from 'dayjs'
 import { Resizable } from "re-resizable";
 
-
 /*
     Min: 1:37
     Min: 1:58. Add labels
@@ -56,8 +55,10 @@ const Todo = () => {
     }
 
     const handleResize = (e) => {
-        let width = window.screen.width - e.screenX
+        console.log('Resize: ', e)
+        let width = window.screen.width - e.clientX
         width = width < 220 ? 220 : width
+        console.log('handleResize', width)
         setLeftBarWidth(width > 370 ? 370 : width)
     }
 
@@ -73,7 +74,8 @@ const Todo = () => {
                         width:270,
                     }}
                     maxWidth="370" 
-                    minWidth="220"
+                    minHeight="100vh"
+                    maxHeight="100vh"
                     onResizeStart={resizeTo} 
                     onResizeStop={handleResize} >
             <TaskSectionTitle>
