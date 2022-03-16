@@ -20,16 +20,21 @@ const Todo = () => {
             selectedEvent,
             dispatchCalEvent,
             savedEvents, 
-            setLeftBarWidth} = useContext(GlobalContext)
+            setLeftBarWidth,
+            dayStatus,
+            setDayStatus,
+        } = useContext(GlobalContext)
 
     const [description, setDescription] = useState('')
     
     const [dayEvents, setDayEvents] = useState([])
+
+    const [moveElement, setMoveElement] = useState(null)
     
     useEffect(() => {
         const events = savedEvents.sort((a,b)=>a.position-b.position).filter(evt => dayjs(evt.date).format('DD-MM-YYYY') === daySelected.format('DD-MM-YYYY'))
         setDayEvents(events)
-    }, [daySelected, savedEvents])
+    }, [daySelected, savedEvents, moveElement])
 
     const labels = ['Important','Personal', 'Work', 'Shopping', 'Other']
 
@@ -42,6 +47,7 @@ const Todo = () => {
             date: daySelected.valueOf(),
             id: window.Date.now()
         }
+
         dispatchCalEvent({type: 'push', payload: newEvent})
         setTitle('')
       }
@@ -68,8 +74,6 @@ const Todo = () => {
         }
     }
 
-    
-
     return (
         <Resizable style={style} 
                     defaultSize={{
@@ -88,7 +92,7 @@ const Todo = () => {
                 {daySelected==null ? 'Hello' : daySelected.format('dddd DD MMMM YYYY')} 
             </Date>
             <TaskList>
-                { <ListSection items={dayEvents} setItems={setDayEvents}/> }
+                { <ListSection items={dayEvents} setItems={setDayEvents} setMoveElement={setMoveElement}/> }
 
                 { /*dayEvents.map((evt, idx ) => (
                     <Task key={idx}>

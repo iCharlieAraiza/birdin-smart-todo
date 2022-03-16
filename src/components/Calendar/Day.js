@@ -5,7 +5,7 @@ import GlobalContext from '../../context/GlobalContext'
 import {StatusLight} from '../General/index'
 
 const Day = ({day, month, index}) => {
-    const { daySelected, setDaySelected, setTitle } = useContext(GlobalContext)
+    const { daySelected, setDaySelected, setTitle, dayStatus } = useContext(GlobalContext)
 
     const getCurrentDay = () => {  
         return day.format('DD-MM-YYYY') === dayjs().format('DD-MM-YYYY');
@@ -35,6 +35,8 @@ const Day = ({day, month, index}) => {
         return className
     }
 
+    const statusInfo = dayStatus.get(day.format('DD-MM-YYYY'))
+
     return (
         <DayWrapper className={ `${ getDayClass(day) } ${ (index == 0 || index == 6) && 'inactive' }` }
                     onClick={handeDayClick}>
@@ -44,18 +46,20 @@ const Day = ({day, month, index}) => {
                 </DayNumber>
             </DayContainer>
             <DayInfo>
-                <DayLabel>
-                    12 Regular task
-                </DayLabel>
-                <DayLabel>
-                    Important task
-                </DayLabel>
-                <DayLabel>
-                    8 / 10 copleted
-                </DayLabel>
+                { statusInfo && (
+                <>
+                    <DayLabel className='important-task'>
+                        Important task
+                    </DayLabel>
+                    <DayLabel>
+                        12 Regular task
+                    </DayLabel>
+                </>
+                )}
             </DayInfo>
+                { statusInfo && <DayLabel className='completed-ratio'> { statusInfo.details.completedRatio } </DayLabel>}
             <StatusBar>
-                <StatusLight status={'completed'}/>
+                {statusInfo && <StatusLight status={ statusInfo.details.status }/>}
             </StatusBar>
         </DayWrapper>
     )
@@ -121,6 +125,14 @@ const DayLabel = styled.div`
     font-size: 11px;
     padding: 2px;
     user-select: none;
+    &.important-task{
+        background-color: #4275a596;
+        border-left: 4px solid #9d9d1b;
+    }
+    &.completed-ratio{
+        background-color: transparent;
+        color: #d1d1d1;
+    }
 `
 
 

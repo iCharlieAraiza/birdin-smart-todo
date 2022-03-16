@@ -47,7 +47,6 @@ export const StatusLight = ({status})=>{
       'solid': '#23ff08',
       'outline': '#01db014a',
     },
-    'inactive': '#ff0000',
     'completed':{
       'solid': '#00a1ff',
       'outline': '#00a1ff36',
@@ -61,10 +60,8 @@ export const StatusLight = ({status})=>{
   const selectedColor = color[status];
 
   if(selectedColor === undefined) {
-    return;
+    return<></>;
   }
-
-  console.log('Selected', selectedColor);
 
   return (
     <StatusLightContainer color={selectedColor.outline}>

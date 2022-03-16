@@ -29,7 +29,6 @@ const LoggedLayout = ({ user }) => {
         //flexGrow: 1
     }
     
-
     return (
         <BrowserRouter>
             <TopBar id="topbar" clasName='topbar' onClick={ resizeWindow }/>

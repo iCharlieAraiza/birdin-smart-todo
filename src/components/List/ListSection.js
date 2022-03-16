@@ -11,7 +11,7 @@ import {arrayMoveImmutable} from "array-move";
 */
 
 
-const ListSection = ({items, setItems}) => {
+const ListSection = ({items, setItems, setMoveElement}) => {
   const { selectedEvent, setSelectedEvent, dispatchCalEvent } = useContext(GlobalContext)
   const [isChecked, setIsChecked] = useState(false)
   const [moved, setMoved] = useState(false)
@@ -66,6 +66,7 @@ const ListSection = ({items, setItems}) => {
     console.log('newItems: ', newItems)
     console.log('oldItems: ', items)
     console.log('Array sorted', newItems.sort(function(a,b) {return a.position - b.position}) )
+    setMoveElement(newIndex)
     updateLocalstorage(newItems)
     //dispatchCalEvent({type: 'update', payload: newItems})
   }
@@ -96,7 +97,7 @@ const ListSection = ({items, setItems}) => {
     dispatchCalEvent({type: 'update', payload: newItems})
   }
 
-  //console.log('auxItems: ', auxItems)
+  console.log('fix item: ', items)
   return (
     <ListWrapper>
       {selectedEvent && <TaskDetails />}

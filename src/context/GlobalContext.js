@@ -16,6 +16,9 @@ const GlobalContext = React.createContext({
     selectedEvent: null,
     leftBarWidth: 0,
     setLeftBarWidth: (width) => {}, 
+    dayStatus: [],
+    setDayStatus: (status) => {}
+
 });
 
 export default GlobalContext;

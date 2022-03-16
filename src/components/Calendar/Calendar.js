@@ -6,7 +6,7 @@ import GlobalContext from '../../context/GlobalContext'
 
 const Calendar = ({ month }) => {
   const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
-  const { monthIndex, daySelected, setDaySelected } = useContext(GlobalContext)
+  const { monthIndex, daySelected, setDaySelected, dayStatus } = useContext(GlobalContext)
 
   return (
     <>

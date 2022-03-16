@@ -1,6 +1,8 @@
 import React, {useState, useReducer, useEffect} from 'react'
 import GlobalContext from './GlobalContext'
+import { getDayStatus } from '../utils/Report'
 import dayjs from 'dayjs'
+
 
 function savedEventsReducer(state, {type, payload}){
     switch (type) {
@@ -21,6 +23,7 @@ function initEvents() {
     return parsedEvents
 }
 
+
 const ContextWrapper = (props) => {
     const [monthIndex, setMonthIndex] = useState(dayjs().month())
     const [currentYear, setCurrentYear] = useState(dayjs().year())
@@ -30,10 +33,44 @@ const ContextWrapper = (props) => {
     const [selectedEvent, setSelectedEvent] = useState(null)
     const [savedEvents, dispatchCalEvent] = useReducer(savedEventsReducer, [], initEvents)
     const [leftBarWidth, setLeftBarWidth] = useState(19*14)
+    const [dayStatus, setDayStatus] = useState([])
+
 
     useEffect(() => {
         localStorage.setItem('saveEvents', JSON.stringify(savedEvents))
+        updateDayStatus(daySelected)
     }, [savedEvents])
+
+    useEffect(() => {
+        setDayStatus(initDateStatus)
+        console.log('dayStatus', dayStatus)
+    }, [])
+
+    function initDateStatus(){
+        //const date = new Map()
+        const date = new Set();
+        const dateReport = new Map()
+        savedEvents.forEach(element => {
+            date.add(element.date)
+        });
+        
+        for (const dateItem of date) {
+            dateReport.set(dayjs(dateItem).format('DD-MM-YYYY'),  getDayStatus(savedEvents.filter(evt => evt.date === dateItem)))
+        }
+        return dateReport;
+    }
+
+    function updateDayStatus(date){
+        //console.log('updateDayStatus', date.format('DD-MM-YYYY'))
+        //console.log('dayStatus', dayStatus)
+        const formatDate = date.format('DD-MM-YYYY')
+        const items = savedEvents.filter(evt => dayjs(evt.date).format('DD-MM-YYYY') === formatDate)
+        const newDayStatus = new Map(dayStatus)
+        newDayStatus.set(formatDate, getDayStatus(items))
+        //console.log('newDayStatus', newDayStatus)
+        //newDayStatus[dayjs(dateItem).format('DD-MM-YYYY')] = getDayStatus(items);
+        setDayStatus(newDayStatus)
+    }
 
 
 
@@ -54,6 +91,8 @@ const ContextWrapper = (props) => {
                                         selectedEvent,
                                         leftBarWidth,
                                         setLeftBarWidth,
+                                        dayStatus,
+                                        setDayStatus
                                         }}>
             { props.children }
         </GlobalContext.Provider>
