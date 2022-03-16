@@ -59,7 +59,7 @@ const Todo = () => {
         let width = window.screen.width - e.clientX
         width = width < 220 ? 220 : width
         console.log('handleResize', width)
-        setLeftBarWidth(width > 370 ? 370 : width)
+        setLeftBarWidth(width > 380 ? 380 : width)
     }
 
     const resizeTo = () => {
@@ -68,12 +68,15 @@ const Todo = () => {
         }
     }
 
+    
+
     return (
         <Resizable style={style} 
                     defaultSize={{
                         width:270,
                     }}
-                    maxWidth="370" 
+                    minWidth="220" 
+                    maxWidth="380" 
                     minHeight="100vh"
                     maxHeight="100vh"
                     onResizeStart={resizeTo} 

@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 import styled from 'styled-components'
 import dayjs from 'dayjs'
 import GlobalContext from '../../context/GlobalContext'
+import {StatusLight} from '../General/index'
 
 const Day = ({day, month, index}) => {
     const { daySelected, setDaySelected, setTitle } = useContext(GlobalContext)
@@ -42,6 +43,20 @@ const Day = ({day, month, index}) => {
                     {day.format('DD')}
                 </DayNumber>
             </DayContainer>
+            <DayInfo>
+                <DayLabel>
+                    12 Regular task
+                </DayLabel>
+                <DayLabel>
+                    Important task
+                </DayLabel>
+                <DayLabel>
+                    8 / 10 copleted
+                </DayLabel>
+            </DayInfo>
+            <StatusBar>
+                <StatusLight status={'completed'}/>
+            </StatusBar>
         </DayWrapper>
     )
 }
@@ -49,6 +64,9 @@ const Day = ({day, month, index}) => {
 const DayWrapper = styled.div`
     border: 1px solid #ccc3;
     height: 115px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     &.active {
         background-color: var(--today-calendar-bg-color)!important;
     }
@@ -62,17 +80,48 @@ const DayWrapper = styled.div`
 
 const DayContainer = styled.div`
     display: flex;
-    flex-direction: column;
+    justify-content: end;
+    margin: 5px;
     `
 
 
 const DayNumber = styled.div`
-    font-size: 0.9rem;
-    text-align: right;
+    font-size: 0.8rem;
+    text-align: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    background-color: #607C8C;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     &.inactive {
         color: gray;
+        background-color: #394d58;
     }
   `
+
+const StatusBar = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 1.5rem;
+    width: 100%;
+    margin-bottom: 5px;
+`
+const DayInfo = styled.div`
+    flex-basis: 100%;
+    flex-grow: 999;
+`
+
+const DayLabel = styled.div`
+    margin: 2px 3px;
+    text-align: center;
+    background-color: #80808059;
+    font-size: 11px;
+    padding: 2px;
+    user-select: none;
+`
 
 
 export default Day

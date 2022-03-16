@@ -100,7 +100,7 @@ const ListSection = ({items, setItems}) => {
   return (
     <ListWrapper>
       {selectedEvent && <TaskDetails />}
-      <ReactSortable list={items} setList={setItems} options={sortableOptions} onEnd={expOnEnd} >
+      <ReactSortable list={items} setList={setItems} options={sortableOptions} onEnd={onEnd} >
       
       {items.map((item, index) => (
           <ListItem key={item.id} blockIndex={index} onClick={(ev)=>handleSelect(ev, item)} className={`card ${item.isChecked ? 'checked' : ''}`} onDragEnd={()=>handlerPosition()} index-component={index}>

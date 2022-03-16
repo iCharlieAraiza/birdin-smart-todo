@@ -33,7 +33,7 @@ const TaskDetails = () => {
         setId(selectedEvent.id)
         setIsChecked(selectedEvent.isChecked)
         setEstimatedTime(selectedEvent.estimatedTime == undefined ? 0 : selectedEvent.estimatedTime)
-        setKindOfEstimated(selectedEvent.kindOfEstimated)
+        setKindOfEstimated(selectedEvent.kindOfEstimated  == undefined ? 'minutes' : selectedEvent.kindOfEstimated)
         console.log('Is selectedEvent updated: ', selectedEvent)
     }
 
@@ -129,9 +129,9 @@ const TaskDetails = () => {
                 <Separator/>
                 <DateSection>
                     <LabelSection>Date</LabelSection>
-                    <div>
+                    <FlexCenter>
                         <BsCalendar3 /> { date!=null&& dayjs(date). format('DD / MMMM / YYYY') }
-                    </div>
+                    </FlexCenter>
                 </DateSection>
                 <Separator/>
                 <Priority>
@@ -143,7 +143,7 @@ const TaskDetails = () => {
                 <Separator/>
                 <TimeToComplete>
                     <LabelSection>Allocate time</LabelSection>
-                    <div>
+                    <FlexCenter>
                         <MdOutlineTimer />
                         <InputTime type="number" min='0' 
                         value={estimatedTime} 
@@ -162,7 +162,7 @@ const TaskDetails = () => {
                                 </option>
                             ))}
                         </SelectKindOfTime>
-                    </div>
+                    </FlexCenter>
 
                 </TimeToComplete>
                 <Separator/>
