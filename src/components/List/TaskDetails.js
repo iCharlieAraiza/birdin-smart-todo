@@ -7,6 +7,7 @@ import CheckButton from './CheckButton.js'
 import { MdOutlineTimer } from 'react-icons/md'
 import { BsCalendar3 } from 'react-icons/bs'
 import { FlexCenter } from '../General'
+import LabelDropdown from './Form/LabelDropdown'
 
 const TaskDetails = () => {
     const { selectedEvent, setSelectedEvent, savedEvents, dispatchCalEvent, leftBarWidth } = useContext(GlobalContext)
@@ -137,7 +138,7 @@ const TaskDetails = () => {
                 <Priority>
                     <LabelSection>Labels</LabelSection>
                     <PriorityLabel>
-                        High <Label></Label>
+                        <LabelDropdown />
                     </PriorityLabel>
                 </Priority>
                 <Separator/>
@@ -248,7 +249,7 @@ const PriorityLabel = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 4rem;
+    width: auto;
     border-radius: 50%;
 `
 
