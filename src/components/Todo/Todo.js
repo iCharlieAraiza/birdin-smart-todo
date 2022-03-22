@@ -33,7 +33,7 @@ const Todo = () => {
     
     useEffect(() => {
         const events = savedEvents.sort((a,b)=>a.position-b.position).filter(evt => dayjs(evt.date).format('DD-MM-YYYY') === daySelected.format('DD-MM-YYYY'))
-        setDayEvents(events)
+        setDayEvents(events.sort((a,b)=>a.position-b.position))
     }, [daySelected, savedEvents, moveElement])
 
     const labels = ['Important','Personal', 'Work', 'Shopping', 'Other']
