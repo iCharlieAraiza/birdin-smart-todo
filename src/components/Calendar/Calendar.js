@@ -6,7 +6,7 @@ import GlobalContext from '../../context/GlobalContext'
 
 const Calendar = ({ month }) => {
   const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
-  const { monthIndex, daySelected, setDaySelected, dayStatus } = useContext(GlobalContext)
+  const { monthIndex, daySelected, setDaySelected } = useContext(GlobalContext)
 
   return (
     <>
@@ -43,6 +43,7 @@ const CalendarSection = styled.div`
   max-width: 1280px;
   margin-top: 1.5rem;
   overflow: scroll;
+  min-width: 660px;
 `
 
 

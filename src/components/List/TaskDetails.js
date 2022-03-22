@@ -22,8 +22,10 @@ const TaskDetails = () => {
     const [kindOfEstimated, setKindOfEstimated] = useState(selectedEvent.kindOfEstimated == undefined ? 'minutes' : selectedEvent.kindOfEstimated)
     const [priority, setPriority] = useState(selectedEvent.priority == undefined ? null : selectedEvent.priority)
 
+
     useEffect(() => {
         updateEvent()     
+        focusToEnd()
     }, [selectedEvent])
 
 
@@ -31,6 +33,24 @@ const TaskDetails = () => {
         createUpdateEvent()
     }, [labels, priority])
 
+    const focusToEnd = () => {
+        const focusInput = document.getElementById("title-input")
+        
+        if(focusInput){
+            const end = focusInput.innerText.length
+            var setpos = document.createRange();
+            //focusInput.innerHTML.setSelectionRange(end, end);
+            //focusInput.focus()
+            //move cursor to end of text
+            setpos.setStart(focusInput.firstChild, end);
+            setpos.collapse(true);
+            var sel = window.getSelection();
+            sel.removeAllRanges();
+            sel.addRange(setpos);
+            focusInput.focus()
+
+        }
+    }
 
     const updateEvent = () => {
         setTitle(selectedEvent.title)
@@ -128,7 +148,14 @@ const TaskDetails = () => {
             <TaskMenu>
                 <CheckSection>
                     <CheckButton check={isChecked} handlerCheck={handlerCheck} />
-                    <TitleInput className={isChecked&& 'checked' } value={title} onBlur={handlerFocus} role="textbox" contentEditable={true} suppressContentEditableWarning={true}>
+                    <TitleInput 
+                        className={isChecked&& 'checked' } 
+                        id="title-input"
+                        value={title} onBlur={handlerFocus} 
+                        autofocus="autofocus" 
+                        role="textbox" 
+                        contentEditable={true} 
+                        suppressContentEditableWarning={true}>
                         { title }  
                     </TitleInput>
                 </CheckSection>

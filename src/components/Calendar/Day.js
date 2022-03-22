@@ -71,13 +71,13 @@ const DayWrapper = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    &.active {
+    &.selected {
         background-color: var(--today-calendar-bg-color)!important;
     }
     &.inactive {
         background-color: var(--inactive-calendar-bg-color);
     }
-    &.selected {
+    &.active {
         background-color: #ffffff38;
     }
 `

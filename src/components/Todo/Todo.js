@@ -142,7 +142,9 @@ const InputAddTask = styled.input`
         outline: none;
         border: 1 solid gray;
     }
-    
+    &::placeholder{
+        color: var(--text-color);
+    }
 `
 const Date = styled.div`
     font-weight: 200;
