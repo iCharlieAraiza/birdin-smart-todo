@@ -62,7 +62,8 @@ const Todo = () => {
 
     const handleResize = (e) => {
         console.log('Resize: ', e)
-        let width = window.screen.width - e.clientX
+        console.log('Window: ',  window.innerWidth)
+        let width = window.innerWidth - e.clientX
         width = width < 220 ? 220 : width
         console.log('handleResize', width)
         setLeftBarWidth(width > 380 ? 380 : width)
