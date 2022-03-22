@@ -1,6 +1,8 @@
-import React from 'react'
+import React, {useState} from 'react'
 import styled from 'styled-components'
 import { MdKeyboardArrowDown } from 'react-icons/md'
+import { useOutsideAlerter } from '../../../hooks/useOutsideAlerter'
+
 
 const labelData = [
     {
@@ -28,18 +30,53 @@ const labelData = [
         color: '#f69f1b'
     },]
 
-const LabelDropdown = () => {
+const LabelDropdown = ({selectedLabel, setSelectedLabel}) => {
+
+    console.log({selectedLabel})
+    if(selectedLabel==null) {
+        setSelectedLabel(labelData[0])
+    }
+    console.log({selectedLabel})
+    //const [selectedLabel, setSelectedLabel] = useState(labelData[0])
+    const { visible, setVisible, ref } = useOutsideAlerter(false)
+
+
+    const handleChange = (label) => {
+        console.log('label', label)
+        let item = labelData.find(item => item.label === label);
+        if (item) {
+            setSelectedLabel(item)
+        } else {
+            setSelectedLabel(labelData[0])
+        }
+        //setSelectedLabel(labelData[e.target.value])
+    }
+
+
+    const handleClick = () => {
+        setVisible(!visible)
+    }
+    
+    console.log('selectedLabel', selectedLabel)
+
+    if(selectedLabel == null) {
+        return <div></div>
+    }
+
     return (
-        <Wrapper>
+        <Wrapper ref={ref} onClick={handleClick}>
             <LabelBox> 
-                <LabelTag color='tranparent' />
+                <LabelTag color={selectedLabel.color} />
                 <MdKeyboardArrowDown />
             </LabelBox>
+            {visible && (
             <DropdownBox>
                 {
                     labelData.map(label => {
                         return (
-                            <DropdownItem key={label.label}>
+                            <DropdownItem key={label.label} 
+                                        className={selectedLabel.label == label.label && 'active' } 
+                                        onClick={()=>handleChange(label.label)}>
                                 <LabelTag color={label.color}/>
                                 {label.label}
                             </DropdownItem>
@@ -47,6 +84,7 @@ const LabelDropdown = () => {
                     })
                 }
             </DropdownBox>
+            )}
         </Wrapper>
     )
 }
@@ -86,7 +124,7 @@ const DropdownItem = styled.div`
     font-size: 12px;
     align-items: center;
     text-transform: capitalize;
-    &:hover{
+    &:hover, &.active{
         background-color: var(--bg);
     }
 `

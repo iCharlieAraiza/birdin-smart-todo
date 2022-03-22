@@ -26,11 +26,17 @@ const TaskDetails = () => {
         updateEvent()     
     }, [selectedEvent])
 
+
+    useEffect(() => {
+        createUpdateEvent()
+    }, [labels])
+
+
     const updateEvent = () => {
         setTitle(selectedEvent.title)
         setDescription(selectedEvent.description)
         setDate(selectedEvent.date)
-        setLabels(selectedEvent.labels)
+        setLabels(selectedEvent.labels == undefined ? null : selectedEvent.labels)
         setId(selectedEvent.id)
         setIsChecked(selectedEvent.isChecked)
         setEstimatedTime(selectedEvent.estimatedTime == undefined ? 0 : selectedEvent.estimatedTime)
@@ -54,13 +60,10 @@ const TaskDetails = () => {
             estimatedTime,
             kindOfEstimated,
             labels,
+            isChecked
         }
         dispatchCalEvent({type: 'update', payload: newEvent})
         //setSelectedEvent(null)
-    }
-    
-    const updateTitle = (el)=>{
-        setTitle(el.target.value)
     }
 
     const updateTime = (el) =>{
@@ -138,7 +141,7 @@ const TaskDetails = () => {
                 <Priority>
                     <LabelSection>Labels</LabelSection>
                     <PriorityLabel>
-                        <LabelDropdown />
+                        <LabelDropdown selectedLabel={labels} setSelectedLabel={setLabels}/>
                     </PriorityLabel>
                 </Priority>
                 <Separator/>
