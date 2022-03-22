@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import styled from 'styled-components'
 import { MdKeyboardArrowDown } from 'react-icons/md'
 import { useOutsideAlerter } from '../../../hooks/useOutsideAlerter'
+import {LabelBox, DropdownBox} from './Components'
 
 
 const labelData = [
@@ -31,18 +32,13 @@ const labelData = [
     },]
 
 const LabelDropdown = ({selectedLabel, setSelectedLabel}) => {
-
-    console.log({selectedLabel})
     if(selectedLabel==null) {
         setSelectedLabel(labelData[0])
     }
-    console.log({selectedLabel})
-    //const [selectedLabel, setSelectedLabel] = useState(labelData[0])
+
     const { visible, setVisible, ref } = useOutsideAlerter(false)
 
-
     const handleChange = (label) => {
-        console.log('label', label)
         let item = labelData.find(item => item.label === label);
         if (item) {
             setSelectedLabel(item)
@@ -52,13 +48,10 @@ const LabelDropdown = ({selectedLabel, setSelectedLabel}) => {
         //setSelectedLabel(labelData[e.target.value])
     }
 
-
     const handleClick = () => {
         setVisible(!visible)
     }
     
-    console.log('selectedLabel', selectedLabel)
-
     if(selectedLabel == null) {
         return <div></div>
     }
@@ -67,6 +60,7 @@ const LabelDropdown = ({selectedLabel, setSelectedLabel}) => {
         <Wrapper ref={ref} onClick={handleClick}>
             <LabelBox> 
                 <LabelTag color={selectedLabel.color} />
+                {selectedLabel.label}
                 <MdKeyboardArrowDown />
             </LabelBox>
             {visible && (
@@ -94,29 +88,6 @@ const Wrapper = styled.div`
     width: 7rem;
 `
 
-const LabelBox = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: end;
-    svg{
-        width: 19px;
-        height: 19px;
-        opacity: 0.75;
-    }
-`
-
-const DropdownBox = styled.div`
-    position: absolute;
-    top: 1.8rem;
-    width: 100%;
-    background-color: var(--pop-input--bg-color);
-    border: 1px solid #666666;
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-    //padding: 5px 2px;
-`
-
 const DropdownItem = styled.div`
     padding: 6px 5px;
     cursor: pointer;
@@ -129,7 +100,7 @@ const DropdownItem = styled.div`
     }
 `
 const LabelTag = styled.div`
-    border-radius: 8px;
+    border-radius: 3px;
     background-color: ${props => props.color};
     text-transform: capitalize;
     font-weight: bold; 

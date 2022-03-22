@@ -8,6 +8,7 @@ import { MdOutlineTimer } from 'react-icons/md'
 import { BsCalendar3 } from 'react-icons/bs'
 import { FlexCenter } from '../General'
 import LabelDropdown from './Form/LabelDropdown'
+import PriorityDropdown from './Form/PriorityDropdown'
 
 const TaskDetails = () => {
     const { selectedEvent, setSelectedEvent, savedEvents, dispatchCalEvent, leftBarWidth } = useContext(GlobalContext)
@@ -19,8 +20,7 @@ const TaskDetails = () => {
     const [isChecked, setIsChecked] = useState(selectedEvent.isChecked == undefined ? false : selectedEvent.isChecked)
     const [estimatedTime, setEstimatedTime] = useState(selectedEvent.estimatedTime == undefined ? 0 : selectedEvent.estimatedTime)
     const [kindOfEstimated, setKindOfEstimated] = useState(selectedEvent.kindOfEstimated == undefined ? 'minutes' : selectedEvent.kindOfEstimated)
-    const [showTitleInp, setShowTitleInp] = useState(false)
-
+    const [priority, setPriority] = useState(selectedEvent.priority == undefined ? null : selectedEvent.priority)
 
     useEffect(() => {
         updateEvent()     
@@ -29,7 +29,7 @@ const TaskDetails = () => {
 
     useEffect(() => {
         createUpdateEvent()
-    }, [labels])
+    }, [labels, priority])
 
 
     const updateEvent = () => {
@@ -41,6 +41,7 @@ const TaskDetails = () => {
         setIsChecked(selectedEvent.isChecked)
         setEstimatedTime(selectedEvent.estimatedTime == undefined ? 0 : selectedEvent.estimatedTime)
         setKindOfEstimated(selectedEvent.kindOfEstimated  == undefined ? 'minutes' : selectedEvent.kindOfEstimated)
+        setPriority(selectedEvent.priority == undefined ? null : selectedEvent.priority)
         console.log('Is selectedEvent updated: ', selectedEvent)
     }
 
@@ -60,7 +61,8 @@ const TaskDetails = () => {
             estimatedTime,
             kindOfEstimated,
             labels,
-            isChecked
+            isChecked,
+            priority
         }
         dispatchCalEvent({type: 'update', payload: newEvent})
         //setSelectedEvent(null)
@@ -137,6 +139,13 @@ const TaskDetails = () => {
                         <BsCalendar3 /> { date!=null&& dayjs(date). format('DD / MMMM / YYYY') }
                     </FlexCenter>
                 </DateSection>
+                <Separator/>
+                <Priority>
+                    <LabelSection>Priority</LabelSection>
+                    <PriorityLabel>
+                        <PriorityDropdown priority={priority} setPriority={setPriority} />
+                    </PriorityLabel>
+                </Priority>
                 <Separator/>
                 <Priority>
                     <LabelSection>Labels</LabelSection>
