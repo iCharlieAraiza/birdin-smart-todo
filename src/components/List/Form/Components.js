@@ -23,7 +23,8 @@ export const DropdownBox = styled.div`
     position: absolute;
     top: 1.8rem;
     width: 100%;
-    background-color: var(--pop-input--bg-color);
+    backdrop-filter: blur(6px);
+    background-color: #818fa361;
     border: 1px solid #666666;
     display: flex;
     flex-wrap: wrap;

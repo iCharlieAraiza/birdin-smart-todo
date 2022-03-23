@@ -272,10 +272,12 @@ const Overlay = styled.div`
 `
 
 const TaskMenu = styled.div`
-    background: var(--navbar-bg-color);
+    //background: var(--navbar-bg-color);
     width: 20rem;
     height: 100vh;
     padding: 0 1rem;
+    backdrop-filter: blur(4px);
+    background-color: rgb(36 51 72 / 88%);
 `
 
 const Priority = styled.div`

@@ -32,6 +32,10 @@ const Todo = () => {
     const [moveElement, setMoveElement] = useState(null)
     
     useEffect(() => {
+        setLeftBarWidth(270)
+    }, [])
+
+    useEffect(() => {
         const events = savedEvents.sort((a,b)=>a.position-b.position).filter(evt => dayjs(evt.date).format('DD-MM-YYYY') === daySelected.format('DD-MM-YYYY'))
         setDayEvents(events.sort((a,b)=>a.position-b.position))
     }, [daySelected, savedEvents, moveElement])
