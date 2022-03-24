@@ -74,6 +74,7 @@ const TaskDetails = () => {
 
     function createUpdateEvent() {
         const newEvent = {
+            position: selectedEvent.position,
             title,
             description,
             date,
@@ -276,8 +277,10 @@ const TaskMenu = styled.div`
     width: 20rem;
     height: 100vh;
     padding: 0 1rem;
-    backdrop-filter: blur(4px);
+    backdrop-filter: blur(5px);
     background-color: rgb(36 51 72 / 88%);
+    animation: slidein 0.2s ease-in;
+
 `
 
 const Priority = styled.div`

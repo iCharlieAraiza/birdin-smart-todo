@@ -38,3 +38,25 @@ from {
           opacity:1;
       }
   }
+
+  @keyframes slidein {
+    from {
+      margin-right: -5%;
+    }
+  
+    to {
+      margin-right: 0%;
+    }
+  }
+
+  @keyframes fadeinout {
+    from {
+      margin-right: -5%;
+    }
+    50% {
+      margin-right: 0%;
+    }
+    to {
+      margin-right: -5%;
+    }
+}
