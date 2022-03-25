@@ -5,10 +5,12 @@ import dayjs from 'dayjs'
 import { AiOutlineArrowRight } from 'react-icons/ai'
 import CheckButton from './CheckButton.js'
 import { MdOutlineTimer } from 'react-icons/md'
-import { BsCalendar3 } from 'react-icons/bs'
+import { BsCalendar3, BsTrash } from 'react-icons/bs'
 import { FlexCenter } from '../General'
 import LabelDropdown from './Form/LabelDropdown'
 import PriorityDropdown from './Form/PriorityDropdown'
+import {useModal} from '../../hooks/useModal'
+import Modal from '../Modal'
 
 const TaskDetails = () => {
     const { selectedEvent, setSelectedEvent, savedEvents, dispatchCalEvent, leftBarWidth } = useContext(GlobalContext)
@@ -21,6 +23,8 @@ const TaskDetails = () => {
     const [estimatedTime, setEstimatedTime] = useState(selectedEvent.estimatedTime == undefined ? 0 : selectedEvent.estimatedTime)
     const [kindOfEstimated, setKindOfEstimated] = useState(selectedEvent.kindOfEstimated == undefined ? 'minutes' : selectedEvent.kindOfEstimated)
     const [priority, setPriority] = useState(selectedEvent.priority == undefined ? null : selectedEvent.priority)
+
+    const {isShowing, toggle} = useModal()
 
 
     useEffect(() => {
@@ -161,6 +165,12 @@ const TaskDetails = () => {
                     </TitleInput>
                 </CheckSection>
                 <Separator/>
+                <RemoveTask>
+                    <Remove onClick={toggle}>
+                        <BsTrash/> Remove Task 
+                    </Remove>
+                </RemoveTask>
+                <Separator/>
                 <DateSection>
                     <LabelSection>Date</LabelSection>
                     <FlexCenter>
@@ -217,6 +227,7 @@ const TaskDetails = () => {
                     </SaveBtn>
                 </SaveNote>
             </TaskMenu>
+            {isShowing && <Modal toggle={toggle}/>}
         </TaskDetailsBar>
     )
 }
@@ -375,6 +386,24 @@ const SaveBtn = styled.div `
 
 const LabelSection = styled.span`
     color: lightgrey!important;
+`
+
+const RemoveTask = styled.div`
+    display: flex;
+    justify-content: end;
+`
+
+const Remove = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgb(245 67 83);
+    font-weight: 300;
+    cursor: pointer;
+    svg {
+        margin-right: 0.4rem;
+        filter: invert(55%) sepia(47%) saturate(5890%) hue-rotate(331deg) brightness(106%) contrast(108%);
+    }
 `
 
 
