@@ -112,6 +112,14 @@ const TaskDetails = () => {
         console.log('description update: ', description)
     }
 
+    const deleteEvent = () => {
+        dispatchCalEvent({type: 'delete', payload: selectedEvent})
+        console.log('delete event: ', selectedEvent)
+        toggle()
+        setSelectedEvent(null)
+    }
+
+
     const handlerFocus = (el) => {
         if ( el.target.textContent != title) {
             setTitle(el.target.textContent)
@@ -227,7 +235,7 @@ const TaskDetails = () => {
                     </SaveBtn>
                 </SaveNote>
             </TaskMenu>
-            {isShowing && <Modal toggle={toggle}/>}
+            {isShowing && <Modal toggle={toggle} confirm={deleteEvent} />}
         </TaskDetailsBar>
     )
 }

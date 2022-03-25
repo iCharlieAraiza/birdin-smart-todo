@@ -1,7 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
+import {GrClose} from 'react-icons/gr'
 
-const Modal = ({toggle}) => {
+const Modal = ({toggle, confirm}) => {
   return (
     <>
         <Overlay onClick={toggle}/>
@@ -10,24 +11,24 @@ const Modal = ({toggle}) => {
                 <ModalHeader>
                     <ModalTitle>Confirm Remove Task</ModalTitle>
                     <ModalClose>
-                        <ModalCloseIcon />
+                        <ModalCloseIcon>
+                            <GrClose onClick={toggle} />
+                        </ModalCloseIcon>
                     </ModalClose>
                 </ModalHeader>
                 <ModalBody>
                     <ModalContentWrapper>
                         <ModalContentText>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                            Sed euismod, ipsum eget sagittis consequat, nisi nunc
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                            Are you sure you want to remove this task?
                         </ModalContentText>
                     </ModalContentWrapper>
                 </ModalBody>
                 <ModalFooter>
                     <ModalFooterButton>
-                        <ModalFooterButtonText>Cancel</ModalFooterButtonText>
+                        <ModalFooterButtonText onClick={toggle} >Cancel</ModalFooterButtonText>
                     </ModalFooterButton>
                     <ModalFooterButton>
-                        <ModalFooterButtonText>OK</ModalFooterButtonText>
+                        <ModalFooterButtonText onClick={confirm}>OK</ModalFooterButtonText>
                     </ModalFooterButton>
                 </ModalFooter>
             </ModalContent>
@@ -85,10 +86,11 @@ const ModalClose = styled.div`
     cursor: pointer;
 `
 
-const ModalCloseIcon = styled.svg`
+const ModalCloseIcon = styled.div`
     width: 19px;
     height: 19px;
     opacity: 0.75;
+    filter: invert(100%) sepia(1%) saturate(7469%) hue-rotate(306deg) brightness(103%) contrast(100%);
 `
 
 const ModalBody = styled.div`
@@ -116,7 +118,7 @@ const ModalFooter = styled.div`
     display: flex;
     justify-content: end;
     align-items: center;
-    padding: 1rem;
+    padding: 12px 1rem;
     border-top: 1px solid #e6e6e64d;
     background-color: #ffffff0a;
 `
@@ -132,13 +134,14 @@ const ModalFooterButton = styled.div`
     border: 1px solid gray;
     margin-left: 5px;
     &:hover{
-        background-color: #e6e6e6;
+        background-color: #878787;
     }
 `
 
 const ModalFooterButtonText = styled.div`
     font-size: 12px;
     font-weight: 600;
+
 `
 
 
