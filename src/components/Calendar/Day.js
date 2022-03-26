@@ -46,7 +46,7 @@ const Day = ({day, month, index}) => {
                 </DayNumber>
             </DayContainer>
             <DayInfo>
-                { statusInfo && (
+                { statusInfo?.numberTasks > 0 && (
                 <>
                     <DayLabel className='important-task'>
                         Important task
@@ -57,9 +57,9 @@ const Day = ({day, month, index}) => {
                 </>
                 )}
             </DayInfo>
-                { statusInfo && <DayLabel className='completed-ratio'> { statusInfo.details.completedRatio } </DayLabel>}
+                { statusInfo?.numberTasks > 0 && <DayLabel className='completed-ratio'> { statusInfo.details.completedRatio } </DayLabel>}
             <StatusBar>
-                {statusInfo && <StatusLight status={ statusInfo.details.status }/>}
+                {statusInfo?.numberTasks > 0 && <StatusLight status={ statusInfo.details.status }/>}
             </StatusBar>
         </DayWrapper>
     )

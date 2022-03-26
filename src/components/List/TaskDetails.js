@@ -113,8 +113,7 @@ const TaskDetails = () => {
     }
 
     const deleteEvent = () => {
-        dispatchCalEvent({type: 'delete', payload: selectedEvent})
-        console.log('delete event: ', selectedEvent)
+        dispatchCalEvent({type: 'delete', payload: {...selectedEvent}})
         toggle()
         setSelectedEvent(null)
     }
