@@ -66,7 +66,7 @@ const Day = ({day, month, index}) => {
 }
 
 const DayWrapper = styled.div`
-    border: 1px solid #ccc3;
+    border: 1px solid #cccccc26;
     height: 115px;
     display: flex;
     flex-direction: column;
@@ -78,7 +78,7 @@ const DayWrapper = styled.div`
         background-color: var(--inactive-calendar-bg-color);
     }
     &.active {
-        background-color: #ffffff38;
+        background-color: rgba(255, 255, 255, 0.10);
     }
 `
 

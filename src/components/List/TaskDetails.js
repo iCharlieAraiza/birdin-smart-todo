@@ -23,13 +23,14 @@ const TaskDetails = () => {
     const [estimatedTime, setEstimatedTime] = useState(selectedEvent.estimatedTime == undefined ? 0 : selectedEvent.estimatedTime)
     const [kindOfEstimated, setKindOfEstimated] = useState(selectedEvent.kindOfEstimated == undefined ? 'minutes' : selectedEvent.kindOfEstimated)
     const [priority, setPriority] = useState(selectedEvent.priority == undefined ? null : selectedEvent.priority)
-
+    const [important, setImportant] = useState(selectedEvent.important == undefined ? false : selectedEvent.important)
     const {isShowing, toggle} = useModal()
 
 
     useEffect(() => {
         updateEvent()     
         focusToEnd()
+        console.log({important})
     }, [selectedEvent])
 
 
@@ -66,6 +67,7 @@ const TaskDetails = () => {
         setEstimatedTime(selectedEvent.estimatedTime == undefined ? 0 : selectedEvent.estimatedTime)
         setKindOfEstimated(selectedEvent.kindOfEstimated  == undefined ? 'minutes' : selectedEvent.kindOfEstimated)
         setPriority(selectedEvent.priority == undefined ? null : selectedEvent.priority)
+        setImportant(selectedEvent.important == undefined ? false : selectedEvent.important)
         console.log('Is selectedEvent updated: ', selectedEvent)
     }
 
@@ -87,7 +89,8 @@ const TaskDetails = () => {
             kindOfEstimated,
             labels,
             isChecked,
-            priority
+            priority,
+            important,
         }
         dispatchCalEvent({type: 'update', payload: newEvent})
         //setSelectedEvent(null)
@@ -129,7 +132,10 @@ const TaskDetails = () => {
                 id,
                 estimatedTime,
                 kindOfEstimated,
-                labels
+                labels,
+                important,
+                isChecked,
+                priority,
             }
             dispatchCalEvent({type: 'update', payload: newEvent})
         }else{
@@ -146,6 +152,9 @@ const TaskDetails = () => {
             id,
             labels,
             kindOfEstimated,
+            important,
+            estimatedTime,
+            priority,
             isChecked: !isChecked
         }
         setIsChecked(!isChecked)

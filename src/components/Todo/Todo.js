@@ -11,6 +11,8 @@ import { Resizable } from "re-resizable";
     Min: 1:58. Add labels
 */
 
+const WIDTH_SIZE = 300;
+
 const Todo = () => {
     const {title, 
             setTitle, 
@@ -32,7 +34,7 @@ const Todo = () => {
     const [moveElement, setMoveElement] = useState(null)
     
     useEffect(() => {
-        setLeftBarWidth(270)
+        setLeftBarWidth(WIDTH_SIZE)
     }, [])
 
     useEffect(() => {
@@ -82,7 +84,7 @@ const Todo = () => {
     return (
         <Resizable style={style} 
                     defaultSize={{
-                        width:270,
+                        width: WIDTH_SIZE,
                     }}
                     minWidth="220" 
                     maxWidth="380" 

@@ -4,7 +4,7 @@ import GlobalContext from '../../context/GlobalContext'
 import TaskDetails from './TaskDetails'
 import CheckButton from './CheckButton'
 import { ReactSortable } from "react-sortablejs";
-import {arrayMoveImmutable} from "array-move";
+import {MdLabelImportantOutline, MdLabelImportant} from 'react-icons/md'
 
 /*
   2:29 implement the select button
@@ -16,7 +16,7 @@ const ListSection = ({items, setItems, setMoveElement}) => {
   const [isChecked, setIsChecked] = useState(false)
   const [moved, setMoved] = useState(false)
   const [newState, setNewState] = useState([...items].sort((a, b) => a.position - b.position))
-
+  const [isImportant, setIsImportant] = useState(false)
 
   const handleSelect = (e, item) => {
     if(e.target.classList.contains('card') || e.target.classList.contains('text')) {
@@ -97,6 +97,15 @@ const ListSection = ({items, setItems, setMoveElement}) => {
     dispatchCalEvent({type: 'update', payload: newItems})
   }
 
+  const handleIsImportant = (item) => {
+    const newEvent = {
+      ...item,
+      important: !item.important
+    }
+    setSelectedEvent(newEvent)
+    dispatchCalEvent({type: 'update', payload: newEvent})
+  }
+
   console.log('fix item: ', items)
   return (
     <ListWrapper>
@@ -115,7 +124,14 @@ const ListSection = ({items, setItems, setMoveElement}) => {
               </TimeDescription>
               </Title>
               <LabelTag>
-                  <Square />
+                  <Square>
+                    {!item.important ? ( <ButtonContainer onClick={() => handleIsImportant(item) }> 
+                                <MdLabelImportantOutline /> 
+                              </ButtonContainer> ) : 
+                              ( <ButtonContainer className='active' onClick={() => handleIsImportant(item)}> 
+                                <MdLabelImportant/>
+                              </ButtonContainer> )}
+                  </Square>
               </LabelTag>
           </ListItem>
       ))}
@@ -140,6 +156,12 @@ const ListItem = styled.div`
         text-decoration: line-through;
         opacity: 0.5;
 
+      }
+      .active{
+        svg{
+          opacity: 0.3;
+          fill: white;
+        }
       }
     }
 
@@ -167,10 +189,29 @@ const LabelTag = styled.div`
 `
 
 const Square = styled.div`
-    width: 18px;
-    height: 12px;
-    border-radius: 8px;
-    `
+    width: 20px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    svg{
+      cursor: pointer;
+      width: 20px;
+      height: 20px;
+    }
+  `
+const ButtonContainer = styled.div`
+  svg{
+    opacity: 0.4;
+  }
+  &.active{
+    svg{
+      opacity: 1;
+      //background-color: #f7cb4e;
+      fill: #f7cb4e;
+    }
+`
+ 
 const TimeDescription = styled.div`
     font-size: 12px;
     color: #b3b3b3;

@@ -58,7 +58,9 @@ const DaysOfWeek = styled.div`
 `
 
 const CalendarWrapper = styled.div`
-
+  border-radius: 4px;
+  border: 1px solid #ffffff2e;
+  overflow: hidden;
 `
 
 const Week = styled.div`
