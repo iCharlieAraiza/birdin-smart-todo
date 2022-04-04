@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { BiTask } from 'react-icons/bi'
+import { BiLayer, BiCalendarCheck } from 'react-icons/bi'
 import { BsFileBarGraph } from 'react-icons/bs'
-import { Link, withRouter } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import LabelData from '../../utils/label-data.json'
+import MenuItem2 from './MenuItem'
 
 const Menu = (props) => {
     const [active, setActive] = useState(window.location.pathname)
@@ -21,23 +23,19 @@ const Menu = (props) => {
                 <UserName>{user?.name != null? user.name : 'new user' }</UserName>
             </UserCard>
             <MenuList>
-                <MenuItem className={active === '/' && 'active'}>
-                    <MenuItemLink to="/"onClick={() => setActive('/')}>
-                        <MenuItemIcon>
-                            <BiTask />
-                        </MenuItemIcon>
-                        <MenuItemText>Taks</MenuItemText>
-                    </MenuItemLink>
-                </MenuItem>
-                <MenuItem className={active === '/statistics' && 'active'}>
-                    <MenuItemLink  onClick={() => setActive('/statistics')} to="/statistics">
-                        <MenuItemIcon>
-                            <BsFileBarGraph />
-                        </MenuItemIcon>
-                        <MenuItemText>Reports</MenuItemText>
-                    </MenuItemLink>
-                </MenuItem>
+                <MenuItem2 active={active} setActive={setActive} slug="" icon={<BiCalendarCheck/>} title="Calendar"/>
+                <MenuItem2 active={active} setActive={setActive} slug="pending" icon={<BiLayer/>} title="Pending"/>
+                <MenuItem2 active={active} setActive={setActive} slug="statistics" icon={<BsFileBarGraph/>} title="Reports"/>
             </MenuList>
+            <Separator />
+            <LabelContainer>
+                <Wrapper>
+                    { LabelData.filter(el=>el.label !== 'none' ).map(el=>(
+                        <LabelItem color={el.color}  onClick={() => setActive(`/label/${el.label}`)} to={`/label/${el.label}`} />
+                    ))}
+
+                </Wrapper>
+            </LabelContainer>
 
         </MenuContainer>
     )
@@ -103,5 +101,33 @@ const MenuItemText = styled.div`
     margin-left: 1rem;
     text-transform: capitalize;
 `
+
+const Separator = styled.div`
+    width: 100%;
+    height: 1px;
+    background-color: #e6e6e638;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+`
+
+const LabelContainer = styled.div`
+    display: flex;
+    align-items: center;
+    //justify-content: space-around;
+    `
+
+const Wrapper = styled.div`
+    display: flex;
+    margin: auto;
+`
+
+const LabelItem = styled(Link)`
+    width: 1.4rem;
+    height: 1.4rem;
+    background-color: ${props=>props.color};
+    border-radius: 50%;
+    cursor: pointer; ;
+    margin-right: 8px;
+    `
 
 export default Menu
