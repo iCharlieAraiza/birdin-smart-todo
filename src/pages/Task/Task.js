@@ -8,19 +8,21 @@ import GlobalContext from '../../context/GlobalContext'
 const Task = () => {    
     const {slug} = useParams()
     const {savedEvents, dispatchCalEvent} = useContext(GlobalContext)
-    const  [items, setItems] = useState(savedEvents.filter(evt => !evt.isChecked))
+    const  [items, setItems] = useState()
 
     useEffect(() => {
-        console.log(items)
-        setItems(savedEvents.
-            sort((a,b) => a.date - b.date).
-            sort((a,b)=>a['todoPos']-b['todoPos']).
-            filter(evt => !evt.isChecked))
+        const itemList = savedEvents.filter(evt => !evt.isChecked)
+        setItems(itemList.sort((a,b) => a.todoPos - b.todoPos))
+    }, [])
+
+    useEffect(() => {
+        const itemList = savedEvents.filter(evt => !evt.isChecked)
+        setItems(itemList.sort((a,b) => a.todoPos - b.todoPos))
     }, [savedEvents])
 
 
+
     const onEndTodo = (list = [])=>{
-        
         const newItems = list.map((item, index) => {
             item['todoPos'] = index;
             return item;
