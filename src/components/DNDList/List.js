@@ -1,6 +1,5 @@
 import React from 'react'
 import { ListItem, SelectButton, Title, TimeDescription, LabelTag, ButtonContainer, Square } from './components.js'
-import CheckButton from '../List/CheckButton.js'
 import { MdLabelImportant, MdLabelImportantOutline } from 'react-icons/md'
 
 const List = ({title = '', toggle, item}) => {
