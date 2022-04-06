@@ -100,12 +100,6 @@ const Todo = () => {
             </Date>
             <TaskList>
                 { <ListSection items={dayEvents} setItems={setDayEvents} setMoveElement={setMoveElement}/> }
-
-                { /*dayEvents.map((evt, idx ) => (
-                    <Task key={idx}>
-                        <TaskTitle>{evt.title}</TaskTitle>
-                    </Task>))
-                */ }
             </TaskList>
             <InputContainer>
                 <InputAddTask 

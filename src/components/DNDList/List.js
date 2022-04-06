@@ -3,8 +3,7 @@ import { ListItem, SelectButton, Title, TimeDescription, LabelTag, ButtonContai
 import CheckButton from '../List/CheckButton.js'
 import { MdLabelImportant, MdLabelImportantOutline } from 'react-icons/md'
 
-const List = ({title = ''}) => {
-    const item = ''
+const List = ({title = '', toggle, item}) => {
 
     function setCheck (){
         console.log('setCheck')
@@ -13,7 +12,7 @@ const List = ({title = ''}) => {
     const check = true;
 
     return (
-        <ListItem >
+        <ListItem onClick={() => toggle(item)}>
             <SelectButton className="check-button">
                 {/*<CheckButton setCheck={setCheck} check='false'/>*/}
             </SelectButton>

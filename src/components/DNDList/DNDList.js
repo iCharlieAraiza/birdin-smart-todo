@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import List from './List';
 
 
-const DNDList = ({items = [], drop}) => {
+const DNDList = ({items = [], drop, toggle}) => {
   if(items === undefined || items.length === 0) {
     return <div>Loading</div>
   }
@@ -26,7 +26,7 @@ const DNDList = ({items = [], drop}) => {
         onEnd={onEnd}
       >
         {list.map(item => (
-          <List title={item.title} key={item.id} />
+          <List title={item.title} key={item.id} date={item.date} toggle={toggle} item={item}/>
         ))}
       </ReactSortable>
     </ListWrapper>

@@ -3,12 +3,14 @@ import { useParams } from 'react-router-dom'
 import { TaskSectionTitle } from '../../components/General'
 import DNDList from '../../components/DNDList/DNDList'
 import GlobalContext from '../../context/GlobalContext'
-
+import styled from 'styled-components'
+import Details from '../../components/Details'
 
 const Task = () => {    
     const {slug} = useParams()
     const {savedEvents, dispatchCalEvent} = useContext(GlobalContext)
     const  [items, setItems] = useState()
+    const [selectItem, setSelectItem] = useState(null)
 
     useEffect(() => {
         const itemList = savedEvents.filter(evt => !evt.isChecked)
@@ -31,12 +33,30 @@ const Task = () => {
     }
 
 
+    console.log({selectItem})
+
     return (
-        <div>
-            <TaskSectionTitle>This is a new task {slug}</TaskSectionTitle>
-            <DNDList items={items} drop={onEndTodo}/>
-        </div>
+        <Wrapper>
+            <Main>
+                <TaskSectionTitle>This is a new task {slug}</TaskSectionTitle>
+                <DNDList items={items} drop={onEndTodo} toggle={(el) => setSelectItem(el)}/>
+            </Main>
+            <Details item={selectItem}/>
+        </Wrapper>
     )
 }
+
+
+const Wrapper = styled.div`
+    display: flex;
+    justify-content: space-between;
+`
+
+const Main = styled.div`
+    overflow: scroll;
+    width: 100%;
+`
+
+
 
 export default Task
