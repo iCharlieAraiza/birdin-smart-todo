@@ -10,7 +10,6 @@ import {MdLabelImportantOutline, MdLabelImportant} from 'react-icons/md'
   2:29 implement the select button
 */
 
-
 const ListSection = ({items, setItems, setMoveElement}) => {
   const { selectedEvent, setSelectedEvent, dispatchCalEvent } = useContext(GlobalContext)
   const [isChecked, setIsChecked] = useState(false)

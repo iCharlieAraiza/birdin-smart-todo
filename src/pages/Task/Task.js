@@ -22,8 +22,6 @@ const Task = () => {
         setItems(itemList.sort((a,b) => a.todoPos - b.todoPos))
     }, [savedEvents])
 
-
-
     const onEndTodo = (list = [])=>{
         const newItems = list.map((item, index) => {
             item['todoPos'] = index;
@@ -32,20 +30,24 @@ const Task = () => {
         dispatchCalEvent({type: 'update', payload: newItems})
     }
 
-
-    console.log({selectItem})
-
     return (
         <Wrapper>
             <Main>
                 <TaskSectionTitle>This is a new task {slug}</TaskSectionTitle>
-                <DNDList items={items} drop={onEndTodo} toggle={(el) => setSelectItem(el)}/>
+                <ListContainer>
+                    <DNDList items={items} drop={onEndTodo} toggle={(el) => setSelectItem(el)}/>
+                </ListContainer>
             </Main>
             <Details item={selectItem}/>
         </Wrapper>
     )
 }
 
+
+const ListContainer = styled.div`
+    overflow: scroll;
+    height: 98%;
+`
 
 const Wrapper = styled.div`
     display: flex;

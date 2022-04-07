@@ -10,19 +10,14 @@ import LabelDropdown from './components/LabelDropdown'
 
 const Details = ({item}) => {
     if(item === null) {
-        return <div>Loading</div>
+        return ''
     }
 
-    console.log({item})
-
     const {title, priority} = item;
-
 
     const [check, setCheck] = useState(false)
     const [priorityState, setPriorityState] = useState(priority)
     const [labels, setLabels] = useState()
-
-    //console.log({priority})
 
     return (
         <Wrapper>

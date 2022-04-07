@@ -6,14 +6,13 @@ import List from './List';
 
 const DNDList = ({items = [], drop, toggle}) => {
   if(items === undefined || items.length === 0) {
-    return <div>Loading</div>
+    return ''
   }
 
   const [list , setList] = useState(items)
 
-
-  const onEnd = ()=>{
-    if(drop) {
+  const onEnd = () => {
+    if (drop) {
       drop(list)
     }
   }
@@ -23,8 +22,7 @@ const DNDList = ({items = [], drop, toggle}) => {
       <ReactSortable
         list={list}
         setList={setList}
-        onEnd={onEnd}
-      >
+        onEnd={onEnd}>
         {list.map(item => (
           <List title={item.title} key={item.id} date={item.date} toggle={toggle} item={item}/>
         ))}
