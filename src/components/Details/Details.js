@@ -6,8 +6,6 @@ import {BsTrash, BsCalendar3} from 'react-icons/bs'
 import PriorityDropdown from './components/PriorityDropdown'
 import LabelDropdown from './components/LabelDropdown'
 
-
-
 const Details = ({item}) => {
     if(item === null) {
         return ''

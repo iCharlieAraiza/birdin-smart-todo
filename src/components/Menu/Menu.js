@@ -35,7 +35,6 @@ const Menu = (props) => {
                     ))}
                 </Wrapper>
             </LabelContainer>
-
         </MenuContainer>
     )
 }
