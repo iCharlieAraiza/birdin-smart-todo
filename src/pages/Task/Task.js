@@ -5,6 +5,7 @@ import DNDList from '../../components/DNDList/DNDList'
 import GlobalContext from '../../context/GlobalContext'
 import styled from 'styled-components'
 import Details from '../../components/Details'
+import SubmitInput from '../../components/SubmitInput/SubmitInput'
 
 const Task = () => {    
     const {slug} = useParams()
@@ -37,6 +38,7 @@ const Task = () => {
                 <ListContainer>
                     <DNDList items={items} drop={onEndTodo} toggle={(el) => setSelectItem(el)}/>
                 </ListContainer>
+                <SubmitInput />
             </Main>
             <Details item={selectItem}/>
         </Wrapper>
@@ -45,7 +47,8 @@ const Task = () => {
 
 const ListContainer = styled.div`
     overflow: scroll;
-    height: 98%;
+    height: 85vh;
+    padding-right: 2rem;
 `
 
 const Wrapper = styled.div`
