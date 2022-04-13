@@ -32,7 +32,6 @@ const DNDList = ({items = [], drop, toggle}) => {
 }
 
 const ListWrapper = styled.div`
-  margin-top: 2rem;
   padding-right: 2rem;
 `
 

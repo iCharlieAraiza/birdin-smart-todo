@@ -38,7 +38,9 @@ const Task = () => {
                 <ListContainer>
                     <DNDList items={items} drop={onEndTodo} toggle={(el) => setSelectItem(el)}/>
                 </ListContainer>
-                <SubmitInput />
+                <InputContainer>
+                    <SubmitInput />
+                </InputContainer>
             </Main>
             <Details item={selectItem}/>
         </Wrapper>
@@ -47,8 +49,8 @@ const Task = () => {
 
 const ListContainer = styled.div`
     overflow: scroll;
-    height: 85vh;
-    padding-right: 2rem;
+    height: 80vh;
+    margin-top: 2rem;
 `
 
 const Wrapper = styled.div`
@@ -61,6 +63,11 @@ const Main = styled.div`
     width: 100%;
 `
 
+const InputContainer = styled.div`
+    margin-right: 2rem;
+    padding: 10px;
+    background-color: #0000002b;
+    margin-top: 8px;`
 
 
 export default Task
