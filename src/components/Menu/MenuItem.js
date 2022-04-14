@@ -18,17 +18,20 @@ const MenuItem2 = ({active, setActive, title, icon, slug = "/"}) => {
 }
 
 const Wrapper = styled.li`
-    padding: 0.5rem 0.5rem;
     cursor: pointer;
     &.active {
-        background-color: var(--active-menu-bg-color);
+        background-color: var(--active-menu-bg-color)!important;
         svg {
             filter: invert(38%) sepia(98%) saturate(2936%) hue-rotate(170deg) brightness(95%) contrast(101%);
         } 
     }
+    &:hover {
+        background-color: var(--hover-color-bw);
+    }
 `
 
 const MenuItemLink = styled(Link)`
+    padding: 0.5rem 0.5rem;
     display: flex; 
     align-items: center;
 `
@@ -46,6 +49,7 @@ const MenuItemIcon = styled.div`
 const MenuItemText = styled.div`
     margin-left: 1rem;
     text-transform: capitalize;
+    
 `
 
 

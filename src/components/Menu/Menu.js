@@ -73,7 +73,7 @@ const MenuItem = styled.li`
     padding: 0.5rem 0.5rem;
     cursor: pointer;
     &.active {
-        background-color: var(--active-menu-bg-color);
+        background-color: var(--active-menu-bg-color)!important;
         svg {
             filter: invert(38%) sepia(98%) saturate(2936%) hue-rotate(170deg) brightness(95%) contrast(101%);
         } 
