@@ -46,14 +46,21 @@ const Day = ({day, month, index}) => {
                 </DayNumber>
             </DayContainer>
             <DayInfo>
-                { statusInfo?.numberTasks > 0 && (
+                { (statusInfo?.numberTasks && statusInfo?.details.status == 'active') > 0 && (
                 <>
-                    <DayLabel className='important-task'>
-                        Important task
-                    </DayLabel>
-                    <DayLabel>
-                        12 Regular task
-                    </DayLabel>
+                    {statusInfo?.details.isImportant  && (                    
+                        <DayLabel className='important-task'>
+                            Important task
+                        </DayLabel>
+                    )}
+                    {
+            
+                        <DayLabel>
+                            12 Regular task
+                        </DayLabel> 
+
+                    }
+
                 </>
                 )}
             </DayInfo>
