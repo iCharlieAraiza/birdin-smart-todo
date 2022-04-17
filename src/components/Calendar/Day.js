@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import dayjs from 'dayjs'
 import GlobalContext from '../../context/GlobalContext'
 import {StatusLight} from '../General/index'
+import {AiOutlineCheck} from 'react-icons/ai'
 
 const Day = ({day, month, index}) => {
     const { daySelected, setDaySelected, setTitle, dayStatus } = useContext(GlobalContext)
@@ -38,7 +39,9 @@ const Day = ({day, month, index}) => {
     const statusInfo = dayStatus.get(day.format('DD-MM-YYYY'))
 
     return (
-        <DayWrapper className={ `${ getDayClass(day) } ${ (index == 0 || index == 6) && 'inactive' }` }
+        <DayWrapper className={ `${ getDayClass(day) } ${ (index == 0 || index == 6) && 'inactive' }
+                    ${statusInfo?.details.status}-task
+                    ` }
                     onClick={handeDayClick}>
             <DayContainer>
                 <DayNumber className={ month !=  day.format('M') - 1 && 'inactive'}>
@@ -54,19 +57,26 @@ const Day = ({day, month, index}) => {
                         </DayLabel>
                     )}
                     {
-            
                         <DayLabel>
-                            12 Regular task
+                            Regular task
                         </DayLabel> 
-
                     }
-
                 </>
                 )}
             </DayInfo>
+                {
+                    statusInfo?.details.status == 'completed' && (
+                        <CompletedIcon>
+                            <AiOutlineCheck />
+                        </CompletedIcon>
+                    )
+                }
                 { statusInfo?.numberTasks > 0 && <DayLabel className='completed-ratio'> { statusInfo.details.completedRatio } </DayLabel>}
             <StatusBar>
-                {statusInfo?.numberTasks > 0 && <StatusLight status={ statusInfo.details.status }/>}
+                {statusInfo?.numberTasks > 0 ? ( <StatusLight status={ statusInfo.details.status }/> ) 
+                : <StatusLight/>
+                }
+                
             </StatusBar>
         </DayWrapper>
     )
@@ -87,6 +97,9 @@ const DayWrapper = styled.div`
     &.active {
         background-color: rgba(255, 255, 255, 0.10);
     }
+    &.completed-task{
+        background-color: var(--completed-calendar-bg-color);
+    }
 `
 
 const DayContainer = styled.div`
@@ -94,7 +107,6 @@ const DayContainer = styled.div`
     justify-content: end;
     margin: 5px;
     `
-
 
 const DayNumber = styled.div`
     font-size: 0.8rem;
@@ -123,6 +135,9 @@ const StatusBar = styled.div`
 const DayInfo = styled.div`
     flex-basis: 100%;
     flex-grow: 999;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
 `
 
 const DayLabel = styled.div`
@@ -142,5 +157,15 @@ const DayLabel = styled.div`
     }
 `
 
+const CompletedIcon = styled.div`
+    svg {
+        margin: auto;
+        display: block;
+        width: 25px;
+        height: 25px;
+        fill: #00a1ff;
+        opacity: 0.5;
+    }
+`
 
 export default Day

@@ -1,4 +1,3 @@
-
 import styled from "styled-components";
 
 export const TaskSectionTitle = styled.div`
@@ -19,9 +18,6 @@ export const FlexCenter = styled.div`
     align-items: center;
 `
 
-
-
-
 const StatusLightContainer = styled.div`
     width: 1.2rem;
     height: 1.2rem;
@@ -38,6 +34,7 @@ const InnerLight = styled.div`
     height: 10px;
     border-radius: 50%;
     background-color: ${props => props.color};
+    border: ${props => props.border};
  `
 
 export const StatusLight = ({status})=>{
@@ -59,8 +56,12 @@ export const StatusLight = ({status})=>{
 
   const selectedColor = color[status];
 
-  if(selectedColor === undefined) {
-    return<></>;
+  console.log({status})
+
+  if(status === undefined) {
+    return (
+      <InnerLight border='1px solid rgb(137 137 137 / 63%);'/>
+    )
   }
 
   return (

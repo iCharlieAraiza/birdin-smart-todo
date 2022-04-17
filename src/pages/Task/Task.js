@@ -49,8 +49,8 @@ const Task = () => {
 
 const ListContainer = styled.div`
     overflow: scroll;
-    height: 80vh;
     margin-top: 2rem;
+    height: calc(100vh - 12rem);
 `
 
 const Wrapper = styled.div`
