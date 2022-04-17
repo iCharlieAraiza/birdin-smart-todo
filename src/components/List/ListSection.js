@@ -144,6 +144,7 @@ const ListWrapper = styled.div`
 `
 
 const ListItem = styled.div`
+    cursor: pointer;
     background-color: #8d8d8d30;
     padding: 0.5rem;
     display: flex;
