@@ -1,13 +1,13 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const TitleInput = ({isChecked = '', title = '', handlerFocus = '' }) => {
+const TitleInput = ({isChecked = '', title = '', handlerFocus = ()=>{} }) => {
   return (
     <Wrapper 
         className={isChecked&& 'checked' } 
         id="title-input"
         value={title} onBlur={handlerFocus} 
-        autofocus="autofocus" 
+        autoFocus="autofocus" 
         role="textbox" 
         contentEditable={true} 
         suppressContentEditableWarning={true}>

@@ -50,7 +50,7 @@ const Task = () => {
 const ListContainer = styled.div`
     overflow: scroll;
     margin-top: 2rem;
-    height: calc(100vh - 12rem);
+    height: calc(100vh - 12.5rem);
 `
 
 const Wrapper = styled.div`
@@ -67,7 +67,10 @@ const InputContainer = styled.div`
     margin-right: 2rem;
     padding: 10px;
     background-color: #0000002b;
-    margin-top: 8px;`
+    margin-top: 8px;
+    border-radius: 5px;    
+`
+
 
 
 export default Task

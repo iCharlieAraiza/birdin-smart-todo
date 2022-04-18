@@ -56,8 +56,6 @@ export const StatusLight = ({status})=>{
 
   const selectedColor = color[status];
 
-  console.log({status})
-
   if(status === undefined) {
     return (
       <InnerLight border='1px solid rgb(137 137 137 / 63%);'/>
