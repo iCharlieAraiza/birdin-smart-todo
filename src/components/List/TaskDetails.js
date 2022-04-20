@@ -15,7 +15,7 @@ import Modal from '../Modal'
 const TaskDetails = () => {
     const { selectedEvent, setSelectedEvent, savedEvents, dispatchCalEvent, leftBarWidth } = useContext(GlobalContext)
     const [id, setId  ]= useState(selectedEvent.id);
-    const [title, setTitle] = useState(selectedEvent.title)
+    const [title, setTitle] = useState(selectedEvent.title == undefined ? '' : selectedEvent.title);
     const [description, setDescription] = useState(selectedEvent.description)
     const [date, setDate] = useState(selectedEvent.date)
     const [labels, setLabels] = useState(selectedEvent.labels)

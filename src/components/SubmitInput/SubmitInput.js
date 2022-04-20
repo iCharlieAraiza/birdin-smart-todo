@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import {RiAddFill} from 'react-icons/ri'
 
 
-const SubmitInput = () => {
+const SubmitInput = ({save, item = {}}) => {
     const [value, setValue] = useState('')
 
     const onFormSubmit = (e) => {
@@ -11,19 +11,37 @@ const SubmitInput = () => {
         if(value.trim() === '') {
             return
         }
-        console.log(value)
+        
+        item.value = value;
+        save(item)
+        setValue('')
     }
+
+    const onKeyUpHandle = (e) => {
+        if(e.keyCode === 13) {
+            if(value.trim() === '') {
+                return
+            }
+            
+            item.value = value;
+            save(item)
+            setValue('')
+        
+    }}
 
     const onChange = (e) => {
         setValue(e.target.value)
     }
 
     return (
-        <Wrapper onSubmit={onFormSubmit}>
+        <Wrapper >
             <AddSvgContainer>
                 <RiAddFill />
             </AddSvgContainer>
-            <InputContainer placeholder='Add new task' value={value} onChange={onChange}/>
+            <InputContainer placeholder='Add new task' 
+                value={value} 
+                onKeyUp={onKeyUpHandle}
+                onChange={onChange}/>
         </Wrapper>
     )
 }
@@ -34,10 +52,9 @@ const AddSvgContainer = styled.div`
         width: 1.5rem;
         height: 1.5rem;
     }
-    }
 `
 
-const Wrapper = styled.form`
+const Wrapper = styled.div`
     display: flex;
     color: #fff;
     align-items: center;

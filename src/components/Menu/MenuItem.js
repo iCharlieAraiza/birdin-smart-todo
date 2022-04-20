@@ -4,10 +4,10 @@ import { Link } from 'react-router-dom'
 
 
 const MenuItem2 = ({active, setActive, title, icon, slug = "/"}) => {
-    console.log({active})
-    return (
+
+    return (        
     <Wrapper className={active === `${slug}` && 'active'}>
-        <MenuItemLink  onClick={() => setActive(slug)} to={slug}>
+        <MenuItemLink  onClick={() => setActive(slug)} to={`/${slug}`}>
                 <MenuItemIcon>
                     {icon}
                 </MenuItemIcon>

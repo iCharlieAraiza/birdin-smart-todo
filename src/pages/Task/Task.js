@@ -6,22 +6,32 @@ import GlobalContext from '../../context/GlobalContext'
 import styled from 'styled-components'
 import Details from '../../components/Details'
 import SubmitInput from '../../components/SubmitInput/SubmitInput'
+import dayjs from 'dayjs'
 
-const Task = () => {    
-    const {slug} = useParams()
+const Task = ({slug, type}) => {    
+    const {slugParams} = useParams()
     const {savedEvents, dispatchCalEvent} = useContext(GlobalContext)
-    const  [items, setItems] = useState()
+    const  [items, setItems] = useState([])
     const [selectItem, setSelectItem] = useState(null)
 
-    useEffect(() => {
-        const itemList = savedEvents.filter(evt => !evt.isChecked)
-        setItems(itemList.sort((a,b) => a.todoPos - b.todoPos))
-    }, [])
+    console.log('Task', type)
+    console.log('Slug', slug)
+
+
+    const updateSaveEvent = () => {
+        if(type === 'pending'){
+            return savedEvents.filter(evt => !evt.isChecked)
+        } else if (type === 'label') {
+            return savedEvents.filter(evt => !evt.isChecked)
+        }
+    }
 
     useEffect(() => {
-        const itemList = savedEvents.filter(evt => !evt.isChecked)
+        const itemList = updateSaveEvent()
         setItems(itemList.sort((a,b) => a.todoPos - b.todoPos))
     }, [savedEvents])
+
+
 
     const onEndTodo = (list = [])=>{
         const newItems = list.map((item, index) => {
@@ -31,15 +41,27 @@ const Task = () => {
         dispatchCalEvent({type: 'update', payload: newItems})
     }
 
+    const saveHandle = (item) => {
+        const newItem = {
+            ...item,
+            title: item.value,
+            id: window.Date.now(),
+            isChecked: false,
+            date: dayjs().valueOf()
+        }
+        setItems(items)
+        dispatchCalEvent({type: 'push', payload: newItem})
+    }
+
     return (
         <Wrapper>
             <Main>
-                <TaskSectionTitle>This is a new task {slug}</TaskSectionTitle>
+                <TaskSectionTitle>This is a new task {type}</TaskSectionTitle>
                 <ListContainer>
                     <DNDList items={items} drop={onEndTodo} toggle={(el) => setSelectItem(el)}/>
                 </ListContainer>
                 <InputContainer>
-                    <SubmitInput />
+                    <SubmitInput save={saveHandle}/>
                 </InputContainer>
             </Main>
             <Details item={selectItem}/>
