@@ -7,29 +7,32 @@ import styled from 'styled-components'
 import Details from '../../components/Details'
 import SubmitInput from '../../components/SubmitInput/SubmitInput'
 import dayjs from 'dayjs'
+import PlaceholderInbox from '../../components/General/PlaceholderInbox'
 
 const Task = ({slug, type}) => {    
-    const {slugParams} = useParams()
+    const patameters = useParams()
     const {savedEvents, dispatchCalEvent} = useContext(GlobalContext)
     const  [items, setItems] = useState([])
     const [selectItem, setSelectItem] = useState(null)
+    const [typePage, setTypePage] = useState()
 
-    console.log('Task', type)
-    console.log('Slug', slug)
+    useEffect(()=>{
+        setTypePage(window.location.pathname)
+    })
 
 
     const updateSaveEvent = () => {
         if(type === 'pending'){
             return savedEvents.filter(evt => !evt.isChecked)
         } else if (type === 'label') {
-            return savedEvents.filter(evt => !evt.isChecked)
+            return savedEvents.filter(evt => evt.labels?.label === patameters.slug)
         }
     }
 
     useEffect(() => {
         const itemList = updateSaveEvent()
         setItems(itemList.sort((a,b) => a.todoPos - b.todoPos))
-    }, [savedEvents])
+    }, [savedEvents, typePage])
 
 
 
@@ -53,12 +56,17 @@ const Task = ({slug, type}) => {
         dispatchCalEvent({type: 'push', payload: newItem})
     }
 
+
+
     return (
         <Wrapper>
             <Main>
                 <TaskSectionTitle>This is a new task {type}</TaskSectionTitle>
                 <ListContainer>
-                    <DNDList items={items} drop={onEndTodo} toggle={(el) => setSelectItem(el)}/>
+                    {items.length > 0 
+                    ? <DNDList items={items} drop={onEndTodo} toggle={(el) => setSelectItem(el)}/> 
+                    : <PlaceholderInbox/>}
+                    
                 </ListContainer>
                 <InputContainer>
                     <SubmitInput save={saveHandle}/>

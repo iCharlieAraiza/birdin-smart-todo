@@ -5,6 +5,7 @@ import GlobalContext from '../../context/GlobalContext'
 import ListSection from '../List/ListSection'
 import dayjs from 'dayjs'
 import { Resizable } from "re-resizable";
+import PlaceholderInbox from '../General/PlaceholderInbox'
 
 /*
     Min: 1:37
@@ -99,7 +100,9 @@ const Todo = () => {
                 {daySelected==null ? 'Hello' : daySelected.format('dddd DD MMMM YYYY')} 
             </Date>
             <TaskList>
-                { <ListSection items={dayEvents} setItems={setDayEvents} setMoveElement={setMoveElement}/> }
+                {dayEvents.length > 0 
+                    ? <ListSection items={dayEvents} setItems={setDayEvents} setMoveElement={setMoveElement}/> 
+                    : <PlaceholderInbox/>}
             </TaskList>
             <InputContainer>
                 <InputAddTask 
