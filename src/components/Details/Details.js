@@ -1,21 +1,29 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect, useContext} from 'react'
 import styled from 'styled-components'
 import TitleInput from './components/TitleInput'
 import CheckBox from './components/CheckBox'
 import {BsTrash, BsCalendar3} from 'react-icons/bs'
 import PriorityDropdown from './components/PriorityDropdown'
 import LabelDropdown from './components/LabelDropdown'
+import GlobalContext from '../../context/GlobalContext'
 
 const Details = ({item}) => {
+    const {dispatchCalEvent} = useContext(GlobalContext)
     if(item === null) {
         return ''
     }
-
+    
     const {title, priority} = item;
 
     const [check, setCheck] = useState(false)
     const [priorityState, setPriorityState] = useState(priority)
-    const [labels, setLabels] = useState()
+    const [labels, setLabels] = useState(item.labels)
+
+    const toggleLabel = (label) => {
+        setLabels(label)
+        const newItem = {...item, labels: label}
+        dispatchCalEvent({type: 'update', payload: newItem})
+    }
 
     return (
         <Wrapper>
@@ -54,7 +62,7 @@ const Details = ({item}) => {
                     Labels
                 </Label>
                 <Section>
-                    <LabelDropdown selectedLabel={labels} setSelectedLabel={setLabels}/>
+                    <LabelDropdown selectedLabel={labels} setSelectedLabel={toggleLabel}/>
                 </Section>
             </Section>
         </Wrapper>

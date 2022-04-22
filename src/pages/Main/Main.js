@@ -21,7 +21,7 @@ const Main = () => {
     <TaskSection>
       <CalendarSection>
         <TaskSectionTitle>
-          Tasks <Popup content='In this section, you will manage all your scheduled tasks' trigger={<AiFillInfoCircle />} />
+          Schedule Tasks <Popup content='In this section, you will manage all your scheduled tasks' trigger={<AiFillInfoCircle />} />
         </TaskSectionTitle>
         <Calendar month={currentMonth} />
       </CalendarSection>

@@ -16,9 +16,15 @@ const Task = ({slug, type}) => {
     const [selectItem, setSelectItem] = useState(null)
     const [typePage, setTypePage] = useState()
 
+
     useEffect(()=>{
         setTypePage(window.location.pathname)
     })
+
+    useEffect(()=>{
+        console.log("Type page", typePage)
+        setSelectItem(null)
+    }, [typePage])
 
 
     const updateSaveEvent = () => {
@@ -32,6 +38,15 @@ const Task = ({slug, type}) => {
     useEffect(() => {
         const itemList = updateSaveEvent()
         setItems(itemList.sort((a,b) => a.todoPos - b.todoPos))
+
+        // Check if selected item is in the list
+        if(selectItem){
+            const index = itemList.findIndex(item => item.id === selectItem.id)
+            if(index === -1){
+                setSelectItem(null)
+            }
+        }
+
     }, [savedEvents, typePage])
 
 

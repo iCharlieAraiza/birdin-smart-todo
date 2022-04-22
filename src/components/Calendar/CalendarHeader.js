@@ -24,7 +24,7 @@ const CalendarHeader = () => {
     return (
         <Header>
             <ButtonToday onClick={ handleResetMonth }>
-                Today
+                Today 
                 <BsArrowReturnLeft />
             </ButtonToday>
 
