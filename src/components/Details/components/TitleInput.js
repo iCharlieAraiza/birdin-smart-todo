@@ -1,12 +1,21 @@
-import React from 'react'
+import React, {useState} from 'react'
 import styled from 'styled-components'
 
-const TitleInput = ({isChecked = '', title = '', handlerFocus = ()=>{} }) => {
-  return (
+const TitleInput = ({isChecked = '', title = '', handlerTitle }) => {
+
+    const [localTitle, setLocalTitle] = useState(title)
+
+    console.log({localTitle})
+
+    const handleChange = (e) => {
+        handlerTitle(e.target.textContent)
+    }
+
+    return (
     <Wrapper 
         className={isChecked&& 'checked' } 
         id="title-input"
-        value={title} onBlur={handlerFocus} 
+        value={localTitle} onChange={setLocalTitle} onBlur={handleChange} 
         autoFocus="autofocus" 
         role="textbox" 
         contentEditable={true} 
