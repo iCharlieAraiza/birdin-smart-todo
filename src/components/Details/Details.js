@@ -13,15 +13,28 @@ const Details = ({item}) => {
         return ''
     }
     
-    const {title, priority} = item;
-
+    const [title, setTitle] = useState(item.title)
     const [check, setCheck] = useState(false)
-    const [priorityState, setPriorityState] = useState(priority)
+    const [priorityState, setPriorityState] = useState(item.priority)
     const [labels, setLabels] = useState(item.labels)
 
-    const toggleLabel = (label) => {
+    useEffect(()=>{
+        setTitle(item.title)
+        setCheck(item.isChecked)
+        setLabels(item.labels)
+        setPriorityState(item.priority)
+    }, [item])
+
+    const handleLabel = (label) => {
         setLabels(label)
         const newItem = {...item, labels: label}
+        dispatchCalEvent({type: 'update', payload: newItem})
+    }
+
+    const handlePriority = (priority) => {
+        console.log(priority)
+        setPriorityState(priority)
+        const newItem = {...item, priority: priority}
         dispatchCalEvent({type: 'update', payload: newItem})
     }
 
@@ -53,7 +66,7 @@ const Details = ({item}) => {
                     Priority
                 </Label>
                 <Section>
-                    <PriorityDropdown priority={priorityState} setPriority={setPriorityState} />
+                    <PriorityDropdown priority={priorityState} setPriority={handlePriority} />
                 </Section>
             </Section>
             <Separator />
@@ -62,7 +75,7 @@ const Details = ({item}) => {
                     Labels
                 </Label>
                 <Section>
-                    <LabelDropdown selectedLabel={labels} setSelectedLabel={toggleLabel}/>
+                    <LabelDropdown selectedLabel={labels} setSelectedLabel={handleLabel}/>
                 </Section>
             </Section>
         </Wrapper>
