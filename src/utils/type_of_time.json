@@ -1,0 +1,14 @@
+[
+    {
+       "value":"minutes",
+       "label":"Minutes"
+    },
+    {
+       "value":"hours",
+       "label":"Hours"
+    },
+    {
+       "value":"pomodoro",
+       "label":"Pomodoro"
+    }
+]
