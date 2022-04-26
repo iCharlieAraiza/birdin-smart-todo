@@ -6,6 +6,8 @@ import {BsTrash, BsCalendar3} from 'react-icons/bs'
 import PriorityDropdown from './components/PriorityDropdown'
 import LabelDropdown from './components/LabelDropdown'
 import GlobalContext from '../../context/GlobalContext'
+import {MdOutlineTimer} from 'react-icons/md'
+import TYPE_OF_TIME from '../../utils/type_of_time.json'
 
 const Details = ({item}) => {
     const {dispatchCalEvent} = useContext(GlobalContext)
@@ -32,9 +34,14 @@ const Details = ({item}) => {
     }
 
     const handlePriority = (priority) => {
-        console.log(priority)
         setPriorityState(priority)
         const newItem = {...item, priority: priority}
+        dispatchCalEvent({type: 'update', payload: newItem})
+    }
+
+    const handleTitle = (title) => {
+        setTitle(title)
+        const newItem = {...item, title: title}
         dispatchCalEvent({type: 'update', payload: newItem})
     }
 
@@ -42,7 +49,7 @@ const Details = ({item}) => {
         <Wrapper>
             <Section>
                 <CheckBox />
-                <TitleInput title={title} check={check} handlerCheck={true} />
+                <TitleInput title={title} check={check} handlerTitle={handleTitle} handlerCheck={true}/>
             </Section>
             <Separator />
             <RemoveTask>
@@ -56,8 +63,10 @@ const Details = ({item}) => {
                     Date
                 </Label>   
                 <Section>
-                    <BsCalendar3/> 
-                    20/02/22
+                    <SelectDate>
+                        <BsCalendar3/>
+                        20/02/22
+                    </SelectDate>
                 </Section> 
             </Section>
             <Separator />
@@ -78,6 +87,26 @@ const Details = ({item}) => {
                     <LabelDropdown selectedLabel={labels} setSelectedLabel={handleLabel}/>
                 </Section>
             </Section>
+            <Separator />
+            <Section>
+                <Label>
+                    Time
+                </Label>
+                <Section>
+                    <MdOutlineTimer/>
+                    <InputTime type="number" min='0' />
+                    <SelectTypeOfTime>
+                        {
+                            TYPE_OF_TIME.map((type, index) => {
+                                return (
+                                    <option value={type.value} key={index}>{type.label}</option>
+                                )
+                            })
+                        }
+                    </SelectTypeOfTime>
+                </Section>
+            </Section>
+
         </Wrapper>
     )
 }
@@ -114,7 +143,8 @@ const Remove = styled.div`
 `
 
 const Label = styled.label`
-
+    display: flex;
+    flex-wrap: wrap;
 `
 
 const Separator = styled.div`
@@ -123,6 +153,35 @@ const Separator = styled.div`
     background-color: #e6e6e638;
     margin-top: 1rem;
     margin-bottom: 1rem;
+`
+
+const SelectDate = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    svg {
+        margin-right: 0.4rem;
+        opacity: 0.6;
+    }
+`
+
+const InputTime = styled.input`
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid gray;
+    width: 2.8rem;
+    margin-right: 0.5rem;
+    text-align: center;
+    &:focus{
+        outline: none;
+    }
+`
+
+const SelectTypeOfTime = styled.select`
+    background-color: transparent;
+    border: none;
+    font-size: 12px
 `
 
 export default Details
