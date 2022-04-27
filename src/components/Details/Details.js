@@ -19,18 +19,24 @@ const Details = ({item}) => {
     const [check, setCheck] = useState(false)
     const [priorityState, setPriorityState] = useState(item.priority)
     const [labels, setLabels] = useState(item.labels)
+    const [kindOfEstimated, setKindOfEstimated] = useState(item.kindOfEstimated == undefined ? 'minutes' : item.kindOfEstimated)
+    const [estimatedTime, setEstimatedTime] = useState(item.estimatedTime == undefined ? 0 : item.estimatedTime)
+    const [description, setDescription] = useState(item.description)
 
     useEffect(()=>{
         setTitle(item.title)
         setCheck(item.isChecked)
         setLabels(item.labels)
         setPriorityState(item.priority)
+        setKindOfEstimated(item.kindOfEstimated == undefined ? 'minutes' : item.kindOfEstimated)
+        setEstimatedTime(item.estimatedTime == undefined ? 0 : item.estimatedTime)
+        setDescription(item.description)
     }, [item])
 
     const handleLabel = (label) => {
-        setLabels(label)
         const newItem = {...item, labels: label}
         dispatchCalEvent({type: 'update', payload: newItem})
+        setLabels(label)
     }
 
     const handlePriority = (priority) => {
@@ -40,10 +46,28 @@ const Details = ({item}) => {
     }
 
     const handleTitle = (title) => {
-        setTitle(title)
+        //setTitle(title)
         const newItem = {...item, title: title}
         dispatchCalEvent({type: 'update', payload: newItem})
     }
+
+    const handleKindOfEstimated = (event) => {
+        setKindOfEstimated(event.target.value)
+        //setKindOfEstimated(kindOfEstimated)
+        const newItem = {...item, kindOfEstimated: kindOfEstimated}
+        dispatchCalEvent({type: 'update', payload: newItem})
+    }
+
+    const handleEstimatedTime = () => {
+        const newItem = {...item, estimatedTime: estimatedTime}
+        dispatchCalEvent({type: 'update', payload: newItem})
+    }
+    
+    const handleDescription = () => {
+        const newItem = {...item, description: description}
+        dispatchCalEvent({type: 'update', payload: newItem})
+    }
+
 
     return (
         <Wrapper>
@@ -90,12 +114,17 @@ const Details = ({item}) => {
             <Separator />
             <Section>
                 <Label>
-                    Time
+                    Estimated Time
                 </Label>
                 <Section>
                     <MdOutlineTimer/>
-                    <InputTime type="number" min='0' />
-                    <SelectTypeOfTime>
+                    <InputTime 
+                        type="number" 
+                        min='0' 
+                        value={estimatedTime} 
+                        onChange={el => setEstimatedTime(el.target.value)}
+                        onBlur={handleEstimatedTime}/>
+                    <SelectTypeOfTime value={kindOfEstimated} onChange={handleKindOfEstimated}>
                         {
                             TYPE_OF_TIME.map((type, index) => {
                                 return (
@@ -106,7 +135,14 @@ const Details = ({item}) => {
                     </SelectTypeOfTime>
                 </Section>
             </Section>
-
+            <Separator/>
+            <Description 
+                placeholder='Add description' 
+                onChange={e => setDescription(e.target.value)}
+                value={description}
+                onBlur={handleDescription}>
+            </Description>
+            <Separator/>
         </Wrapper>
     )
 }
@@ -120,8 +156,8 @@ const Section = styled.div`
 const Wrapper = styled.div`
     padding: 2rem;
     padding-top: 4rem;
-    width: 300px;
     height: 100vh;
+    width: 320px;
 `
 
 const RemoveTask = styled.div`
@@ -181,7 +217,19 @@ const InputTime = styled.input`
 const SelectTypeOfTime = styled.select`
     background-color: transparent;
     border: none;
-    font-size: 12px
+    width: 6rem;
+    &:focus{
+        outline: none;
+    }
+`
+const Description = styled.textarea`
+    display: block;
+    background-color: transparent;
+    min-height: 6rem;
+    width: 100%;
+    border: none;
+    outline: none;
+    resize: none;
 `
 
 export default Details
