@@ -11,6 +11,7 @@
     --completed-calendar-bg-color: #2e3d528c;
     --pop-input--bg-color: #00a1ff0a;
     --hover-color-bw: #ffffff14;
+    --border-color: #fff;
 }
 
 [data-theme="light"] {

@@ -26,6 +26,7 @@ const DNDList = ({items = [], drop, toggle}) => {
   return (
     <ListWrapper>
       <ReactSortable
+        animation={150}
         list={list}
         setList={setList}
         onEnd={onEnd}>

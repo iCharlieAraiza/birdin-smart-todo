@@ -8,6 +8,8 @@ import Details from '../../components/Details'
 import SubmitInput from '../../components/SubmitInput/SubmitInput'
 import dayjs from 'dayjs'
 import PlaceholderInbox from '../../components/General/PlaceholderInbox'
+import LabelData from '../../utils/label-data.json'
+
 
 const Task = ({slug, type}) => {    
     const patameters = useParams()
@@ -36,7 +38,6 @@ const Task = ({slug, type}) => {
     useEffect(() => {
         const itemList = updateSaveEvent()
         setItems(itemList.sort((a,b) => a.todoPos - b.todoPos))
-
         // Check if selected item is in the list
         if(selectItem){
             const index = itemList.findIndex(item => item.id === selectItem.id)
@@ -47,14 +48,30 @@ const Task = ({slug, type}) => {
 
     }, [savedEvents, typePage])
 
-
-
     const onEndTodo = (list = [])=>{
         const newItems = list.map((item, index) => {
             item['todoPos'] = index;
             return item;
         })
         dispatchCalEvent({type: 'update', payload: newItems})
+    }
+
+    const getTitleByType = (type) => {
+        switch(type){
+            case 'pending':
+                return 'Pending Tasks'
+            case 'label':
+                const label = LabelData.find(item => item.label === patameters.slug)
+
+                return (<>
+                            <CategoryLabel color={label.color}/>
+                            {label.title} Label Tasks
+                        </>) 
+            case 'all':
+                return 'All'
+            default:
+                return 'All'
+        }
     }
 
     const saveHandle = (item) => {
@@ -69,12 +86,12 @@ const Task = ({slug, type}) => {
         dispatchCalEvent({type: 'push', payload: newItem})
     }
 
-
-
     return (
         <Wrapper>
             <Main>
-                <TaskSectionTitle>This is a new task {type}</TaskSectionTitle>
+                <TaskSectionTitle>
+                    {getTitleByType(type)}
+                </TaskSectionTitle>
                 <ListContainer>
                     {items.length > 0 
                     ? <DNDList items={items} drop={onEndTodo} toggle={(el) => setSelectItem(el)}/> 
@@ -113,6 +130,17 @@ const InputContainer = styled.div`
     margin-top: 8px;
     border-radius: 5px;    
 `
+
+const CategoryLabel = styled.div`
+    width: 1.1rem;
+    height: 1.1rem ;
+    border-radius: 50%;
+    background-color: ${props => props.color};
+    border: 1px solid var(--border-color);
+    margin-right: 0.8rem;
+    box-shadow: 0px 0px 5px  ${props => props.color};
+`
+
 
 
 

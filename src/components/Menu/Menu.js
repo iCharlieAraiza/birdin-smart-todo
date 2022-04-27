@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import { BiLayer, BiCalendarCheck } from 'react-icons/bi'
 import { BsFileBarGraph } from 'react-icons/bs'
+import {RiUserFill} from 'react-icons/ri'
 import { Link } from 'react-router-dom'
 import LabelData from '../../utils/label-data.json'
 import MenuItem2 from './MenuItem'
@@ -19,7 +20,9 @@ const Menu = (props) => {
     return (
         <MenuContainer>
             <UserCard>
-                <ProfileAvatar />
+                <ProfileAvatar>
+                    <RiUserFill/>
+                </ProfileAvatar>    
                 <UserName>{user?.name != null? user.name : 'new user' }</UserName>
             </UserCard>
             <MenuList>
@@ -54,7 +57,16 @@ const ProfileAvatar = styled.div`
     height: 2rem;
     margin-right: 1rem;
     border-radius: 50%;
-    background-color: gray;
+    background-color: #507fbb;
+    display: flex;
+    align-items: end;
+    justify-content: center;
+    overflow: hidden;
+    svg{
+        width: 80%;
+        height: 80%;
+        margin-bottom: -2px;
+    }
 `
 
 const UserName = styled.div`
