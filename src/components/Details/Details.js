@@ -26,8 +26,11 @@ const Details = ({item}) => {
     const [kindOfEstimated, setKindOfEstimated] = useState(item.kindOfEstimated == undefined ? 'minutes' : item.kindOfEstimated)
     const [estimatedTime, setEstimatedTime] = useState(item.estimatedTime == undefined ? 0 : item.estimatedTime)
     const [description, setDescription] = useState(item.description)
+    const [isChecked, setIsChecked] = useState(item.isChecked)
 
     const {isShowing, toggle} = useModal()
+
+    console.log('Item is checked', item.isChecked)
 
     useEffect(()=>{
         setTitle(item.title)
@@ -37,6 +40,7 @@ const Details = ({item}) => {
         setKindOfEstimated(item.kindOfEstimated == undefined ? 'minutes' : item.kindOfEstimated)
         setEstimatedTime(item.estimatedTime == undefined ? 0 : item.estimatedTime)
         setDescription(item.description)
+        setIsChecked(item.isChecked)
     }, [item])
 
     const handleLabel = (label) => {
@@ -79,12 +83,19 @@ const Details = ({item}) => {
         toggle()
     }
 
+    console.log({isChecked})
+
     return (
         <>
             <Wrapper>
                 <Section>
                     <CheckBox />
-                    <TitleInput title={title} check={check} handlerTitle={handleTitle} handlerCheck={true}/>
+                    <TitleInput
+                        title={title} 
+                        check={check} 
+                        handlerTitle={handleTitle} 
+                        handlerCheck={true}
+                        isChecked={isChecked }/>
                 </Section>
                 <Separator />
                 <RemoveTask>
