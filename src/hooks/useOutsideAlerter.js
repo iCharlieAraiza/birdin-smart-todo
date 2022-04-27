@@ -7,7 +7,6 @@ export const useOutsideAlerter = (initialValue) => {
     const handleClickOutside = (event) => {
         if (ref.current && !ref.current.contains(event.target)) {
             setVisible(false)
-            console.log('Clicked outside of element')
         }
     }
 
@@ -16,8 +15,7 @@ export const useOutsideAlerter = (initialValue) => {
         return () => {
             document.removeEventListener('mousedown', handleClickOutside, true)
         }
-    }, [ref])
-
+    }, [ref]) 
 
     return { ref, visible, setVisible }
 

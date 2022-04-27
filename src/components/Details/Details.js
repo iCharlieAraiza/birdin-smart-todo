@@ -8,6 +8,10 @@ import LabelDropdown from './components/LabelDropdown'
 import GlobalContext from '../../context/GlobalContext'
 import {MdOutlineTimer} from 'react-icons/md'
 import TYPE_OF_TIME from '../../utils/type_of_time.json'
+import Modal from '../Modal'
+import { useModal } from '../../hooks/useModal'
+
+
 
 const Details = ({item}) => {
     const {dispatchCalEvent} = useContext(GlobalContext)
@@ -22,6 +26,8 @@ const Details = ({item}) => {
     const [kindOfEstimated, setKindOfEstimated] = useState(item.kindOfEstimated == undefined ? 'minutes' : item.kindOfEstimated)
     const [estimatedTime, setEstimatedTime] = useState(item.estimatedTime == undefined ? 0 : item.estimatedTime)
     const [description, setDescription] = useState(item.description)
+
+    const {isShowing, toggle} = useModal()
 
     useEffect(()=>{
         setTitle(item.title)
@@ -68,82 +74,89 @@ const Details = ({item}) => {
         dispatchCalEvent({type: 'update', payload: newItem})
     }
 
+    const deleteEvent = () => {
+        dispatchCalEvent({type: 'delete', payload: item})
+        toggle()
+    }
 
     return (
-        <Wrapper>
-            <Section>
-                <CheckBox />
-                <TitleInput title={title} check={check} handlerTitle={handleTitle} handlerCheck={true}/>
-            </Section>
-            <Separator />
-            <RemoveTask>
-                <Remove>
-                    <BsTrash/> Remove Task 
-                </Remove>
-            </RemoveTask>
-            <Separator />
-            <Section>
-                <Label>
-                    Date
-                </Label>   
+        <>
+            <Wrapper>
                 <Section>
-                    <SelectDate>
-                        <BsCalendar3/>
-                        20/02/22
-                    </SelectDate>
-                </Section> 
-            </Section>
-            <Separator />
-            <Section>
-                <Label>
-                    Priority
-                </Label>
-                <Section>
-                    <PriorityDropdown priority={priorityState} setPriority={handlePriority} />
+                    <CheckBox />
+                    <TitleInput title={title} check={check} handlerTitle={handleTitle} handlerCheck={true}/>
                 </Section>
-            </Section>
-            <Separator />
-            <Section>
-                <Label>
-                    Labels
-                </Label>
+                <Separator />
+                <RemoveTask>
+                    <Remove onClick={toggle}>
+                        <BsTrash/> Remove Task 
+                    </Remove>
+                </RemoveTask>
+                <Separator />
                 <Section>
-                    <LabelDropdown selectedLabel={labels} setSelectedLabel={handleLabel}/>
+                    <Label>
+                        Date
+                    </Label>   
+                    <Section>
+                        <SelectDate>
+                            <BsCalendar3/>
+                            20/02/22
+                        </SelectDate>
+                    </Section> 
                 </Section>
-            </Section>
-            <Separator />
-            <Section>
-                <Label>
-                    Estimated Time
-                </Label>
+                <Separator />
                 <Section>
-                    <MdOutlineTimer/>
-                    <InputTime 
-                        type="number" 
-                        min='0' 
-                        value={estimatedTime} 
-                        onChange={el => setEstimatedTime(el.target.value)}
-                        onBlur={handleEstimatedTime}/>
-                    <SelectTypeOfTime value={kindOfEstimated} onChange={handleKindOfEstimated}>
-                        {
-                            TYPE_OF_TIME.map((type, index) => {
-                                return (
-                                    <option value={type.value} key={index}>{type.label}</option>
-                                )
-                            })
-                        }
-                    </SelectTypeOfTime>
+                    <Label>
+                        Priority
+                    </Label>
+                    <Section>
+                        <PriorityDropdown priority={priorityState} setPriority={handlePriority} />
+                    </Section>
                 </Section>
-            </Section>
-            <Separator/>
-            <Description 
-                placeholder='Add description' 
-                onChange={e => setDescription(e.target.value)}
-                value={description}
-                onBlur={handleDescription}>
-            </Description>
-            <Separator/>
-        </Wrapper>
+                <Separator />
+                <Section>
+                    <Label>
+                        Labels
+                    </Label>
+                    <Section>
+                        <LabelDropdown selectedLabel={labels} setSelectedLabel={handleLabel}/>
+                    </Section>
+                </Section>
+                <Separator />
+                <Section>
+                    <Label>
+                        Estimated Time
+                    </Label>
+                    <Section>
+                        <MdOutlineTimer/>
+                        <InputTime 
+                            type="number" 
+                            min='0' 
+                            value={estimatedTime} 
+                            onChange={el => setEstimatedTime(el.target.value)}
+                            onBlur={handleEstimatedTime}/>
+                        <SelectTypeOfTime value={kindOfEstimated} onChange={handleKindOfEstimated}>
+                            {
+                                TYPE_OF_TIME.map((type, index) => {
+                                    return (
+                                        <option value={type.value} key={index}>{type.label}</option>
+                                    )
+                                })
+                            }
+                        </SelectTypeOfTime>
+                    </Section>
+                </Section>
+                <Separator/>
+                <Description 
+                    placeholder='Add description' 
+                    onChange={e => setDescription(e.target.value)}
+                    value={description}
+                    onBlur={handleDescription}>
+                </Description>
+                <Separator/>
+            </Wrapper>
+            {isShowing && <Modal toggle={toggle} confirm={deleteEvent} />}
+        </>
     )
 }
 

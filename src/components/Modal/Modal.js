@@ -24,11 +24,11 @@ const Modal = ({toggle, confirm}) => {
                     </ModalContentWrapper>
                 </ModalBody>
                 <ModalFooter>
-                    <ModalFooterButton>
-                        <ModalFooterButtonText onClick={toggle} >Cancel</ModalFooterButtonText>
+                    <ModalFooterButton onClick={toggle}>
+                        <ModalFooterButtonText>Cancel</ModalFooterButtonText>
                     </ModalFooterButton>
-                    <ModalFooterButton>
-                        <ModalFooterButtonText onClick={confirm}>OK</ModalFooterButtonText>
+                    <ModalFooterButton onClick={confirm}>
+                        <ModalFooterButtonText >OK</ModalFooterButtonText>
                     </ModalFooterButton>
                 </ModalFooter>
             </ModalContent>
