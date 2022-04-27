@@ -1,6 +1,5 @@
 import styled from 'styled-components'
 
-
 export const ListItem = styled.div`
 cursor: pointer;
 background-color: #8d8d8d30;
@@ -21,6 +20,9 @@ margin-bottom: 8px;
       fill: white;
     }
   }
+}
+&:active{
+  cursor: grab;
 }
 
 `

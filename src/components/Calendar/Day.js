@@ -65,7 +65,7 @@ const Day = ({day, month, index}) => {
                 )}
             </DayInfo>
                 {
-                    statusInfo?.details.status == 'completed' && (
+                    (statusInfo?.details.status == 'completed' && statusInfo?.numberTasks > 0)  && (
                         <CompletedIcon>
                             <AiOutlineCheck />
                         </CompletedIcon>
