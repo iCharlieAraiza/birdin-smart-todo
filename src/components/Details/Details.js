@@ -12,7 +12,6 @@ import Modal from '../Modal'
 import { useModal } from '../../hooks/useModal'
 
 
-
 const Details = ({item}) => {
     const {dispatchCalEvent} = useContext(GlobalContext)
     if(item === null) {
@@ -89,7 +88,7 @@ const Details = ({item}) => {
         <>
             <Wrapper>
                 <Section>
-                    <CheckBox />
+                    <CheckBox item={item} setIsChecked={setIsChecked} isChecked={isChecked}/>
                     <TitleInput
                         title={title} 
                         check={check} 

@@ -1,13 +1,33 @@
-import React from 'react'
+import React, {useState, useContext, useEffect} from 'react'
 import styled from 'styled-components'
 import { GoCheck } from 'react-icons/go'
+import GlobalContext from '../../../context/GlobalContext'
 
-const CheckButton = ({check = false, handlerCheck }) => {
+const CheckButton = ({ item, isChecked ,setIsChecked = () =>{} }) => {
+    
+    const [check, setCheck] = useState(item.isChecked)
+    if(item === null) {
+        throw new Error('Item is null')
+    }
 
+    useEffect(()=>{
+        setCheck(item.isChecked)
+    }, [item])
+
+    const {dispatchCalEvent} = useContext(GlobalContext)
+    const handlerCheck = () => {
+        const newItem = {...item, isChecked: !check}
+        dispatchCalEvent({type: 'update', payload: newItem})
+        setCheck(!check)
+        setIsChecked(!check)
+    }
+    
+
+    console.log('CheckButton', check)
 
     if (check) {
         return (
-            <CheckBtn className='active' onClick={handlerCheck}>
+            <CheckBtn className={check&&'active'} onClick={handlerCheck}>
                 <GoCheck />
             </CheckBtn>
         )
