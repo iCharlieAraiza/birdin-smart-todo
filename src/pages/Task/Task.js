@@ -16,7 +16,6 @@ const Task = ({slug, type}) => {
     const [selectItem, setSelectItem] = useState(null)
     const [typePage, setTypePage] = useState()
 
-
     useEffect(()=>{
         setTypePage(window.location.pathname)
     })
@@ -25,7 +24,6 @@ const Task = ({slug, type}) => {
         console.log("Type page", typePage)
         setSelectItem(null)
     }, [typePage])
-
 
     const updateSaveEvent = () => {
         if(type === 'pending'){

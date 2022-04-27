@@ -3,9 +3,9 @@ import styled from 'styled-components'
 import { GoCheck } from 'react-icons/go'
 import GlobalContext from '../../../context/GlobalContext'
 
-const CheckButton = ({ item, isChecked ,setIsChecked = () =>{} }) => {
-    
+const CheckButton = ({ item, isChecked = '' ,setIsChecked = () =>{} }) => {
     const [check, setCheck] = useState(item.isChecked)
+    
     if(item === null) {
         throw new Error('Item is null')
     }
@@ -21,9 +21,6 @@ const CheckButton = ({ item, isChecked ,setIsChecked = () =>{} }) => {
         setCheck(!check)
         setIsChecked(!check)
     }
-    
-
-    console.log('CheckButton', check)
 
     if (check) {
         return (
