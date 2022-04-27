@@ -1,26 +1,32 @@
 [
     {
-       "label":"none",
-       "color":"transparent"
+      "label":"none",
+      "title":"Default",
+      "color":"transparent"
     },
     {
        "label":"blue",
+       "title":"Blue",
        "color":"#00bfff"
     },
     {
        "label":"red",
-       "color":"#ff0000"
+       "title":"Red",
+       "color":"#cb3353"
     },
     {
        "label":"green",
+       "title":"Green",
        "color":"#61bd4f"
     },
     {
        "label":"yellow",
+       "title":"Yellow",
        "color":"#f2d600"
     },
     {
        "label":"orange",
+       "title":"Orange",
        "color":"#f69f1b"
     }
  ]

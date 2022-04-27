@@ -3,33 +3,7 @@ import styled from 'styled-components'
 import { MdKeyboardArrowDown } from 'react-icons/md'
 import { useOutsideAlerter } from '../../../hooks/useOutsideAlerter'
 import {LabelBox, DropdownBox} from './Components'
-
-
-const labelData = [
-    {
-        label: 'none',
-        color: 'transparent'
-    },
-    {
-        label: 'blue',
-        color: '#00bfff'
-    },
-    {
-        label: 'red',
-        color: '#ff0000'
-    },
-    {
-        label: 'green',
-        color: '#61bd4f'
-    },
-    {
-        label: 'yellow',
-        color: '#f2d600'
-    },
-    {
-        label: 'orange',
-        color: '#f69f1b'
-    },]
+import labelData from '../../../utils/label-data.json'
 
 const LabelDropdown = ({selectedLabel, setSelectedLabel}) => {
     if(selectedLabel==null) {

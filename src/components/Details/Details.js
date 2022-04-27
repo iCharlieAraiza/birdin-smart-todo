@@ -61,10 +61,10 @@ const Details = ({item}) => {
     }
 
     const handleKindOfEstimated = (event) => {
-        setKindOfEstimated(event.target.value)
         //setKindOfEstimated(kindOfEstimated)
-        const newItem = {...item, kindOfEstimated: kindOfEstimated}
+        const newItem = {...item, kindOfEstimated: event.target.value}
         dispatchCalEvent({type: 'update', payload: newItem})
+        setKindOfEstimated(event.target.value)
     }
 
     const handleEstimatedTime = () => {
@@ -135,7 +135,7 @@ const Details = ({item}) => {
                 <Separator />
                 <Section>
                     <Label>
-                        Estimated Time
+                        Duration
                     </Label>
                     <Section>
                         <MdOutlineTimer/>
