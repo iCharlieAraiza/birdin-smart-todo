@@ -15,6 +15,7 @@ const Task = ({slug, type}) => {
     const patameters = useParams()
     const {savedEvents, dispatchCalEvent} = useContext(GlobalContext)
     const  [items, setItems] = useState([])
+    const [completedItems, setCompletedItems] = useState([])
     const [selectItem, setSelectItem] = useState(null)
     const [typePage, setTypePage] = useState()
 
@@ -23,7 +24,6 @@ const Task = ({slug, type}) => {
     })
 
     useEffect(()=>{
-        console.log("Type page", typePage)
         setSelectItem(null)
     }, [typePage])
 
@@ -37,7 +37,10 @@ const Task = ({slug, type}) => {
 
     useEffect(() => {
         const itemList = updateSaveEvent()
-        setItems(itemList.sort((a,b) => a.todoPos - b.todoPos))
+        const pendingTasks = itemList.filter(item => { return item.isChecked == false })
+        const completedTasks = itemList.filter(item => { return item.isChecked == true })
+        setItems(pendingTasks.sort((a,b) => a.todoPos - b.todoPos))
+        setCompletedItems(completedTasks.sort((a,b) => a.todoPosCompleted - b.todoPosCompleted))
         // Check if selected item is in the list
         if(selectItem){
             const index = itemList.findIndex(item => item.id === selectItem.id)
@@ -51,6 +54,14 @@ const Task = ({slug, type}) => {
     const onEndTodo = (list = [])=>{
         const newItems = list.map((item, index) => {
             item['todoPos'] = index;
+            return item;
+        })
+        dispatchCalEvent({type: 'update', payload: newItems})
+    }
+
+    const onEndTodoCompleted = (list = [])=>{
+        const newItems = list.map((item, index) => {
+            item['todoPosCompleted'] = index;
             return item;
         })
         dispatchCalEvent({type: 'update', payload: newItems})
@@ -84,7 +95,7 @@ const Task = ({slug, type}) => {
         }
         setItems(items)
         dispatchCalEvent({type: 'push', payload: newItem})
-    }
+    }    
 
     return (
         <Wrapper>
@@ -94,10 +105,25 @@ const Task = ({slug, type}) => {
                 </TaskSectionTitle>
                 <ListContainer>
                     {items.length > 0 
-                    ? <DNDList items={items} drop={onEndTodo} toggle={(el) => setSelectItem(el)}/> 
-                    : <PlaceholderInbox/>}
+                    &&  (<>
+                            <StatusLabel>Pending: <NumberOfTasks>{items.length}</NumberOfTasks> </StatusLabel>
+                            <DNDList items={items} drop={onEndTodo} toggle={(el) => setSelectItem(el)}/> 
+                            <div style={{padding:"5px"}}></div>
+                        </>)
+                    }
                     
+                    {completedItems.length > 0
+                    && <>
+                        <StatusLabel>Completed: <NumberOfTasks> {completedItems.length} </NumberOfTasks></StatusLabel>
+                        <DNDList items={completedItems} drop={onEndTodoCompleted} toggle={(el) => setSelectItem(el)}/>
+                    </>
+                    }
+
+                    {items.length === 0 && completedItems.length === 0 && <PlaceholderInbox/>}
+
+
                 </ListContainer>
+
                 <InputContainer>
                     <SubmitInput save={saveHandle}/>
                 </InputContainer>
@@ -141,7 +167,20 @@ const CategoryLabel = styled.div`
     box-shadow: 0px 0px 5px  ${props => props.color};
 `
 
+const StatusLabel = styled.div`
+    font-size: 12px;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    background-color: #00000026;
+    padding: 3px 8px;
+`
 
-
+const NumberOfTasks = styled.div`
+    text-align: center;
+    width: fit-content;
+    margin-left: 5px;
+`
 
 export default Task
