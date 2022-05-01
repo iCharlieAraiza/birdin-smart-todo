@@ -1,6 +1,7 @@
 import React, {useContext, useEffect, useState} from 'react'
 import { useParams } from 'react-router-dom'
 import { TaskSectionTitle } from '../../components/General'
+import { FiLayers } from 'react-icons/fi'
 import DNDList from '../../components/DNDList/DNDList'
 import GlobalContext from '../../context/GlobalContext'
 import styled from 'styled-components'
@@ -9,7 +10,6 @@ import SubmitInput from '../../components/SubmitInput/SubmitInput'
 import dayjs from 'dayjs'
 import PlaceholderInbox from '../../components/General/PlaceholderInbox'
 import LabelData from '../../utils/label-data.json'
-
 
 const Task = ( {type}) => {    
     const patameters = useParams()
@@ -82,7 +82,7 @@ const Task = ( {type}) => {
     const getTitleByType = (type) => {
         switch(type){
             case 'pending':
-                return 'Pending Tasks'
+                return (<><FiLayers style={{"margin-right": "0.5rem"}}/> Pending Tasks</>)
             case 'label':
                 const label = LabelData.find(item => item.label === patameters.slug)
 
