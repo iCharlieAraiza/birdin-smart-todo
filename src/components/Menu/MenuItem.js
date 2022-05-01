@@ -3,12 +3,12 @@ import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 
 
-const MenuItem2 = ({active, setActive, title, icon, slug = "/"}) => {
-
+const MenuItem2 = ({active, setActive, title, icon, slug = "/", type=""}) => {
+        
     return (        
     <Wrapper className={active === `${slug}` && 'active'}>
         <MenuItemLink  onClick={() => setActive(slug)} to={`/${slug}`}>
-                <MenuItemIcon>
+                <MenuItemIcon className={type}>
                     {icon}
                 </MenuItemIcon>
                 <MenuItemText>{title}</MenuItemText>
@@ -38,18 +38,26 @@ const MenuItemLink = styled(Link)`
 
 const MenuItemIcon = styled.div`
     width: 1.5rem;
+    padding-right: 0.8rem;
     height: 1.5rem;
+    &.list{
+        margin-left: 1rem;
+        width: 1.5rem;
+        height: 1.5rem;
+        padding-right: 0.4rem;
+        svg{
+            width: 80%;
+        }
+    }
     svg{
         width: 1.5rem;
         height: 1.5rem;
         opacity: 0.6;
     }
-    `
+`
 
 const MenuItemText = styled.div`
-    margin-left: 1rem;
     text-transform: capitalize;
-    
 `
 
 
