@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { BiLayer, BiCalendarCheck } from 'react-icons/bi'
-import { BsFileBarGraph } from 'react-icons/bs'
-import {RiUserFill} from 'react-icons/ri'
 import { Link } from 'react-router-dom'
 import LabelData from '../../utils/label-data.json'
 import MenuItem2 from './MenuItem'
+import { FiArrowDown, FiCircle, FiArrowUp, FiAlertOctagon } from 'react-icons/fi'
+import { BiLayer, BiCalendarCheck } from 'react-icons/bi'
+import { BsFileBarGraph } from 'react-icons/bs'
+import {RiUserFill} from 'react-icons/ri'
+
 
 const Menu = (props) => {
     const [active, setActive] = useState(window.location.pathname)
@@ -29,6 +31,11 @@ const Menu = (props) => {
                 <MenuItem2 active={active} setActive={setActive} slug="" icon={<BiCalendarCheck/>} title="Calendar"/>
                 <MenuItem2 active={active} setActive={setActive} slug="pending" icon={<BiLayer/>} title="Pending"/>
                 <MenuItem2 active={active} setActive={setActive} slug="statistics" icon={<BsFileBarGraph/>} title="Reports"/>
+                <NoLinkMenuItem>Priority</NoLinkMenuItem>
+                <MenuItem2 active={active} setActive={setActive} slug="label-high" icon={<FiArrowUp />} title="High" type="list"/>
+                <MenuItem2 active={active} setActive={setActive} slug="label-medium" icon={<FiCircle/>} title="Medium" type="list"/>
+                <MenuItem2 active={active} setActive={setActive} slug="label-critical" icon={<FiAlertOctagon/>} title="Urgent" type="list"/>
+
             </MenuList>
             <Separator />
             <LabelContainer>
@@ -139,5 +146,14 @@ const LabelItem = styled(Link)`
     cursor: pointer; ;
     margin-right: 8px;
     `
+const NoLinkMenuItem = styled.div`
+    padding: 0.5rem 0.5rem;
+    display: flex; 
+    align-items: center;
+    font-weight: 600;
+    color: #ededed;
+    font-size: 14px;
+`
+    
 
 export default Menu
