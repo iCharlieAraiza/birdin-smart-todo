@@ -11,14 +11,15 @@ import PlaceholderInbox from '../../components/General/PlaceholderInbox'
 import LabelData from '../../utils/label-data.json'
 
 
-const Task = ({slug, type}) => {    
+const Task = ( {type}) => {    
     const patameters = useParams()
     const {savedEvents, dispatchCalEvent} = useContext(GlobalContext)
     const  [items, setItems] = useState([])
     const [completedItems, setCompletedItems] = useState([])
     const [selectItem, setSelectItem] = useState(null)
     const [typePage, setTypePage] = useState()
-
+    const positionAtribute = getPositionAttribute(type)
+    
     useEffect(()=>{
         setTypePage(window.location.pathname)
     })
@@ -26,6 +27,17 @@ const Task = ({slug, type}) => {
     useEffect(()=>{
         setSelectItem(null)
     }, [typePage])
+
+    function getPositionAttribute(type) {
+        if(type === undefined){
+            return null
+        }
+        let parameterSlug = `position-${type}`;
+        if(type === 'label'){
+            parameterSlug = `position-${patameters.slug}`;
+        } 
+        return parameterSlug
+    }
 
     const updateSaveEvent = () => {
         if(type === 'pending'){
@@ -39,8 +51,8 @@ const Task = ({slug, type}) => {
         const itemList = updateSaveEvent()
         const pendingTasks = itemList.filter(item => { return item.isChecked == false })
         const completedTasks = itemList.filter(item => { return item.isChecked == true })
-        setItems(pendingTasks.sort((a,b) => a.todoPos - b.todoPos))
-        setCompletedItems(completedTasks.sort((a,b) => a.todoPosCompleted - b.todoPosCompleted))
+        setItems(pendingTasks.sort((a,b) => a[positionAtribute] - b[positionAtribute]))
+        setCompletedItems(completedTasks.sort((a,b) => a[positionAtribute+'Completed'] - b[positionAtribute+'Completed']))
         // Check if selected item is in the list
         if(selectItem){
             const index = itemList.findIndex(item => item.id === selectItem.id)
@@ -53,7 +65,7 @@ const Task = ({slug, type}) => {
 
     const onEndTodo = (list = [])=>{
         const newItems = list.map((item, index) => {
-            item['todoPos'] = index;
+            item[positionAtribute] = index;
             return item;
         })
         dispatchCalEvent({type: 'update', payload: newItems})
@@ -61,7 +73,7 @@ const Task = ({slug, type}) => {
 
     const onEndTodoCompleted = (list = [])=>{
         const newItems = list.map((item, index) => {
-            item['todoPosCompleted'] = index;
+            item[positionAtribute+'Completed'] = index;
             return item;
         })
         dispatchCalEvent({type: 'update', payload: newItems})

@@ -9,8 +9,7 @@ const DNDList = ({items = [], drop, toggle}) => {
     return ''
   }
 
-  useEffect(()=>
-  {
+  useEffect(()=>{
     setList(items)
   } ,[items])
 

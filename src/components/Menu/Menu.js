@@ -34,7 +34,7 @@ const Menu = (props) => {
             <LabelContainer>
                 <Wrapper>
                     { LabelData.filter(el=>el.label !== 'none' ).map((el, index)=>(
-                        <LabelItem key={index} color={el.color}  onClick={() => setActive(`/label/${el.label}`)} to={`/label/${el.label}`} />
+                        <LabelItem key={index} color={el.color} slug={`label-${el.color}`}  onClick={() => setActive(`/label/${el.label}`)} to={`/label/${el.label}`} />
                     ))}
                 </Wrapper>
             </LabelContainer>
