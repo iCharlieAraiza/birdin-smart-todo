@@ -6,9 +6,9 @@ import { Link } from 'react-router-dom'
 const MenuItem2 = ({active, setActive, title, icon, slug = "/", type=""}) => {
         
     return (        
-    <Wrapper className={active === `${slug}` && 'active'}>
+    <Wrapper className={ `${active === `${slug}` && 'active'} ${type}` }>
         <MenuItemLink  onClick={() => setActive(slug)} to={`/${slug}`}>
-                <MenuItemIcon className={type}>
+                <MenuItemIcon >
                     {icon}
                 </MenuItemIcon>
                 <MenuItemText>{title}</MenuItemText>
@@ -28,6 +28,13 @@ const Wrapper = styled.li`
     &:hover {
         background-color: var(--hover-color-bw);
     }
+    &.list{
+        margin-left: 1rem;
+        svg{
+            width: 80%;
+            margin-right: 1rem;
+        }
+    }
 `
 
 const MenuItemLink = styled(Link)`
@@ -40,6 +47,7 @@ const MenuItemIcon = styled.div`
     width: 1.5rem;
     padding-right: 0.8rem;
     height: 1.5rem;
+    /*
     &.list{
         margin-left: 1rem;
         width: 1.5rem;
@@ -48,7 +56,7 @@ const MenuItemIcon = styled.div`
         svg{
             width: 80%;
         }
-    }
+    }*/
     svg{
         width: 1.5rem;
         height: 1.5rem;

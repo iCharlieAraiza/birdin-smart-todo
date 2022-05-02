@@ -82,7 +82,7 @@ const Task = ( {type}) => {
     const getTitleByType = (type) => {
         switch(type){
             case 'pending':
-                return (<><FiLayers style={{"margin-right": "0.5rem"}}/> Pending Tasks</>)
+                return (<><FiLayers style={{"marginRight": "0.5rem"}}/> Pending Tasks</>)
             case 'label':
                 const label = LabelData.find(item => item.label === patameters.slug)
 

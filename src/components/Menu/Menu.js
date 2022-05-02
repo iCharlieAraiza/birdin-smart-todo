@@ -147,7 +147,7 @@ const LabelItem = styled(Link)`
     margin-right: 8px;
     `
 const NoLinkMenuItem = styled.div`
-    padding: 0.5rem 0.5rem;
+    padding: 0.8rem 0.5rem;
     display: flex; 
     align-items: center;
     font-weight: 600;
