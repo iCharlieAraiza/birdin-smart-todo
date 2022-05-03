@@ -10,6 +10,7 @@ import SubmitInput from '../../components/SubmitInput/SubmitInput'
 import dayjs from 'dayjs'
 import PlaceholderInbox from '../../components/General/PlaceholderInbox'
 import LabelData from '../../utils/label-data.json'
+import PriorityData from '../../utils/priority.json'
 
 const Task = ( {type}) => {    
     const patameters = useParams()
@@ -19,7 +20,7 @@ const Task = ( {type}) => {
     const [selectItem, setSelectItem] = useState(null)
     const [typePage, setTypePage] = useState()
     const positionAtribute = getPositionAttribute(type)
-    
+
     useEffect(()=>{
         setTypePage(window.location.pathname)
     })
@@ -44,6 +45,8 @@ const Task = ( {type}) => {
             return savedEvents.filter(evt => !evt.isChecked)
         } else if (type === 'label') {
             return savedEvents.filter(evt => evt.labels?.label === patameters.slug)
+        } else if (type === 'priority') {
+            return savedEvents.filter(evt => evt.priority?.label === patameters.slug)
         }
     }
 
@@ -90,6 +93,11 @@ const Task = ( {type}) => {
                             <CategoryLabel color={label.color}/>
                             {label.title} Label Tasks
                         </>) 
+            case 'priority':
+                const priorityTag = PriorityData.find(item => item.label === patameters.slug)
+                console.log(patameters.slug)
+                return <span style={{textTransform:"capitalize"}}>{priorityTag?.label} priority tasks </span>
+
             case 'all':
                 return 'All'
             default:
@@ -126,7 +134,7 @@ const Task = ( {type}) => {
                     
                     {completedItems.length > 0
                     && <>
-                        <StatusLabel>Completed: <NumberOfTasks> {completedItems.length} </NumberOfTasks></StatusLabel>
+                        <StatusLabel>Completed: <NumberOfTasks> {completedItems.length} </NumberOfTasks></StatusLabel>
                         <DNDList items={completedItems} drop={onEndTodoCompleted} toggle={(el) => setSelectItem(el)}/>
                     </>
                     }
@@ -196,3 +204,4 @@ const NumberOfTasks = styled.div`
 `
 
 export default Task
+

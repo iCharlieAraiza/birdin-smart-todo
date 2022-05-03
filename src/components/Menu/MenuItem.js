@@ -3,11 +3,20 @@ import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 
 
-const MenuItem2 = ({active, setActive, title, icon, slug = "/", type=""}) => {
+const MenuItem2 = ({active, setActive, title, icon, slug = "/", type="", category = ""}) => {
         
+    const getPath = () => {
+        if(category === "priority"){
+            return `/priority/${slug}`
+        }
+        return `/${slug}`
+    }
+
+    const to = getPath();
+
     return (        
     <Wrapper className={ `${active === `${slug}` && 'active'} ${type}` }>
-        <MenuItemLink  onClick={() => setActive(slug)} to={`/${slug}`}>
+        <MenuItemLink  onClick={() => setActive(slug)} to={to}>
                 <MenuItemIcon >
                     {icon}
                 </MenuItemIcon>
