@@ -6,12 +6,15 @@
     --link-color: #24C6FB;
     --navbar-bg-color: #28374D;
     --active-menu-bg-color: var(--bg);
-    --today-calendar-bg-color: #354863;
-    --inactive-calendar-bg-color: #ffffff14;
-    --completed-calendar-bg-color: #2e3d528c;
+    --today-calendar-bg-color: rgb(64 83 106);
+    --inactive-calendar-bg-color: #2a394e63;
+    --completed-calendar-bg-color: #1c4a8f57;
     --pop-input--bg-color: #00a1ff0a;
+    --day-bg-color:#314156;
     --hover-color-bw: #ffffff14;
     --border-color: #fff;
+    --selected-bg-color: rgb(41 67 102);
+    --border-selected: 1px solid #00acff4a;
 }
 
 [data-theme="light"] {

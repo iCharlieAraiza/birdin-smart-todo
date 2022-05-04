@@ -88,14 +88,17 @@ const DayWrapper = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    cursor: pointer;
+    background-color: var(--day-bg-color);
     &.selected {
-        background-color: var(--today-calendar-bg-color)!important;
+        background-color: var(--selected-bg-color)!important;
+        border: var(--border-selected);
     }
     &.inactive {
         background-color: var(--inactive-calendar-bg-color);
     }
     &.active {
-        background-color: rgba(255, 255, 255, 0.10);
+        background-color: var(--today-calendar-bg-color);
     }
     &.completed-task{
         background-color: var(--completed-calendar-bg-color);
@@ -118,6 +121,8 @@ const DayNumber = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    box-shadow: 0px 0px 5px #343434;
+    width: 1.5rem;
     &.inactive {
         color: gray;
         background-color: #394d58;
