@@ -8,7 +8,8 @@ padding-top: 4rem;
 
 svg {
   margin-left: 0.5rem;
-  opacity: 0.5;
+  margin-right: 0.5rem;
+  opacity: 0.7;
 }
 `
 

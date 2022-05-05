@@ -11,6 +11,8 @@ import dayjs from 'dayjs'
 import PlaceholderInbox from '../../components/General/PlaceholderInbox'
 import LabelData from '../../utils/label-data.json'
 import PriorityData from '../../utils/priority.json'
+import { getIcon } from '../../utils/prioity-obj.js'
+
 
 const Task = ( {type}) => {    
     const patameters = useParams()
@@ -96,8 +98,12 @@ const Task = ( {type}) => {
             case 'priority':
                 const priorityTag = PriorityData.find(item => item.label === patameters.slug)
                 console.log(patameters.slug)
-                return <span style={{textTransform:"capitalize"}}>{priorityTag?.label} priority tasks </span>
-
+                return (
+                        <TitleLabelFlex style={{textTransform:"capitalize"}}>
+                            { getIcon(priorityTag?.label) }
+                            { `${priorityTag?.label} priority tasks` }
+                        </TitleLabelFlex>
+                    )
             case 'all':
                 return 'All'
             default:
@@ -201,6 +207,12 @@ const NumberOfTasks = styled.div`
     text-align: center;
     width: fit-content;
     margin-left: 5px;
+`
+
+const TitleLabelFlex = styled.span`
+    display: flex;
+    align-items: center;
+    text-transform: capitalize;
 `
 
 export default Task
