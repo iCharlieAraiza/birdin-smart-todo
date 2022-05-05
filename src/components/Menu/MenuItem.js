@@ -17,7 +17,7 @@ const MenuItem2 = ({active, setActive, title, icon, slug = "/", type="", categor
     return (        
     <Wrapper className={ `${active === `${slug}` && 'active'} ${type}` }>
         <MenuItemLink  onClick={() => setActive(slug)} to={to}>
-                <MenuItemIcon >
+                <MenuItemIcon className="menu-icon" >
                     {icon}
                 </MenuItemIcon>
                 <MenuItemText>{title}</MenuItemText>
@@ -41,7 +41,9 @@ const Wrapper = styled.li`
         margin-left: 1rem;
         svg{
             width: 80%;
-            margin-right: 1rem;
+        }
+        .menu-icon{
+            padding-right: 0.4rem;
         }
     }
 `
