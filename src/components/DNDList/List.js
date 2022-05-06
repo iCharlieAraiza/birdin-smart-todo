@@ -1,17 +1,28 @@
-import React from 'react'
-import { ListItem, SelectButton, Title, TimeDescription, LabelTag, ButtonContainer, Square } from './components.js'
+import React, {useState, useEffect} from 'react'
+import { ListItem, SelectButton, Title, TimeDescription, LabelTag, ButtonContainer, Square, ColorLabel } from './components.js'
 import { MdLabelImportant, MdLabelImportantOutline } from 'react-icons/md'
 import CheckButton from '../Details/components/CheckBox.js'
 
-const List = ({title = '', toggle, item}) => {
+const List = ({title = '', toggle, item, isSelected = false}) => {
+
+    if(item === null) {
+        return null
+    }
+
     function setCheck (){
         console.log('setCheck')
     }
 
     const check = true;
 
+    const handleClick = (item) => {
+        toggle(item)
+        console.log(isSelected)
+    }
+
+
     return (
-        <ListItem onClick={() => toggle(item)} className={item.isChecked&&'checked'}>
+        <ListItem onClick={() => handleClick(item)} className={`${item.isChecked&&'checked'} ${isSelected?.id == item.id && 'active'}`}>
             <SelectButton className="check-button">
                 <CheckButton item={item} setIsChecked={setCheck}/>
                 {/*<CheckButton setCheck={setCheck} check='false'/>*/}
@@ -19,8 +30,12 @@ const List = ({title = '', toggle, item}) => {
             <Title className={'title text'}>
                 {title}
                 <TimeDescription className='text'>
-                    Estimated time
+                    {console.log("Kind pof time", item.kindOfEstimated)}
+                    { 
+                        ( item?.estimatedTime > 0) && 'Estimated time ' + item.estimatedTime + ' ' + (item.kindOfEstimated==undefined ? '' : item.kindOfEstimated) 
+                    }
                 </TimeDescription>
+                {(item.labels && item.labels?.label !== 'none') && ( <div> <ColorLabel color={item.labels?.color}/> </div>)}
             </Title>
             <LabelTag>
                   <Square>
