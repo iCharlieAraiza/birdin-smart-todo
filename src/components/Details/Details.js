@@ -22,7 +22,7 @@ const Details = ({item}) => {
     const [check, setCheck] = useState(false)
     const [priorityState, setPriorityState] = useState(item.priority)
     const [labels, setLabels] = useState(item.labels)
-    const [kindOfEstimated, setKindOfEstimated] = useState(item.kindOfEstimated)
+    const [kindOfEstimated, setKindOfEstimated] = useState(item.kindOfEstimated === undefined ? 'minutes' : item.kindOfEstimated)
     const [estimatedTime, setEstimatedTime] = useState(item.estimatedTime == undefined ? 0 : item.estimatedTime)
     const [description, setDescription] = useState(item.description)
     const [isChecked, setIsChecked] = useState(item.isChecked) 
@@ -32,12 +32,19 @@ const Details = ({item}) => {
     const {isShowing, toggle} = useModal()
 
     useEffect(()=>{
+        const wrapperContainer = document.querySelector('.wrapper-container')
+        setTimeout(()=>{
+            wrapperContainer?.classList.add('open')
+        }, 100)
+    })
+
+    useEffect(()=>{
         setTitle(item.title)
         setCheck(item.isChecked)
         setLabels(item.labels)
         setPriorityState(item.priority)
-        setKindOfEstimated( item.kindOfEstimated)
-        setEstimatedTime(item.estimatedTime == undefined ? 0 : item.estimatedTime)
+        setKindOfEstimated( item.kindOfEstimated === undefined ? 'minutes' : item.kindOfEstimated)
+        setEstimatedTime(item.estimatedTime === undefined ? 0 : item.estimatedTime)
         setDescription(item.description)
         setIsChecked(item.isChecked)
 
@@ -123,7 +130,7 @@ const Details = ({item}) => {
 
     return (
         <>
-            <Wrapper>
+            <Wrapper className="wrapper-container">
                 <Section>
                     <CheckBox item={item} setIsChecked={setIsChecked} isChecked={isChecked}/>
                     <TitleInput
@@ -218,6 +225,11 @@ const Wrapper = styled.div`
     padding-top: 4rem;
     height: 100vh;
     width: 320px;
+    transform: translateX(400px);
+    transition: 0.1s;
+    &.open {
+        transform: translateX(0);
+    }
 `
 
 const RemoveTask = styled.div`
