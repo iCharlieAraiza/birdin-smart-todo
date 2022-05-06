@@ -60,12 +60,17 @@ const Task = ( {type}) => {
         setCompletedItems(completedTasks.sort((a,b) => a[positionAtribute+'Completed'] - b[positionAtribute+'Completed']))
         // Check if selected item is in the list
         if(selectItem){
+            const item = itemList.find(item => item.id === selectItem.id)
             const index = itemList.findIndex(item => item.id === selectItem.id)
             if(index === -1){
                 setSelectItem(null)
+            }else{
+                setSelectItem(item)
             }
         }
     }, [savedEvents, typePage])
+
+    
 
     const onEndTodo = (list = [])=>{
         const newItems = list.map((item, index) => {

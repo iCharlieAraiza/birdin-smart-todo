@@ -25,11 +25,11 @@ const Details = ({item}) => {
     const [kindOfEstimated, setKindOfEstimated] = useState(item.kindOfEstimated)
     const [estimatedTime, setEstimatedTime] = useState(item.estimatedTime == undefined ? 0 : item.estimatedTime)
     const [description, setDescription] = useState(item.description)
-    const [isChecked, setIsChecked] = useState(item.isChecked)
+    const [isChecked, setIsChecked] = useState(item.isChecked) 
+    const [auxiliarState, setAuxiliarState] = useState(item)
+
 
     const {isShowing, toggle} = useModal()
-
-    console.log('Item is checked', item.isChecked)
 
     useEffect(()=>{
         setTitle(item.title)
@@ -40,9 +40,19 @@ const Details = ({item}) => {
         setEstimatedTime(item.estimatedTime == undefined ? 0 : item.estimatedTime)
         setDescription(item.description)
         setIsChecked(item.isChecked)
+
+        setAuxiliarState(item);
+
     }, [item])
 
+    useEffect(()=>{
+        console.log('AuxiliarState', auxiliarState)
+    },[auxiliarState])
+
+    
     const getUpdatedObject = () => {
+        console.log('SADASDA newItem', item)
+
         const newItem = {   
             ...item,
             title: title,
@@ -67,10 +77,10 @@ const Details = ({item}) => {
     }
 
     const handlePriority = (priority) => {
-        setPriorityState(priority)
         //const newItem = {...item, priority: priority}
         const newItem = getUpdatedObject()
         newItem.priority = priority
+        setPriorityState(priority)
         dispatchCalEvent({type: 'update', payload: newItem})
     }
 
@@ -93,8 +103,6 @@ const Details = ({item}) => {
         //const newItem = {...item, estimatedTime: time, kindOfEstimated: kindOfEstimated}
         const newItem = getUpdatedObject()
         newItem.estimatedTime = time
-        console.log('SMDFSDML Estimated time', time)
-        console.log('NDSKFNSDK Kind of estimated', kindOfEstimated)
         dispatchCalEvent({type: 'update', payload: newItem})
         setEstimatedTime(time)
     }
