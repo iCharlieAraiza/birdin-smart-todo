@@ -1,13 +1,16 @@
 [
     {
+       "id":"2349nsdkjfn",
        "value":"minutes",
        "label":"Minutes"
     },
     {
+       "id":"osajj2q039238",
        "value":"hours",
        "label":"Hours"
     },
     {
+       "id":"ewjrl203123098",
        "value":"pomodoro",
        "label":"Pomodoro"
     }

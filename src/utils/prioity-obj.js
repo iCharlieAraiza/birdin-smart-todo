@@ -1,6 +1,6 @@
-import {FiArrowDown, FiCircle, FiArrowUp, FiAlertOctagon} from 'react-icons/fi'
-import {BsArrowUpCircle} from 'react-icons/bs'
-
+import {FiArrowDown, FiAlertOctagon} from 'react-icons/fi'
+import {BsArrowUpCircle, BsExclamationOctagon} from 'react-icons/bs'
+import {FaRegCircle} from 'react-icons/fa'
 
 const elements = [
     {
@@ -11,7 +11,7 @@ const elements = [
     {
        "label":"medium",
        "color":"#00bfff",
-       "icon":<FiCircle  fill="#00bfff" />
+       "icon":<FaRegCircle fill="#00bfff" />
     },
     {
        "label":"high",
@@ -21,11 +21,10 @@ const elements = [
     {
        "label":"urgent",
        "color":"#f2d600",
-       "icon":<FiAlertOctagon fill="#e93636" />
+       "icon":<BsExclamationOctagon fill="#e93636" />
     }
  ]
-
-
+ 
 export const getIcon = (label = '')=>{ 
     let item = elements.find(item => item.label === label);
     return item ? item.icon : '';
