@@ -8,6 +8,9 @@ display: flex;
 align-items: center;
 justify-content: space-between;
 margin-bottom: 8px;
+&.active{
+  background-color: #ffffff38!important;
+}
 &.checked {
   .text{
     text-decoration: line-through;
@@ -24,7 +27,6 @@ margin-bottom: 8px;
 &:active{
   cursor: grab;
 }
-
 `
 
 export const SelectButton = styled.div`
@@ -77,4 +79,12 @@ export const TimeDescription = styled.div`
 font-size: 12px;
 color: #b3b3b3;
 margin-top: 3px;
+`
+
+export const ColorLabel = styled.div`
+    background-color: ${props => props.color};
+    width: 3rem;
+    height: 5px;
+    margin-top: 6px;
+    border-radius: 5px;
 `

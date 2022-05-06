@@ -22,7 +22,7 @@ const Details = ({item}) => {
     const [check, setCheck] = useState(false)
     const [priorityState, setPriorityState] = useState(item.priority)
     const [labels, setLabels] = useState(item.labels)
-    const [kindOfEstimated, setKindOfEstimated] = useState(item.kindOfEstimated == undefined ? 'minutes' : item.kindOfEstimated)
+    const [kindOfEstimated, setKindOfEstimated] = useState(item.kindOfEstimated)
     const [estimatedTime, setEstimatedTime] = useState(item.estimatedTime == undefined ? 0 : item.estimatedTime)
     const [description, setDescription] = useState(item.description)
     const [isChecked, setIsChecked] = useState(item.isChecked)
@@ -36,44 +36,73 @@ const Details = ({item}) => {
         setCheck(item.isChecked)
         setLabels(item.labels)
         setPriorityState(item.priority)
-        setKindOfEstimated(item.kindOfEstimated == undefined ? 'minutes' : item.kindOfEstimated)
+        setKindOfEstimated( item.kindOfEstimated)
         setEstimatedTime(item.estimatedTime == undefined ? 0 : item.estimatedTime)
         setDescription(item.description)
         setIsChecked(item.isChecked)
     }, [item])
 
+    const getUpdatedObject = () => {
+        const newItem = {   
+            ...item,
+            title: title,
+            isChecked: check,
+            priority: priorityState,
+            labels: labels,
+            kindOfEstimated: kindOfEstimated,
+            estimatedTime: estimatedTime,
+            description: description,
+            isChecked: isChecked
+        }
+        return newItem
+    }
+
+
     const handleLabel = (label) => {
-        const newItem = {...item, labels: label}
-        dispatchCalEvent({type: 'update', payload: newItem})
+        const newItem = getUpdatedObject()
+        newItem.labels = label
+        console.log("New item", newItem)
         setLabels(label)
+        dispatchCalEvent({type: 'update', payload: newItem})
     }
 
     const handlePriority = (priority) => {
         setPriorityState(priority)
-        const newItem = {...item, priority: priority}
+        //const newItem = {...item, priority: priority}
+        const newItem = getUpdatedObject()
+        newItem.priority = priority
         dispatchCalEvent({type: 'update', payload: newItem})
     }
 
     const handleTitle = (title) => {
         //setTitle(title)
-        const newItem = {...item, title: title}
+        const newItem = getUpdatedObject()
+        newItem.title = title
         dispatchCalEvent({type: 'update', payload: newItem})
     }
 
     const handleKindOfEstimated = (event) => {
         //setKindOfEstimated(kindOfEstimated)
-        const newItem = {...item, kindOfEstimated: event.target.value}
-        dispatchCalEvent({type: 'update', payload: newItem})
+        const newItem = getUpdatedObject()
+        newItem.kindOfEstimated = event.target.value
         setKindOfEstimated(event.target.value)
+        dispatchCalEvent({type: 'update', payload: newItem})
     }
 
-    const handleEstimatedTime = () => {
-        const newItem = {...item, estimatedTime: estimatedTime}
+    const handleEstimatedTime = (time) => {
+        //const newItem = {...item, estimatedTime: time, kindOfEstimated: kindOfEstimated}
+        const newItem = getUpdatedObject()
+        newItem.estimatedTime = time
+        console.log('SMDFSDML Estimated time', time)
+        console.log('NDSKFNSDK Kind of estimated', kindOfEstimated)
         dispatchCalEvent({type: 'update', payload: newItem})
+        setEstimatedTime(time)
     }
     
     const handleDescription = () => {
-        const newItem = {...item, description: description}
+        //const newItem = {...item, description: description}
+        const newItem = getUpdatedObject()
+        newItem.description = description
         dispatchCalEvent({type: 'update', payload: newItem})
     }
 
@@ -143,13 +172,13 @@ const Details = ({item}) => {
                             type="number" 
                             min='0' 
                             value={estimatedTime} 
-                            onChange={el => setEstimatedTime(el.target.value)}
-                            onBlur={handleEstimatedTime}/>
+                            onChange={el => handleEstimatedTime(el.target.value)}
+                            />
                         <SelectTypeOfTime value={kindOfEstimated} onChange={handleKindOfEstimated}>
                             {
                                 TYPE_OF_TIME.map((type, index) => {
                                     return (
-                                        <option value={type.value} key={index}>{type.label}</option>
+                                        <option value={type.value} key={type.id}>{type.label}</option>
                                     )
                                 })
                             }

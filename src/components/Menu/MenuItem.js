@@ -39,11 +39,11 @@ const Wrapper = styled.li`
     }
     &.list{
         margin-left: 1rem;
-        svg{
+        svg {
             width: 80%;
         }
-        .menu-icon{
-            padding-right: 0.4rem;
+        .menu-icon {
+            padding-right: 0.5rem;
         }
     }
 `
@@ -68,7 +68,7 @@ const MenuItemIcon = styled.div`
             width: 80%;
         }
     }*/
-    svg{
+    svg {
         width: 1.5rem;
         height: 1.5rem;
         opacity: 0.6;

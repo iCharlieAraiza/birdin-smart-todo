@@ -10,8 +10,6 @@ const LabelDropdown = ({selectedLabel, setSelectedLabel}) => {
         setSelectedLabel(labelData[0])
     }
 
-    console.log({selectedLabel})
-
     const { visible, setVisible, ref } = useOutsideAlerter(false)
 
     const handleChange = (label) => {

@@ -32,8 +32,8 @@ const Menu = (props) => {
                 <MenuItem2 active={active} setActive={setActive} slug="pending" icon={<BiLayer/>} title="Pending"/>
                 <MenuItem2 active={active} setActive={setActive} slug="statistics" icon={<BsFileBarGraph/>} title="Reports"/>
                 <NoLinkMenuItem>Priority</NoLinkMenuItem>
-                <MenuItem2 active={active} setActive={setActive} category={'priority'} slug="high" icon={<FiArrowUp />} title="High" type="list"/>
                 <MenuItem2 active={active} setActive={setActive} category={'priority'} slug="medium" icon={<FiCircle/>} title="Medium" type="list"/>
+                <MenuItem2 active={active} setActive={setActive} category={'priority'} slug="high" icon={<FiArrowUp />} title="High" type="list"/>
                 <MenuItem2 active={active} setActive={setActive} category={'priority'} slug="urgent" icon={<FiAlertOctagon/>} title="Urgent" type="list"/>
 
             </MenuList>

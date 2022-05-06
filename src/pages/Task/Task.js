@@ -43,7 +43,7 @@ const Task = ( {type}) => {
     }
 
     const updateSaveEvent = () => {
-        if(type === 'pending'){
+        if(type == 'pending'){
             return savedEvents.filter(evt => !evt.isChecked)
         } else if (type === 'label') {
             return savedEvents.filter(evt => evt.labels?.label === patameters.slug)
@@ -54,7 +54,7 @@ const Task = ( {type}) => {
 
     useEffect(() => {
         const itemList = updateSaveEvent()
-        const pendingTasks = itemList.filter(item => { return item.isChecked == false })
+        const pendingTasks = itemList.filter(item =>  !item.isChecked )
         const completedTasks = itemList.filter(item => { return item.isChecked == true })
         setItems(pendingTasks.sort((a,b) => a[positionAtribute] - b[positionAtribute]))
         setCompletedItems(completedTasks.sort((a,b) => a[positionAtribute+'Completed'] - b[positionAtribute+'Completed']))
@@ -65,7 +65,6 @@ const Task = ( {type}) => {
                 setSelectItem(null)
             }
         }
-
     }, [savedEvents, typePage])
 
     const onEndTodo = (list = [])=>{
@@ -84,10 +83,12 @@ const Task = ( {type}) => {
         dispatchCalEvent({type: 'update', payload: newItems})
     }
 
+    console.log("selected item", selectItem)
+
     const getTitleByType = (type) => {
         switch(type){
             case 'pending':
-                return (<><FiLayers style={{"marginRight": "0.5rem"}}/> Pending Tasks</>)
+                return (<><FiLayers style={{"marginRight": "0.5rem", "opacity":"0.55"}}/> Pending Tasks</>)
             case 'label':
                 const label = LabelData.find(item => item.label === patameters.slug)
 
@@ -133,7 +134,7 @@ const Task = ( {type}) => {
                     {items.length > 0 
                     &&  (<>
                             <StatusLabel>Pending: <NumberOfTasks>{items.length}</NumberOfTasks> </StatusLabel>
-                            <DNDList items={items} drop={onEndTodo} toggle={(el) => setSelectItem(el)}/> 
+                            <DNDList items={items} drop={onEndTodo} toggle={(el) => setSelectItem(el)} isSelected={selectItem}/> 
                             <div style={{padding:"5px"}}></div>
                         </>)
                     }
@@ -141,12 +142,11 @@ const Task = ( {type}) => {
                     {completedItems.length > 0
                     && <>
                         <StatusLabel>Completed: <NumberOfTasks> {completedItems.length} </NumberOfTasks></StatusLabel>
-                        <DNDList items={completedItems} drop={onEndTodoCompleted} toggle={(el) => setSelectItem(el)}/>
+                        <DNDList items={completedItems} drop={onEndTodoCompleted} toggle={(el) => setSelectItem(el)} isSelected={selectItem}/>
                     </>
                     }
 
                     {items.length === 0 && completedItems.length === 0 && <PlaceholderInbox/>}
-
 
                 </ListContainer>
 

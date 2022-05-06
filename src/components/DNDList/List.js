@@ -30,10 +30,10 @@ const List = ({title = '', toggle, item, isSelected = false}) => {
             <Title className={'title text'}>
                 {title}
                 <TimeDescription className='text'>
-                    {console.log("Kind pof time", item.kindOfEstimated)}
                     { 
-                        ( item?.estimatedTime > 0) && 'Estimated time ' + item.estimatedTime + ' ' + (item.kindOfEstimated==undefined ? '' : item.kindOfEstimated) 
+                        ( item?.estimatedTime > 0) && ('Estimated time ' + item.estimatedTime + ' ' + item.kindOfEstimated) 
                     }
+                    {item.kindOfEstimated}
                 </TimeDescription>
                 {(item.labels && item.labels?.label !== 'none') && ( <div> <ColorLabel color={item.labels?.color}/> </div>)}
             </Title>
