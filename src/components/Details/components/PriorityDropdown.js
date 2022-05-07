@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { MdKeyboardArrowDown } from 'react-icons/md'
 import { Wrapper, LabelBox, DropdownBox, DropdownItem} from './Components'
-import { FiArrowDown, FiCircle, FiArrowUp, FiAlertOctagon } from 'react-icons/fi'
+import { FiArrowDown, FiMinusCircle, FiArrowUp, FiAlertOctagon } from 'react-icons/fi'
 import { useOutsideAlerter } from '../../../hooks/useOutsideAlerter'
 
 const Priority = [
@@ -14,7 +14,7 @@ const Priority = [
     {
         label: 'medium',
         color: '#00bfff',
-        icon: <FiCircle />
+        icon: <FiMinusCircle />
     },
     {
         label: 'high',

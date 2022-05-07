@@ -1,6 +1,7 @@
 import {FiArrowDown, FiAlertOctagon} from 'react-icons/fi'
 import {BsArrowUpCircle, BsExclamationOctagon} from 'react-icons/bs'
 import {FaRegCircle} from 'react-icons/fa'
+import {IoMdRemoveCircleOutline} from 'react-icons/io'
 
 const elements = [
     {
@@ -11,7 +12,7 @@ const elements = [
     {
        "label":"medium",
        "color":"#00bfff",
-       "icon":<FaRegCircle fill="#00bfff" />
+       "icon":<IoMdRemoveCircleOutline style={{"font-size":"1.8rem", "margin-left": "4px",  "margin-right": "9px"}} fill="#00bfff" />
     },
     {
        "label":"high",
