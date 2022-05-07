@@ -76,9 +76,13 @@ svg{
 `
 
 export const TimeDescription = styled.div`
-font-size: 12px;
-color: #b3b3b3;
-margin-top: 3px;
+  margin-top: 3px;
+  display: flex;
+  align-items: center;
+  svg{
+    margin-right: 0.2rem;
+    fill: #b3b3b3;
+  }
 `
 
 export const ColorLabel = styled.div`
@@ -87,4 +91,17 @@ export const ColorLabel = styled.div`
     height: 5px;
     margin-top: 6px;
     border-radius: 5px;
+`
+
+export const LabelContent = styled.div`
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+  color: #b3b3b3;
+  padding: 0 0.5rem;
+  border-left: 2px solid #6c6c6c;
+  &:first-child{
+    padding-left: 0;
+    border: none;
+  }
 `

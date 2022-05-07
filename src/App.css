@@ -46,3 +46,13 @@
     left: 100%;
   }
 }
+
+
+@keyframes move {
+  0% {
+    margin-right: -35%;
+  }
+  100% {
+    margin-right: 0%;
+  }
+}

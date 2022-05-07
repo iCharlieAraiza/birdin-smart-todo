@@ -1,8 +1,10 @@
 import React, {useState, useEffect} from 'react'
-import { ListItem, SelectButton, Title, TimeDescription, LabelTag, ButtonContainer, Square, ColorLabel } from './components.js'
+import { ListItem,  SelectButton, Title, TimeDescription, LabelTag, ButtonContainer, 
+    Square, ColorLabel, LabelContent } from './components.js'
 import { MdLabelImportant, MdLabelImportantOutline } from 'react-icons/md'
 import CheckButton from '../Details/components/CheckBox.js'
-
+import {BiAlarm} from 'react-icons/bi'
+import {FaRegStickyNote} from 'react-icons/fa'
 const List = ({title = '', toggle, item, isSelected = false}) => {
 
     if(item === null) {
@@ -20,7 +22,6 @@ const List = ({title = '', toggle, item, isSelected = false}) => {
         console.log(isSelected)
     }
 
-
     return (
         <ListItem onClick={() => handleClick(item)} className={`${item.isChecked&&'checked'} ${isSelected?.id == item.id && 'active'}`}>
             <SelectButton className="check-button">
@@ -31,9 +32,18 @@ const List = ({title = '', toggle, item, isSelected = false}) => {
                 {title}
                 <TimeDescription className='text'>
                     { 
-                        ( item?.estimatedTime > 0) && ('Estimated time ' + item.estimatedTime + ' ' + item.kindOfEstimated) 
+                        ( item?.estimatedTime > 0) && ( 
+                            <LabelContent>
+                                 <BiAlarm/> Estimated time: {item.estimatedTime}  {item.kindOfEstimated}
+                            </LabelContent> )
                     }
-                    {item.kindOfEstimated}
+                    {
+                        ( item.description?.length > 0) && (
+                            <LabelContent>
+                                <FaRegStickyNote/> Description
+                            </LabelContent>
+                        )
+                    }
                 </TimeDescription>
                 {(item.labels && item.labels?.label !== 'none') && ( <div> <ColorLabel color={item.labels?.color}/> </div>)}
             </Title>
