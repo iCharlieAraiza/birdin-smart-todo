@@ -10,6 +10,7 @@ import {MdOutlineTimer} from 'react-icons/md'
 import TYPE_OF_TIME from '../../utils/type_of_time.json'
 import Modal from '../Modal'
 import { useModal } from '../../hooks/useModal'
+import { toast } from 'react-toastify';
 
 
 const Details = ({item}) => {
@@ -81,6 +82,7 @@ const Details = ({item}) => {
         console.log("New item", newItem)
         setLabels(label)
         dispatchCalEvent({type: 'update', payload: newItem})
+        toast.success('Label changed')
     }
 
     const handlePriority = (priority) => {
@@ -89,6 +91,7 @@ const Details = ({item}) => {
         newItem.priority = priority
         setPriorityState(priority)
         dispatchCalEvent({type: 'update', payload: newItem})
+        toast.success('Priority changed')
     }
 
     const handleTitle = (title) => {
@@ -124,6 +127,7 @@ const Details = ({item}) => {
     const deleteEvent = () => {
         dispatchCalEvent({type: 'delete', payload: item})
         toggle()
+        toast.success('Task deleted')
     }
 
     console.log({isChecked})

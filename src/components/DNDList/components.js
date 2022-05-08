@@ -104,4 +104,10 @@ export const LabelContent = styled.div`
     padding-left: 0;
     border: none;
   }
+  svg{    
+    font-size: 12px!important;
+    width: auto;
+    margin-left: 0px!important;
+    margin-right: 5px!important;
+  }
 `

@@ -5,6 +5,9 @@ import { MdLabelImportant, MdLabelImportantOutline } from 'react-icons/md'
 import CheckButton from '../Details/components/CheckBox.js'
 import {BiAlarm} from 'react-icons/bi'
 import {FaRegStickyNote} from 'react-icons/fa'
+import { getIcon } from '../../utils/prioity-obj.js'
+
+
 const List = ({title = '', toggle, item, isSelected = false}) => {
 
     if(item === null) {
@@ -30,7 +33,13 @@ const List = ({title = '', toggle, item, isSelected = false}) => {
             </SelectButton>
             <Title className={'title text'}>
                 {title}
-                <TimeDescription className='text'>
+                <TimeDescription className='text'> 
+                    {
+                        item?.priority.label != 'low' && <LabelContent>
+                            {getIcon(item.priority.label, {"height":"100%"})} Priority: {item.priority.label}
+                            </LabelContent>
+                    }
+
                     { 
                         ( item?.estimatedTime > 0) && ( 
                             <LabelContent>
