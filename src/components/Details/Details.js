@@ -222,7 +222,7 @@ const Section = styled.div`
 
 const Wrapper = styled.div`
     padding: 2rem;
-    padding-top: 4rem;
+    padding-top: 3.5rem;
     height: 100vh;
     width: 320px;
     transform: translateX(400px);

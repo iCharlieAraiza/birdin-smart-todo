@@ -50,7 +50,7 @@ const Menu = (props) => {
 }
 
 const MenuContainer = styled.div`
-    padding: 4rem 1.5rem 2rem 1.5rem;
+    padding: 3.5rem 1.5rem 2rem 1.5rem;
 `
 
 const UserCard = styled.div`
