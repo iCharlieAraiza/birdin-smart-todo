@@ -7,7 +7,7 @@ import { FiArrowDown, FiCircle, FiArrowUp, FiAlertOctagon } from 'react-icons/fi
 import { BiLayer, BiCalendarCheck } from 'react-icons/bi'
 import { BsFileBarGraph } from 'react-icons/bs'
 import {RiUserFill} from 'react-icons/ri'
-
+import {MdLabelImportant} from 'react-icons/md'
 
 const Menu = (props) => {
     const [active, setActive] = useState(window.location.pathname)
@@ -30,6 +30,7 @@ const Menu = (props) => {
             <MenuList>
                 <MenuItem2 active={active} setActive={setActive} slug="" icon={<BiCalendarCheck/>} title="Calendar"/>
                 <MenuItem2 active={active} setActive={setActive} slug="pending" icon={<BiLayer/>} title="Pending"/>
+                <MenuItem2 active={active} setActive={setActive} slug="important" icon={<MdLabelImportant/>} title="Important"/>
                 <MenuItem2 active={active} setActive={setActive} slug="statistics" icon={<BsFileBarGraph/>} title="Reports"/>
                 <NoLinkMenuItem>Priority</NoLinkMenuItem>
                 <MenuItem2 active={active} setActive={setActive} category={'priority'} slug="medium" icon={<FiCircle/>} title="Medium" type="list"/>

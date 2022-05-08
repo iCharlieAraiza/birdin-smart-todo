@@ -17,6 +17,9 @@ const AllRoutes = () => {
         <Route path="/pending">
           <Task type="pending"/>
         </Route>
+        <Route path="/important">
+          <Task type="important"/>
+        </Route>
         <Route path="/priority/:slug">
           <Task type="priority" />
         </Route>

@@ -12,7 +12,7 @@ import PlaceholderInbox from '../../components/General/PlaceholderInbox'
 import LabelData from '../../utils/label-data.json'
 import PriorityData from '../../utils/priority.json'
 import { getIcon } from '../../utils/prioity-obj.js'
-
+import {MdLabelImportant } from 'react-icons/md'
 
 const Task = ( {type}) => {    
     const patameters = useParams()
@@ -49,6 +49,8 @@ const Task = ( {type}) => {
             return savedEvents.filter(evt => evt.labels?.label === patameters.slug)
         } else if (type === 'priority') {
             return savedEvents.filter(evt => evt.priority?.label === patameters.slug)
+        } else if (type === 'important') {
+            return savedEvents.filter(evt => evt.important)
         }
     }
 
@@ -103,13 +105,17 @@ const Task = ( {type}) => {
                         </>) 
             case 'priority':
                 const priorityTag = PriorityData.find(item => item.label === patameters.slug)
-                console.log(patameters.slug)
                 return (
                         <TitleLabelFlex style={{textTransform:"capitalize"}}>
                             { getIcon(priorityTag?.label) }
                             { `${priorityTag?.label} priority tasks` }
                         </TitleLabelFlex>
                     )
+            case 'important':
+                return (<>
+                    <MdLabelImportant fill='var(--color-yellow)' style={{"marginRight":"0.6rem"}}/> Important Tasks
+                    </>)
+
             case 'all':
                 return 'All'
             default:
