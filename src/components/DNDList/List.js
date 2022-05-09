@@ -35,11 +35,10 @@ const List = ({title = '', toggle, item, isSelected = false}) => {
                 {title}
                 <TimeDescription className='text'> 
                     {
-                        item?.priority.label != 'low' && <LabelContent>
-                            {getIcon(item.priority.label, {"height":"100%"})} Priority: {item.priority.label}
+                        item?.priority.label != 'low' && <LabelContent className={item.priority.label == 'urgent' && item.priority.label}>
+                            {getIcon(item.priority.label, {"height":"100%"})} Priority: <span style={{"textTransform":"capitalize"}}>{item.priority.label}</span>
                             </LabelContent>
                     }
-
                     { 
                         ( item?.estimatedTime > 0) && ( 
                             <LabelContent>

@@ -100,6 +100,19 @@ export const LabelContent = styled.div`
   color: #b3b3b3;
   padding: 0 0.5rem;
   border-left: 2px solid #6c6c6c;
+  &.urgent {
+    color: #fd8181;
+    svg {
+      fill: #fd8181;
+    }
+    span {
+      color: #fd8181;
+    }
+  }
+  span{
+    color: #b3b3b3;
+    margin-left: 0.3rem;
+  }
   &:first-child{
     padding-left: 0;
     border: none;
