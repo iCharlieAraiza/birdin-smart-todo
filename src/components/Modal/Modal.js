@@ -2,8 +2,8 @@ import React from 'react'
 import styled from 'styled-components'
 import {GrClose} from 'react-icons/gr'
 
-const Modal = ({toggle, confirm}) => {
-  return (
+const Modal = ({toggle = ()=>{}, confirm = ()=>{}, modal = null}) => {  
+    return (
     <>
         <Overlay onClick={toggle}/>
         <ModalWrapper>
