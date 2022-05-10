@@ -14,10 +14,11 @@ import { toast } from 'react-toastify';
 
 
 const Details = ({item}) => {
-    const {dispatchCalEvent} = useContext(GlobalContext)
     if(item === null) {
         return ''
     }
+    const {dispatchCalEvent} = useContext(GlobalContext)
+
     
     const [title, setTitle] = useState(item.title)
     const [check, setCheck] = useState(false)
@@ -59,8 +60,6 @@ const Details = ({item}) => {
 
     
     const getUpdatedObject = () => {
-        console.log('SADASDA newItem', item)
-
         const newItem = {   
             ...item,
             title: title,
@@ -79,7 +78,6 @@ const Details = ({item}) => {
     const handleLabel = (label) => {
         const newItem = getUpdatedObject()
         newItem.labels = label
-        console.log("New item", newItem)
         setLabels(label)
         dispatchCalEvent({type: 'update', payload: newItem})
         toast.success('Label changed')

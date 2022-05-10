@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import ModaWrapper from '../Modal/ModaWrapper'
 import styled from 'styled-components'
 import LabelDropdown from '../Details/components/LabelDropdown'
@@ -6,23 +6,37 @@ import PriorityDropdown from '../Details/components/PriorityDropdown'
 import {GrClose} from 'react-icons/gr'
 import {MdOutlineTimer} from 'react-icons/md'
 import {FiArrowDown} from 'react-icons/fi'
+import {AiOutlineCalendar} from 'react-icons/ai'
+import { getIcon } from '../../utils/prioity-obj'
+import {BsTag} from 'react-icons/bs'
 
 const SubmitModal = ({setIsShow}) => {
     const [prioity, setPriority] = useState({
         label: 'low',
         color: 'transparent',
     }) 
+
     const [label, setLabel] = useState({
         "label":"none",
         "title":"Default",
         "color":"transparent"})
+
+    const [time, setTime] = useState(0);
+    const [kindOfTime, setKindOfTime] = useState('minutes');
+
+    const [displayInput, setDisplayInput] = useState('')
+
+    useEffect(()=>{
+        setDisplayInput('')
+    }, [prioity, label])
+
     return (
         <ModaWrapper toggle={()=>{}}>
             <ModalHeader>
                 <ModalTitle>Add &gt; New Task</ModalTitle>
                 <ModalClose>
                     <ModalCloseIcon>
-                        <GrClose onClick={()=>{}} />
+                        <GrClose onClick={() => setIsShow(false)} />
                     </ModalCloseIcon>
                 </ModalClose>
             </ModalHeader>
@@ -32,6 +46,66 @@ const SubmitModal = ({setIsShow}) => {
                     <DescriptionInput placeholder="Task description" />
                 </ModalContentWrapper>
                 <ModalForm>
+                    <InputContainer>
+                        <AiOutlineCalendar />
+                        No Date
+                    </InputContainer>
+                    
+                    <FormWrapper>
+                        <InputContainer onClick={()=>setDisplayInput('priority')}>
+                            {getIcon('low')}
+                            Priority
+                        </InputContainer>
+                        {displayInput === 'priority' && (
+                            <InputWrapper>
+                                <InputContainer className='long-input short-padding'>
+                                    <PriorityDropdown priority={prioity} setPriority={setPriority} style={{"width":"10rem!important"}} />
+                                </InputContainer>
+                            </InputWrapper>
+                        )}
+                    </FormWrapper>
+
+                    <FormWrapper>
+                        <InputContainer onClick={()=>setDisplayInput('label')}>
+                            <BsTag />
+                            Label
+                        </InputContainer>
+                        {displayInput === 'label' && (
+                            <InputWrapper>
+                                <InputContainer className='short-padding'>
+                                    <LabelDropdown selectedLabel={label} setSelectedLabel={setLabel} />
+                                </InputContainer>
+                            </InputWrapper>
+                        )}
+                    </FormWrapper>
+                    
+                    <FormWrapper>
+                        <InputContainer className='long-input' onClick={()=>setDisplayInput('duration')}>
+                            <FlexContainer>
+                                <TimeInputForm>
+                                    <FlexContainer>
+                                        <MdOutlineTimer />
+                                        No Duration
+                                    </FlexContainer>
+                                </TimeInputForm>
+
+                            </FlexContainer>
+                        </InputContainer>
+                        {displayInput === 'duration' && (
+                            <InputWrapper>
+                                <InputContainer className='xl-long-input short-padding'>
+                                    <TimeInput type='number' value={time} min="0" onChange={el => setTime(el.target.value)}/>
+                                    <KindOfTimeSelect value={kindOfTime} onChange={(el) => setKindOfTime(el.target.value)}>
+                                        <option value="minutes">Minutes</option>
+                                        <option value="hours">Hours</option>
+                                        <option value="pomodoro">Pomodoro</option>
+                                    </KindOfTimeSelect>
+                                </InputContainer>
+                            </InputWrapper>
+                        )}
+                    </FormWrapper>
+
+                    {/*
                     <InputContainer>
                         <LabelDropdown selectedLabel={label} setSelectedLabel={setLabel} />
                     </InputContainer>
@@ -50,14 +124,15 @@ const SubmitModal = ({setIsShow}) => {
 
                         </FlexContainer>
                     </InputContainer>
+                    */}
                 </ModalForm>
             </ModalBody>
             <ModalFooter>
                 <ModalFooterButton onClick={() => setIsShow(false)}>
-                    <ModalFooterButtonText >Cancel</ModalFooterButtonText>
+                    <ModalFooterButtonText>Cancel</ModalFooterButtonText>
                 </ModalFooterButton>
-                <ModalFooterButton onClick={()=>{}}>
-                    <ModalFooterButtonText >OK</ModalFooterButtonText>
+                <ModalFooterButton className='confirm' onClick={()=>{}}>
+                    <ModalFooterButtonText>+ Create Task</ModalFooterButtonText>
                 </ModalFooterButton>
             </ModalFooter>
         </ModaWrapper>
@@ -69,8 +144,7 @@ const FlexContainer = styled.div`
     align-items: center;
 `
 
-const TimeInput = styled.div`
-    padding: 3px;
+const TimeInputForm = styled.div`
 `
 
 const ModalHeader = styled.div`
@@ -129,8 +203,8 @@ const DescriptionInput = styled.textarea`
     display: block;
     background-color: transparent;
     border: none;
-    width: 469px;
-    height: 60px;
+    width: 470px;
+    height: 80px;
     resize: none;
     &:focus{
         outline: none;
@@ -143,23 +217,37 @@ const DescriptionInput = styled.textarea`
 const ModalForm = styled.form`
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-between;
     .priority-dropdown{
         width: 9rem;
     }
 `
 
 const InputContainer = styled.div`
-    width: 7.5rem;
+    width: 7rem;
     display: flex;
     align-items: center;
-    justify-content: end;
-    background-color: #344a66;
-    padding: 4px;
+    background-color: rgb(255 255 255 / 10%);
+    padding: 7px;
     padding-right: 0;
-    margin-right: 0.5rem;
     font-size: 12px;
-    &.long-input{
+    margin: 2px;
+    cursor: pointer;
+    svg {
+        font-size: 14px;
+    }
+    &.long-input {
         width: 8.3rem;
+    }
+    &.xl-long-input {
+        width: 10rem;
+    }
+    &.solid {
+        background: red;
+    }
+    &.short-padding {
+        padding: 3px;
     }
 `
 
@@ -187,9 +275,8 @@ const ModalFooter = styled.div`
 
 const ModalFooterButton = styled.div`
     cursor: pointer;
-    padding: 0.5rem 1rem;
-    //border: 1px solid #e6e6e6;
-    border-radius: 3px;
+    padding: 0.4rem 1rem;
+    border-radius: 2px;
     font-size: 12px;
     font-weight: 600;
     background-color: #4d5066;
@@ -198,12 +285,49 @@ const ModalFooterButton = styled.div`
     &:hover{
         background-color: #878787;
     }
+    &.confirm {
+        background-color: #2E6FD2;
+    }
 `
 
 const ModalFooterButtonText = styled.div`
     font-size: 12px;
     font-weight: 600;
-
 `
+
+const FormWrapper = styled.div`
+    position: relative;
+    //width: 7.5rem;
+`
+
+const InputWrapper = styled.div`
+    padding: 4px;
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
+    position: absolute;
+    top: 35px;
+    background-color: #374252;
+    `
+const TimeInput = styled.input`
+    background-color: transparent;
+    width: 3rem;
+    border: none;
+    display: block;
+    &:focus{
+        outline: none;
+    }
+`
+
+const KindOfTimeSelect = styled.select`
+    background-color: transparent;
+    border: none;
+    display: block ;
+    &:focus{
+        outline: none;
+    }
+`
+ 
+
 
 export default SubmitModal
