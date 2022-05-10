@@ -12,7 +12,7 @@ const elements = [
     {
        "label":"medium",
        "color":"#00bfff",
-       "icon":<IoMdRemoveCircleOutline style={{"font-size":"1.8rem", "margin-left": "4px",  "margin-right": "9px"}} fill="#00bfff" />
+       "icon":<IoMdRemoveCircleOutline style={{"fontSize":"1.8rem", "marginLeft": "4px",  "marginRight": "9px"}} fill="#00bfff" />
     },
     {
        "label":"high",

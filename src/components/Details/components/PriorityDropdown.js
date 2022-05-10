@@ -29,7 +29,7 @@ const Priority = [
 ]
 
 const PriorityDropdown = ({ priority, setPriority}) => {
-    if(priority==null) {
+    if(priority == null) {
         setPriority(Priority[0])
     }
 
@@ -56,7 +56,7 @@ const PriorityDropdown = ({ priority, setPriority}) => {
     }
 
     return (
-        <Wrapper  ref={ref} onClick={handleClick}>
+        <Wrapper  ref={ref} onClick={handleClick} className="priority-dropdown">
             <LabelBox>
                 <IconWrapper>
                     {Priority.find(item => item.label === priority.label).icon}
