@@ -55,7 +55,7 @@ const ContextWrapper = (props) => {
         });
         
         for (const dateItem of date) {
-            dateReport.set(dayjs(dateItem).format('DD-MM-YYYY'),  getDayStatus(savedEvents.filter(evt => evt.date === dateItem)))
+            dateReport.set(dayjs(dateItem).format('DD-MM-YYYY'),  getDayStatus(savedEvents.filter(evt => dayjs(evt.date).format('DD-MM-YYYY') === dayjs(dateItem).format('DD-MM-YYYY'))))
         }
         return dateReport;
     }
