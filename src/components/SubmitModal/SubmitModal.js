@@ -1,16 +1,23 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useContext} from 'react'
 import ModaWrapper from '../Modal/ModaWrapper'
 import styled from 'styled-components'
 import LabelDropdown from '../Details/components/LabelDropdown'
 import PriorityDropdown from '../Details/components/PriorityDropdown'
 import {GrClose} from 'react-icons/gr'
 import {MdOutlineTimer} from 'react-icons/md'
-import {FiArrowDown} from 'react-icons/fi'
 import {AiOutlineCalendar} from 'react-icons/ai'
 import { getIcon } from '../../utils/prioity-obj'
 import {BsTag} from 'react-icons/bs'
+import ObjectStructure from '../../utils/ObjectStructure'
+import GlobalContext from '../../context/GlobalContext'
 
 const SubmitModal = ({setIsShow}) => {
+
+    const [title, setTitle] = useState('')
+    const [description, setDescription] = useState('')
+    const [check, setCheck] = useState(false)
+    const [priorityState, setPriorityState] = useState('low')
+
     const [prioity, setPriority] = useState({
         label: 'low',
         color: 'transparent',
@@ -26,9 +33,34 @@ const SubmitModal = ({setIsShow}) => {
 
     const [displayInput, setDisplayInput] = useState('')
 
+    const {dispatchCalEvent} = useContext(GlobalContext)
+
+    //console.log(ObjectStructure())
+    
     useEffect(()=>{
         setDisplayInput('')
     }, [prioity, label])
+
+    const handleTitle = (e) => {
+        setTitle(e.target.value)
+    }
+    
+    const handleDescription = (e) => {
+        setDescription(e.target.value)
+    }
+
+    const addTask = () => {
+        const newTask = ObjectStructure()
+        newTask.title = title
+        newTask.description = description
+        newTask.isChecked = check
+        newTask.priority = priorityState
+        newTask.labels = label
+        newTask.kindOfEstimated = kindOfTime
+        newTask.estimatedTime = time
+        dispatchCalEvent({type: 'push', payload: newTask}) 
+    }
+
 
     return (
         <ModaWrapper toggle={()=>{}}>
@@ -42,8 +74,8 @@ const SubmitModal = ({setIsShow}) => {
             </ModalHeader>
             <ModalBody>
                 <ModalContentWrapper>
-                    <TitleInput type="text" placeholder="Task name" />
-                    <DescriptionInput placeholder="Task description" />
+                    <TitleInput type="text" placeholder="Task name" value={title} onChange={handleTitle} />
+                    <DescriptionInput placeholder="Task description" value={description} onChange={handleDescription}/>
                 </ModalContentWrapper>
                 <ModalForm>
                     <InputContainer>
@@ -132,7 +164,7 @@ const SubmitModal = ({setIsShow}) => {
                     <ModalFooterButtonText>Cancel</ModalFooterButtonText>
                 </ModalFooterButton>
                 <ModalFooterButton className='confirm' onClick={()=>{}}>
-                    <ModalFooterButtonText>+ Create Task</ModalFooterButtonText>
+                    <ModalFooterButtonText onClick={addTask}>+ Create Task</ModalFooterButtonText>
                 </ModalFooterButton>
             </ModalFooter>
         </ModaWrapper>
@@ -311,7 +343,7 @@ const InputWrapper = styled.div`
     `
 const TimeInput = styled.input`
     background-color: transparent;
-    width: 3rem;
+    width: 2.5rem;
     border: none;
     display: block;
     &:focus{
