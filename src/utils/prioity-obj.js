@@ -30,7 +30,7 @@ export const getIcon = (label = '', style)=>{
     let item = elements.find(item => item.label === label);
 
     if(style) {
-      item.style == "background: black" ? item.icon : '';
+      item?.style == "background: black" ? item.icon : '';
     }
 
     return item ? item.icon : '';

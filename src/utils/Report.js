@@ -21,7 +21,8 @@ export function getDayStatus(items) {
     const completedTasks = items.filter(item => item.isChecked).length;
     const inProgressTasks = items.filter(item => item.status === "in-progress").length;
     const importantTasks = items.find(item => item.important === true);
-    const isImportant = items.filter(item => item.important === true).length > 0;
+    const isImportant = items.filter(item => item.important === true && item.isChecked !== true).length > 0;
+
     return {
         numberTasks,
         completedTasks,
@@ -29,7 +30,7 @@ export function getDayStatus(items) {
         importantTasks,
         details:{
             completedRatio: `${completedTasks} / ${numberTasks} completed`,
-            status: completedTasks == numberTasks ? "completed" : "active",
+            status: (completedTasks == numberTasks && numberTasks > 0) ? "completed" : "active",
             isImportant: isImportant
         }
     }

@@ -54,14 +54,16 @@ const PriorityDropdown = ({ priority, setPriority}) => {
     if(priority == null) {
         return <div></div>
     }
+ 
+    const priorityValue = priority.label ? priority.label : priority
 
     return (
-        <Wrapper  ref={ref} onClick={handleClick} className="priority-dropdown">
+        <Wrapper  ref={ref} onClick={handleClick}>
             <LabelBox>
                 <IconWrapper>
-                    {Priority.find(item => item.label === priority.label).icon}
+                    {Priority.find(item => item.label === priorityValue).icon}
                 </IconWrapper>
-                <Label>{priority.label}</Label>
+                <Label>{priorityValue}</Label>
                 <MdKeyboardArrowDown />
             </LabelBox>
             {

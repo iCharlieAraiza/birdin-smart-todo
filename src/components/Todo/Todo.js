@@ -6,6 +6,7 @@ import ListSection from '../List/ListSection'
 import dayjs from 'dayjs'
 import { Resizable } from "re-resizable";
 import PlaceholderInbox from '../General/PlaceholderInbox'
+import ObjectStructure from '../../utils/ObjectStructure'
 
 /*
     Min: 1:37
@@ -48,7 +49,8 @@ const Todo = () => {
     const handleKeypress = e => {
       if (e.keyCode === 13 && e.target.value.trim() !== '') {
         console.log("Enter pressed", e.target.value)
-        const newEvent = {
+        let newEvent = ObjectStructure()
+         newEvent = {...newEvent,
             title,
             description,
             date: daySelected.valueOf(),
