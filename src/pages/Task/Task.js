@@ -23,13 +23,10 @@ const Task = ( {type}) => {
     const  [items, setItems] = useState([])
     const [completedItems, setCompletedItems] = useState([])
     const [selectItem, setSelectItem] = useState(null)
-    const [typePage, setTypePage] = useState()
+    const [typePage, setTypePage] = useState(window.location.pathname)
     const positionAtribute = getPositionAttribute(type)
     const [typeObject ,setTypeObject] = useState({})
-
-    useEffect(()=>{
-        setTypePage(window.location.pathname)
-    })
+    const [slug, setSlug] = useState(patameters.slug)
 
     useEffect(()=>{
         setSelectItem(null)
@@ -51,13 +48,13 @@ const Task = ( {type}) => {
             setTypeObject({isChecked: false})
             return savedEvents.filter(evt => !evt.isChecked)
         } else if (type === 'label') {
-            setTypeObject({...typeObject, label: getLabelObject(patameters.slug)})
+            setTypeObject({ label: getLabelObject(patameters.slug)})
             return savedEvents.filter(evt => evt.labels?.label === patameters.slug)
         } else if (type === 'priority') {
-            setTypeObject({...typeObject, priority: getPriorityObject(patameters.slug)})
+            setTypeObject({ priority: getPriorityObject(patameters.slug)})
             return savedEvents.filter(evt => evt.priority?.label === patameters.slug)
         } else if (type === 'important') {
-            setTypeObject({...typeObject, important: true})
+            setTypeObject({important: true})
             return savedEvents.filter(evt => evt.important)
         } return savedEvents.filter(evt => evt.important)
     }
@@ -78,7 +75,7 @@ const Task = ( {type}) => {
                 setSelectItem(item)
             }
         }
-    }, [savedEvents, typePage])
+    }, [savedEvents, window.location.pathname])
 
     
 
