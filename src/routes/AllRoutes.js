@@ -12,19 +12,19 @@ const AllRoutes = () => {
             <Main />
         </Route>
         <Route path="/statistics">
-          <Statistics />
+          <Statistics key={window.Date.now()} />
         </Route>
         <Route path="/pending">
-          <Task type="pending"/>
+          <Task type="pending" key={window.Date.now() + 1}/>
         </Route>
         <Route path="/important">
-          <Task type="important"/>
+          <Task type="important" key={window.Date.now() + 1}/>
         </Route>
         <Route path="/priority/:slug">
-          <Task type="priority" />
+          <Task type="priority" key={window.Date.now() + 2} />
         </Route>
         <Route path="/label/:slug">
-          <Task type="label" />
+          <Task type="label" key={window.Date.now() + 1} />
         </Route>
     </Switch>
   )

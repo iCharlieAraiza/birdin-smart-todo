@@ -13,6 +13,9 @@ import LabelData from '../../utils/label-data.json'
 import PriorityData from '../../utils/priority.json'
 import { getIcon } from '../../utils/prioity-obj.js'
 import {MdLabelImportant } from 'react-icons/md'
+import { getPriorityObject } from '../../utils/prioity-obj.js'
+import { getLabelObject } from '../../utils/label-obj.js'
+
 
 const Task = ( {type}) => {    
     const patameters = useParams()
@@ -20,12 +23,13 @@ const Task = ( {type}) => {
     const  [items, setItems] = useState([])
     const [completedItems, setCompletedItems] = useState([])
     const [selectItem, setSelectItem] = useState(null)
-    const [typePage, setTypePage] = useState()
+    const [typePage, setTypePage] = useState(window.location.pathname)
     const positionAtribute = getPositionAttribute(type)
+    const [typeObject ,setTypeObject] = useState({})
 
     useEffect(()=>{
         setTypePage(window.location.pathname)
-    })
+    },[patameters.slug])
 
     useEffect(()=>{
         setSelectItem(null)
@@ -44,14 +48,18 @@ const Task = ( {type}) => {
 
     const updateSaveEvent = () => {
         if(type == 'pending'){
+            setTypeObject({isChecked: false})
             return savedEvents.filter(evt => !evt.isChecked)
         } else if (type === 'label') {
+            setTypeObject({...typeObject, label: getLabelObject(patameters.slug)})
             return savedEvents.filter(evt => evt.labels?.label === patameters.slug)
         } else if (type === 'priority') {
+            setTypeObject({...typeObject, priority: getPriorityObject(patameters.slug)})
             return savedEvents.filter(evt => evt.priority?.label === patameters.slug)
         } else if (type === 'important') {
+            setTypeObject({...typeObject, important: true})
             return savedEvents.filter(evt => evt.important)
-        }
+        } return savedEvents.filter(evt => evt.important)
     }
 
     useEffect(() => {
@@ -162,7 +170,7 @@ const Task = ( {type}) => {
                 </ListContainer>
 
                 <InputContainer>
-                    <SubmitInput save={saveHandle}/>
+                    <SubmitInput save={saveHandle} type={typeObject} key={window.Date.now()}/>
                 </InputContainer>
             </Main>
             <Details item={selectItem}/>

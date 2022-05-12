@@ -35,3 +35,8 @@ export const getIcon = (label = '', style)=>{
 
     return item ? item.icon : '';
 }
+
+export const getPriorityObject = (label = '')=>{
+      let item = elements.find(item => item.label === label);
+      return item ? item : '';
+}

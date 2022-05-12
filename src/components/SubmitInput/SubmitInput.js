@@ -1,11 +1,13 @@
 import React, {useState} from 'react'
 import styled from 'styled-components'
 import {RiAddFill} from 'react-icons/ri'
+import SubmitModal from '../SubmitModal/SubmitModal'
 
 
-const SubmitInput = ({save, item = {}}) => {
+const SubmitInput = ({save, item = {}, type}) => {
     const [value, setValue] = useState('')
-
+    const [isShow, setIsShow] = React.useState(false) 
+    
     const onFormSubmit = (e) => {
         e.preventDefault()
         if(value.trim() === '') {
@@ -22,31 +24,35 @@ const SubmitInput = ({save, item = {}}) => {
             if(value.trim() === '') {
                 return
             }
-            
             item.value = value;
             save(item)
             setValue('')
-        
     }}
 
     const onChange = (e) => {
         setValue(e.target.value)
     }
 
+    console.log("type", type)
+
     return (
-        <Wrapper >
-            <AddSvgContainer>
-                <RiAddFill />
-            </AddSvgContainer>
-            <InputContainer placeholder='Add new task' 
-                value={value} 
-                onKeyUp={onKeyUpHandle}
-                onChange={onChange}/>
-        </Wrapper>
+        <>
+            <Wrapper >
+                <AddSvgContainer onClick={()=>setIsShow(true)}>
+                    <RiAddFill />
+                </AddSvgContainer>
+                <InputContainer placeholder='Add new task' 
+                    value={value} 
+                    onKeyUp={onKeyUpHandle}
+                    onChange={onChange}/>
+            </Wrapper>
+            { isShow && <SubmitModal setIsShow={setIsShow} type={type} />}
+        </>
     )
 }
 
 const AddSvgContainer = styled.div`
+    cursor: pointer;
     svg{
         fill: #48b7ff;
         width: 1.5rem;

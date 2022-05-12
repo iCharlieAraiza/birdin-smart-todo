@@ -10,35 +10,37 @@ import { getIcon } from '../../utils/prioity-obj'
 import {BsTag} from 'react-icons/bs'
 import ObjectStructure from '../../utils/ObjectStructure'
 import GlobalContext from '../../context/GlobalContext'
+import {useOutsideAlerter} from '../../hooks/useOutsideAlerter'
+import PriorityData  from '../../utils/priority.json'
+import { getLabelObject } from '../../utils/label-obj'
 
-const SubmitModal = ({setIsShow}) => {
-
+const SubmitModal = ({setIsShow, type = ''}) => {
+    //console.log("Label ASDASD", type.priority)
+    
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
     const [check, setCheck] = useState(false)
-    const [priorityState, setPriorityState] = useState('low')
-
-    const [prioity, setPriority] = useState({
-        label: 'low',
-        color: 'transparent',
-    }) 
-
-    const [label, setLabel] = useState({
-        "label":"none",
-        "title":"Default",
-        "color":"transparent"})
+    const [prioity, setPriority] = useState(type.priority ? type.priority : PriorityData[0])
+    const [label, setLabel] = useState(type.label ? type.label : getLabelObject('none'))
 
     const [time, setTime] = useState(0);
     const [kindOfTime, setKindOfTime] = useState('minutes');
-
     const [displayInput, setDisplayInput] = useState('')
+    const [errorMessage, setErrorMessage] = useState('')
 
     const {dispatchCalEvent} = useContext(GlobalContext)
 
+    const {ref, visible, setVisible} = useOutsideAlerter(false)
+
     //console.log(ObjectStructure())
     
+    useEffect(() => {
+        updateState()}, 
+        [type])
+
     useEffect(()=>{
         setDisplayInput('')
+        setVisible(false)
     }, [prioity, label])
 
     const handleTitle = (e) => {
@@ -50,20 +52,41 @@ const SubmitModal = ({setIsShow}) => {
     }
 
     const addTask = () => {
+        if(title === '') {
+            setErrorMessage('Please enter a title')
+            return;
+        }
         const newTask = ObjectStructure()
         newTask.title = title
         newTask.description = description
         newTask.isChecked = check
-        newTask.priority = priorityState
+        newTask.priority = prioity
         newTask.labels = label
         newTask.kindOfEstimated = kindOfTime
         newTask.estimatedTime = time
         dispatchCalEvent({type: 'push', payload: newTask}) 
     }
 
+    function updateState(){
+        setPriority(type.priority ? type.priority : PriorityData[0])
+        setLabel(type.label ? type.label : getLabelObject('none'))
+        setTitle('')
+        setDescription('')
+        setCheck(false)
+        setTime(0)
+        setKindOfTime('minutes')
+        setDisplayInput('')
+        setErrorMessage('')
+    }
+
+    function handleClick() {
+        setVisible(!visible)
+    }
+        
+    console.log('njnn',prioity)
 
     return (
-        <ModaWrapper toggle={()=>{}}>
+        <ModaWrapper  toggle={()=>{}}>
             <ModalHeader>
                 <ModalTitle>Add &gt; New Task</ModalTitle>
                 <ModalClose>
@@ -84,13 +107,15 @@ const SubmitModal = ({setIsShow}) => {
                     </InputContainer>
                     
                     <FormWrapper>
-                        <InputContainer onClick={()=>setDisplayInput('priority')}>
-                            {getIcon('low')}
-                            Priority
+                        <InputContainer onClick={()=>{
+                                setDisplayInput('priority')
+                                handleClick()
+                            }}>
+                            {prioity?.label !== 'low' ? <> {getIcon(prioity.label)} {prioity.label} </> : <>{getIcon('low')} Priority</>}
                         </InputContainer>
-                        {displayInput === 'priority' && (
-                            <InputWrapper>
-                                <InputContainer className='long-input short-padding'>
+                        {(displayInput === 'priority' && visible) && (
+                            <InputWrapper ref={ref}>
+                                <InputContainer className=' short-padding'>
                                     <PriorityDropdown priority={prioity} setPriority={setPriority} style={{"width":"10rem!important"}} />
                                 </InputContainer>
                             </InputWrapper>
@@ -98,12 +123,15 @@ const SubmitModal = ({setIsShow}) => {
                     </FormWrapper>
 
                     <FormWrapper>
-                        <InputContainer onClick={()=>setDisplayInput('label')}>
-                            <BsTag />
-                            Label
+                        <InputContainer onClick={()=>{
+                                setDisplayInput('label')
+                                handleClick()
+                        }}>
+                            {label?.label !== 'none' ? <> <LabelColorIcon color={label.color}/> {label.label} </> : <><BsTag />Label</>}
+
                         </InputContainer>
-                        {displayInput === 'label' && (
-                            <InputWrapper>
+                        {(displayInput === 'label' && visible) && (
+                            <InputWrapper ref={ref}>
                                 <InputContainer className='short-padding'>
                                     <LabelDropdown selectedLabel={label} setSelectedLabel={setLabel} />
                                 </InputContainer>
@@ -112,19 +140,30 @@ const SubmitModal = ({setIsShow}) => {
                     </FormWrapper>
                     
                     <FormWrapper>
-                        <InputContainer className='long-input' onClick={()=>setDisplayInput('duration')}>
+                        <InputContainer 
+                            className='long-input' 
+                            onClick={()=>{
+                            setDisplayInput('duration')
+                            handleClick()
+                            }}>
                             <FlexContainer>
                                 <TimeInputForm>
                                     <FlexContainer>
                                         <MdOutlineTimer />
-                                        No Duration
+                                        {
+                                            (time === 0 || time === undefined || time === '')|| !kindOfTime ? (
+                                                <>No Duration</>
+                                            ) : (
+                                                <>{time} {kindOfTime}</>
+                                            )
+                                        }
                                     </FlexContainer>
                                 </TimeInputForm>
 
                             </FlexContainer>
                         </InputContainer>
-                        {displayInput === 'duration' && (
-                            <InputWrapper>
+                        {(displayInput === 'duration' && visible)  && (
+                            <InputWrapper ref={ref}>
                                 <InputContainer className='xl-long-input short-padding'>
                                     <TimeInput type='number' value={time} min="0" onChange={el => setTime(el.target.value)}/>
                                     <KindOfTimeSelect value={kindOfTime} onChange={(el) => setKindOfTime(el.target.value)}>
@@ -160,6 +199,9 @@ const SubmitModal = ({setIsShow}) => {
                 </ModalForm>
             </ModalBody>
             <ModalFooter>
+                <div>
+                    {errorMessage}    
+                </div>
                 <ModalFooterButton onClick={() => setIsShow(false)}>
                     <ModalFooterButtonText>Cancel</ModalFooterButtonText>
                 </ModalFooterButton>
@@ -246,7 +288,7 @@ const DescriptionInput = styled.textarea`
     }
 `
 
-const ModalForm = styled.form`
+const ModalForm = styled.div`
     display: flex;
     align-items: center;
     flex-wrap: wrap;
@@ -266,8 +308,10 @@ const InputContainer = styled.div`
     font-size: 12px;
     margin: 2px;
     cursor: pointer;
+    text-transform: capitalize;
     svg {
-        font-size: 14px;
+        font-size: 14px!important;
+        margin-right:6px;
     }
     &.long-input {
         width: 8.3rem;
@@ -358,6 +402,14 @@ const KindOfTimeSelect = styled.select`
     &:focus{
         outline: none;
     }
+`
+
+const LabelColorIcon = styled.div`
+    height: 12px;
+    width: 12px;
+    margin-right: 0.5rem;
+    background-color: ${props => props.color};
+    border-radius: 2px;
 `
  
 
