@@ -23,13 +23,13 @@ const Task = ( {type}) => {
     const  [items, setItems] = useState([])
     const [completedItems, setCompletedItems] = useState([])
     const [selectItem, setSelectItem] = useState(null)
-    const [typePage, setTypePage] = useState(window.location.pathname)
+    const [typePage, setTypePage] = useState()
     const positionAtribute = getPositionAttribute(type)
     const [typeObject ,setTypeObject] = useState({})
 
     useEffect(()=>{
         setTypePage(window.location.pathname)
-    },[patameters.slug])
+    })
 
     useEffect(()=>{
         setSelectItem(null)
