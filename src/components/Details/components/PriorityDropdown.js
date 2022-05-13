@@ -33,8 +33,6 @@ const PriorityDropdown = ({ priority, setPriority}) => {
         setPriority(Priority[0])
     }
 
-    console.log('Old priority: ', priority)
-
     const { visible, setVisible, ref } = useOutsideAlerter(false)
 
     const handleClick = () => {
