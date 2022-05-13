@@ -84,7 +84,7 @@ const ButtonToday = styled.button`
     padding: 10px 1rem;
 
     &:hover {
-        background-color: #ffffff0a;
+        background-color: #ffffff38;
     }
 
     svg {

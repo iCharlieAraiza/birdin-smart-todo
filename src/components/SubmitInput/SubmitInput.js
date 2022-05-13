@@ -7,33 +7,20 @@ import SubmitModal from '../SubmitModal/SubmitModal'
 const SubmitInput = ({save, item = {}, type}) => {
     const [value, setValue] = useState('')
     const [isShow, setIsShow] = React.useState(false) 
-    
-    const onFormSubmit = (e) => {
-        e.preventDefault()
-        if(value.trim() === '') {
-            return
-        }
-        
-        item.value = value;
-        save(item)
-        setValue('')
-    }
 
     const onKeyUpHandle = (e) => {
         if(e.keyCode === 13) {
             if(value.trim() === '') {
                 return
             }
-            item.value = value;
-            save(item)
-            setValue('')
+            //save(item)
+            //item.title = value;
+            setIsShow('true')
     }}
 
     const onChange = (e) => {
         setValue(e.target.value)
     }
-
-    console.log("type", type)
 
     return (
         <>
@@ -46,11 +33,10 @@ const SubmitInput = ({save, item = {}, type}) => {
                     onKeyUp={onKeyUpHandle}
                     onChange={onChange}/>
             </Wrapper>
-            { isShow && <SubmitModal setIsShow={setIsShow} type={type} />}
+            { isShow && <SubmitModal setIsShow={setIsShow} type={type} inputTitle={value} />}
         </>
     )
 }
-
 const AddSvgContainer = styled.div`
     cursor: pointer;
     svg{

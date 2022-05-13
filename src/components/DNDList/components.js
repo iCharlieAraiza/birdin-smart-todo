@@ -79,6 +79,7 @@ export const TimeDescription = styled.div`
   margin-top: 3px;
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   svg{
     margin-right: 0.2rem;
     fill: #b3b3b3;
