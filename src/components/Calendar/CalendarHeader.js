@@ -57,19 +57,36 @@ const Month = styled.div`
 
 const Button = styled.button`
     background: transparent;
-    border: 1px solid gray;
-    border-radius: 6px;
-    padding: 0.3rem 1rem;
+    border: none;
     cursor: pointer ;
+    padding: 0;
+    height: 36px;
+    width: 36px;
+    border-radius: 50%;
+    svg{
+        font-size: 18px;
+    }
+    &:hover {
+        background-color: #00000026;
+    }
 `
 
 const ButtonToday = styled.button`
     background: transparent;
-    border-radius: 6px;
     border: none;
-    padding: 0.3rem 1rem;
     cursor: pointer ;
     display: flex;
+
+    border: 1px solid #ffffff30;
+    text-transform: uppercase;
+    border-radius: 2px;
+    margin-right: 5px;
+    padding: 10px 1rem;
+
+    &:hover {
+        background-color: #ffffff0a;
+    }
+
     svg {
         width: 1.1rem;
         height: 1.1rem;
