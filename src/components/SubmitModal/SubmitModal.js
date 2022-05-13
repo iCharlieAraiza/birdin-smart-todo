@@ -13,11 +13,11 @@ import GlobalContext from '../../context/GlobalContext'
 import {useOutsideAlerter} from '../../hooks/useOutsideAlerter'
 import PriorityData  from '../../utils/priority.json'
 import { getLabelObject } from '../../utils/label-obj'
+import ImportantButton from '../Details/components/ImportantButton'
 
-const SubmitModal = ({setIsShow, type = ''}) => {
+const SubmitModal = ({setIsShow, type = '', inputTitle}) => {
     //console.log("Label ASDASD", type.priority)
-    
-    const [title, setTitle] = useState('')
+    const [title, setTitle] = useState(inputTitle)
     const [description, setDescription] = useState('')
     const [check, setCheck] = useState(false)
     const [prioity, setPriority] = useState(type.priority ? type.priority : PriorityData[0])
@@ -27,12 +27,11 @@ const SubmitModal = ({setIsShow, type = ''}) => {
     const [kindOfTime, setKindOfTime] = useState('minutes');
     const [displayInput, setDisplayInput] = useState('')
     const [errorMessage, setErrorMessage] = useState('')
-
+    const [important, setImportant] = useState(type.important ? type.important : false)
+ 
     const {dispatchCalEvent} = useContext(GlobalContext)
 
     const {ref, visible, setVisible} = useOutsideAlerter(false)
-
-    //console.log(ObjectStructure())
     
     useEffect(() => {
         updateState()}, 
@@ -43,15 +42,27 @@ const SubmitModal = ({setIsShow, type = ''}) => {
         setVisible(false)
     }, [prioity, label])
 
+    useEffect(()=>{
+        document.querySelector('.title-input').focus()
+    })
+
     const handleTitle = (e) => {
         setTitle(e.target.value)
+    }
+
+    const onKeyUpHandler = (e) => {
+        if(e.keyCode === 13) {
+            addTask()
+            setDisplayInput('')
+            setVisible(false)
+        }
     }
     
     const handleDescription = (e) => {
         setDescription(e.target.value)
     }
 
-    const addTask = () => {
+    const addTask = (e) => {
         if(title === '') {
             setErrorMessage('Please enter a title')
             return;
@@ -64,13 +75,15 @@ const SubmitModal = ({setIsShow, type = ''}) => {
         newTask.labels = label
         newTask.kindOfEstimated = kindOfTime
         newTask.estimatedTime = time
+        newTask.important = important
+
         dispatchCalEvent({type: 'push', payload: newTask}) 
     }
 
     function updateState(){
         setPriority(type.priority ? type.priority : PriorityData[0])
         setLabel(type.label ? type.label : getLabelObject('none'))
-        setTitle('')
+        setTitle(inputTitle)
         setDescription('')
         setCheck(false)
         setTime(0)
@@ -84,6 +97,10 @@ const SubmitModal = ({setIsShow, type = ''}) => {
     }
         
     console.log('njnn',prioity)
+    console.log("Input title", inputTitle)
+    console.log("Title", title)
+    console.log("Important", important)
+    console.log("Type", type )
 
     return (
         <ModaWrapper  toggle={()=>{}}>
@@ -97,7 +114,12 @@ const SubmitModal = ({setIsShow, type = ''}) => {
             </ModalHeader>
             <ModalBody>
                 <ModalContentWrapper>
-                    <TitleInput type="text" placeholder="Task name" value={title} onChange={handleTitle} />
+                    <FlexContainer>
+                        <TitleInput className="title-input" type="text" placeholder="Task name" value={title} onChange={handleTitle} onKeyUp={onKeyUpHandler} />
+                        <FeatureIconBlock>
+                            <ImportantButton important={important} setImportant={setImportant}/>
+                        </FeatureIconBlock>
+                    </FlexContainer>
                     <DescriptionInput placeholder="Task description" value={description} onChange={handleDescription}/>
                 </ModalContentWrapper>
                 <ModalForm>
@@ -265,6 +287,7 @@ const TitleInput = styled.input`
     background-color: transparent;
     display: block;
     font-size: 18px;
+    width: 100%;
     &:focus{
         outline: none;
     }
@@ -326,7 +349,6 @@ const InputContainer = styled.div`
         padding: 3px;
     }
 `
-
 
 const ModalContentTitle = styled.div`
     font-size: 1.5rem;
@@ -411,7 +433,13 @@ const LabelColorIcon = styled.div`
     background-color: ${props => props.color};
     border-radius: 2px;
 `
- 
 
+const FeatureIconBlock = styled.div`
+    display: flex;
+    align-items: center;
+    svg{
+        margin: 0;
+    }
+`
 
 export default SubmitModal
