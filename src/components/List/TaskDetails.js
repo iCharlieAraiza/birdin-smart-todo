@@ -190,7 +190,7 @@ const TaskDetails = () => {
                 <DateSection>
                     <LabelSection>Date</LabelSection>
                     <FlexCenter>
-                        <BsCalendar3 /> { date!=null&& dayjs(date). format('DD / MMMM / YYYY') }
+                        <BsCalendar3 /> { date != null && dayjs(date).format('DD / MMMM / YYYY') }
                     </FlexCenter>
                 </DateSection>
                 <Separator/>
@@ -289,7 +289,7 @@ const TaskDetailsBar = styled.div`
     width: calc(100vw - ${props => props.width});
     height: 100vh;
     display: flex;
-    animation:fadein .5s;
+    //animation:fadein 0.5s;
 `
 
 const Overlay = styled.div`
@@ -304,9 +304,12 @@ const TaskMenu = styled.div`
     width: 20rem;
     height: 100vh;
     padding: 0 1rem;
-    backdrop-filter: blur(5px);
+    //backdrop-filter: blur(3px);
     background-color: rgb(36 51 72 / 88%);
-    animation: slidein 0.2s ease-in;
+    //animation: slidein 0.1s ease-in;
+    //transform: translate(0, 0);
+    transform: translateX(0px);
+
 
 `
 

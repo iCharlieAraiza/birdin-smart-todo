@@ -4,12 +4,12 @@ import { getMonth } from '../../utils/calendarUtils'
 import styled from 'styled-components'
 import {MdArrowBackIosNew, MdArrowForwardIos} from 'react-icons/md'
 
-const SmallCalendar = () => {
+const SmallCalendar = ({date, setDate}) => {
     const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 
     const [currentMonthIdx, setCurrentMonthIdx] = useState(dayjs().month())
     const [currentMonth, setCurrentMonth] = useState(getMonth(currentMonthIdx))
-    const [daySelected, setDaySelected] = useState(dayjs())
+    const [daySelected, setDaySelected] = useState(date)
  
     useEffect(() => {
     setCurrentMonth(getMonth(currentMonthIdx));
@@ -29,6 +29,7 @@ const SmallCalendar = () => {
         const nowDay = dayjs().format(format)
         const currDay = day.format(format)
         const slcDay = daySelected && daySelected.format(format)
+        console.log(daySelected)
         if (currDay === slcDay) {
             return 'selected'
         }
@@ -37,6 +38,13 @@ const SmallCalendar = () => {
         }
         return ''
     }
+
+    const handleDayClick = (day) => {
+        setDaySelected(day)
+        setDate(day)
+    }
+
+    console.log(date)
 
     return (
         <CalendarContainer>
@@ -63,7 +71,7 @@ const SmallCalendar = () => {
                             {
                                 week.map((day, index) => {
                                     return (
-                                        <Day key={index} day={day} index={index} className={getDayClass(day)} onClick={()=>{setDaySelected(day)}}>
+                                        <Day key={index} day={day} index={index} className={getDayClass(day)} onClick={()=>{handleDayClick(day)}}>
                                             {day.date()}
                                         </Day>
                                     )
@@ -76,6 +84,7 @@ const SmallCalendar = () => {
         </CalendarContainer>
     )
 }
+
 
 const CalendarContainer = styled.div`
     padding: 1rem;

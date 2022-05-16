@@ -6,7 +6,6 @@ import dayjs from 'dayjs'
 const ObjectStructure = () => {
     const item = {
         id: window.Date.now(),
-        date: window.Date.now(),
         title: "Hello",
         description: "",
         important: false,

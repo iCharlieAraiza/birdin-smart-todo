@@ -34,6 +34,7 @@ const ContextWrapper = (props) => {
     const [savedEvents, dispatchCalEvent] = useReducer(savedEventsReducer, [], initEvents)
     const [leftBarWidth, setLeftBarWidth] = useState(19*14)
     const [dayStatus, setDayStatus] = useState([])
+    const [updateCalendar, setUpdateCalendar] = useState(0)
 
 
     useEffect(() => {
@@ -45,6 +46,13 @@ const ContextWrapper = (props) => {
         setDayStatus(initDateStatus)
         console.log('dayStatus', dayStatus)
     }, [])
+
+
+    useEffect(() => {
+        //setDayStatus(updateCalendar)
+        setDayStatus(initDateStatus)
+    }, [updateCalendar])
+
 
     function initDateStatus(){
         //const date = new Map()
@@ -92,7 +100,9 @@ const ContextWrapper = (props) => {
                                         leftBarWidth,
                                         setLeftBarWidth,
                                         dayStatus,
-                                        setDayStatus
+                                        setDayStatus,
+                                        updateCalendar, 
+                                        setUpdateCalendar,
                                         }}>
             { props.children }
         </GlobalContext.Provider>

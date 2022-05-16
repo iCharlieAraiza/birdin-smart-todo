@@ -30,7 +30,6 @@ const Details = ({item}) => {
     const [isChecked, setIsChecked] = useState(item.isChecked) 
     const [auxiliarState, setAuxiliarState] = useState(item)
 
-
     const {isShowing, toggle} = useModal()
 
     useEffect(()=>{
@@ -49,7 +48,6 @@ const Details = ({item}) => {
         setEstimatedTime(item.estimatedTime === undefined ? 0 : item.estimatedTime)
         setDescription(item.description)
         setIsChecked(item.isChecked)
-
         setAuxiliarState(item);
 
     }, [item])
@@ -224,11 +222,11 @@ const Section = styled.div`
 
 const Wrapper = styled.div`
     padding: 2rem;
-    padding-top: 3.5rem;
+    padding-top: 3.2rem;
     height: 100vh;
     width: 320px;
     transform: translateX(400px);
-    transition: 0.1s;
+    transition: 0.2s;
     &.open {
         transform: translateX(0);
     }
