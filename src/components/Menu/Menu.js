@@ -51,7 +51,7 @@ const Menu = (props) => {
 }
 
 const MenuContainer = styled.div`
-    padding: 3.5rem 1.5rem 2rem 1.5rem;
+    padding: 3.2rem 1.5rem 2rem 1.5rem;
 `
 
 const UserCard = styled.div`

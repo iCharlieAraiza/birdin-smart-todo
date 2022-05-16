@@ -14,6 +14,9 @@ import {useOutsideAlerter} from '../../hooks/useOutsideAlerter'
 import PriorityData  from '../../utils/priority.json'
 import { getLabelObject } from '../../utils/label-obj'
 import ImportantButton from '../Details/components/ImportantButton'
+import SmallCalendar from '../Calendar/SmallCalendar'
+import dayjs from 'dayjs'
+
 
 const SubmitModal = ({setIsShow, type = '', inputTitle}) => {
     //console.log("Label ASDASD", type.priority)
@@ -22,6 +25,7 @@ const SubmitModal = ({setIsShow, type = '', inputTitle}) => {
     const [check, setCheck] = useState(false)
     const [prioity, setPriority] = useState(type.priority ? type.priority : PriorityData[0])
     const [label, setLabel] = useState(type.label ? type.label : getLabelObject('none'))
+    const [date, setDate] = useState()
 
     const [time, setTime] = useState(0);
     const [kindOfTime, setKindOfTime] = useState('minutes');
@@ -29,7 +33,7 @@ const SubmitModal = ({setIsShow, type = '', inputTitle}) => {
     const [errorMessage, setErrorMessage] = useState('')
     const [important, setImportant] = useState(type.important ? type.important : false)
  
-    const {dispatchCalEvent} = useContext(GlobalContext)
+    const {dispatchCalEvent, setUpdateCalendar} = useContext(GlobalContext)
 
     const {ref, visible, setVisible} = useOutsideAlerter(false)
     
@@ -43,7 +47,10 @@ const SubmitModal = ({setIsShow, type = '', inputTitle}) => {
     }, [prioity, label])
 
     useEffect(()=>{
-        document.querySelector('.title-input').focus()
+        if( description.length  == 0 ){
+            document.querySelector('.title-input').focus()
+        }
+
     })
 
     const handleTitle = (e) => {
@@ -76,8 +83,13 @@ const SubmitModal = ({setIsShow, type = '', inputTitle}) => {
         newTask.kindOfEstimated = kindOfTime
         newTask.estimatedTime = time
         newTask.important = important
-
+        //newTask.date = date?.valueOf()
+        newTask.date = new Date(date?.valueOf()).valueOf()
+        //newTask.date = 1652850000000
+        //newTask.date = window.Date.now()
+        setUpdateCalendar(window.Date.now())
         dispatchCalEvent({type: 'push', payload: newTask}) 
+        
     }
 
     function updateState(){
@@ -94,6 +106,7 @@ const SubmitModal = ({setIsShow, type = '', inputTitle}) => {
 
     function handleClick() {
         setVisible(!visible)
+
     }
         
     console.log('njnn',prioity)
@@ -123,16 +136,36 @@ const SubmitModal = ({setIsShow, type = '', inputTitle}) => {
                     <DescriptionInput placeholder="Task description" value={description} onChange={handleDescription}/>
                 </ModalContentWrapper>
                 <ModalForm>
-                    <InputContainer>
+                    <FormWrapper id="formtre">
+                        <InputContainer ref={ref} onClick={()=>{
+                            if(displayInput === 'date') {
+                                setDisplayInput('')
+                            }else{
+                                setDisplayInput('date')
+                                handleClick()
+                            }
+                        }}>
                         <AiOutlineCalendar />
-                        No Date
-                    </InputContainer>
+                        {date ?  dayjs(date.valueOf()).format('DD/MMMM/YY') : 'No date'}
+                        </InputContainer>
+                        { (displayInput === 'date' && visible ) && 
+                        ( <InputWrapper  ref={ref} style={{ "zIndex": "2", "backdropFilter": "blur(5px)","backgroundColor": "#303d487a",
+                                                             "border": "1px solid #5a5a5a", "width": "230px"}}> 
+                            <SmallCalendar key={window.Date.now()} setDate = {setDate} date = {date}/> 
+                        </InputWrapper>)}
+                    </FormWrapper>
+
                     
                     <FormWrapper>
-                        <InputContainer onClick={()=>{
+                        <InputContainer ref={ref} onClick={()=>{
+                            if(displayInput === 'priority') {
+                                setDisplayInput('')
+                            }else{
                                 setDisplayInput('priority')
                                 handleClick()
-                            }}>
+                            }
+                            
+                        }}>
                             {prioity?.label !== 'low' ? <> {getIcon(prioity.label)} {prioity.label} </> : <>{getIcon('low')} Priority</>}
                         </InputContainer>
                         {(displayInput === 'priority' && visible) && (
@@ -145,9 +178,14 @@ const SubmitModal = ({setIsShow, type = '', inputTitle}) => {
                     </FormWrapper>
 
                     <FormWrapper>
-                        <InputContainer onClick={()=>{
+                    <InputContainer ref={ref} onClick={()=>{
+                            if(displayInput === 'label') {
+                                setDisplayInput('')
+                            }else{
                                 setDisplayInput('label')
                                 handleClick()
+                            }
+                            
                         }}>
                             {label?.label !== 'none' ? <> <LabelColorIcon color={label.color}/> {label.label} </> : <><BsTag />Label</>}
 
@@ -173,7 +211,7 @@ const SubmitModal = ({setIsShow, type = '', inputTitle}) => {
                                     <FlexContainer>
                                         <MdOutlineTimer />
                                         {
-                                            (time === 0 || time === undefined || time === '')|| !kindOfTime ? (
+                                            (time === 0 || time === undefined || time === '')|| !kindOfTime ? (
                                                 <>No Duration</>
                                             ) : (
                                                 <>{time} {kindOfTime}</>
@@ -214,7 +252,6 @@ const SubmitModal = ({setIsShow, type = '', inputTitle}) => {
                                     <FiArrowDown />
                                 </FlexContainer>
                             </TimeInput>
-
                         </FlexContainer>
                     </InputContainer>
                     */}
@@ -368,7 +405,6 @@ const ModalFooter = styled.div`
     padding: 12px 1rem;
     border-top: 1px solid #e6e6e64d;
     background-color: #ffffff0a;
-
 `
 
 const ModalFooterButton = styled.div`
