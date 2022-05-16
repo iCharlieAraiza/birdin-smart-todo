@@ -30,9 +30,11 @@ const TaskDetails = () => {
     useEffect(() => {
         updateEvent()     
         focusToEnd()
-        console.log({important})
+        const wrapperContainer = document.querySelector('.details-container')
+        setTimeout(()=>{
+            wrapperContainer?.classList.add('open')
+        }, 100)
     }, [selectedEvent])
-
 
     useEffect(() => {
         createUpdateEvent()
@@ -80,6 +82,7 @@ const TaskDetails = () => {
 
     function createUpdateEvent() {
         const newEvent = {
+            ...selectedEvent,
             position: selectedEvent.position,
             title,
             description,
@@ -126,6 +129,7 @@ const TaskDetails = () => {
         if ( el.target.textContent != title) {
             setTitle(el.target.textContent)
             const newEvent = {
+                ...selectedEvent,
                 title: el.target.textContent,
                 description,
                 date,
@@ -146,6 +150,7 @@ const TaskDetails = () => {
     const handlerCheck = () => {
         console.log('isChecked: ', isChecked)
         const newEvent = {
+            ...selectedEvent,
             title,
             description,
             date,
@@ -166,7 +171,7 @@ const TaskDetails = () => {
         <TaskDetailsBar width={leftBarWidth + 'px'}>
             <Overlay onClick={ () => setSelectedEvent(null)}>
             </Overlay>
-            <TaskMenu>
+            <TaskMenu className='details-container'>
                 <CheckSection>
                     <CheckButton check={isChecked} handlerCheck={handlerCheck} />
                     <TitleInput 
@@ -295,22 +300,25 @@ const TaskDetailsBar = styled.div`
 const Overlay = styled.div`
     background: #0000006e;
     height: 100vh;
-    flex-grow: 999;   
+    flex-grow: 999; 
 
 `
 
 const TaskMenu = styled.div`
     //background: var(--navbar-bg-color);
-    width: 20rem;
+    width: 10rem;
     height: 100vh;
     padding: 0 1rem;
     //backdrop-filter: blur(3px);
     background-color: rgb(36 51 72 / 88%);
     //animation: slidein 0.1s ease-in;
     //transform: translate(0, 0);
-    transform: translateX(0px);
-
-
+    //transform: translateX(20px);
+    transition: 0.2s;
+    &.open {
+        width: 20rem;
+        //transform: translateX(0px);
+    }
 `
 
 const Priority = styled.div`

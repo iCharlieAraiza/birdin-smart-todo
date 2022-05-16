@@ -49,7 +49,6 @@ const Details = ({item}) => {
         setDescription(item.description)
         setIsChecked(item.isChecked)
         setAuxiliarState(item);
-
     }, [item])
 
     useEffect(()=>{
