@@ -106,7 +106,6 @@ const SubmitModal = ({setIsShow, type = '', inputTitle}) => {
 
     function handleClick() {
         setVisible(!visible)
-
     }
         
     console.log('njnn',prioity)
@@ -146,12 +145,12 @@ const SubmitModal = ({setIsShow, type = '', inputTitle}) => {
                             }
                         }}>
                         <AiOutlineCalendar />
-                        {date ?  dayjs(date.valueOf()).format('DD/MMMM/YY') : 'No date'}
+                        {date ?  dayjs(date.valueOf()).format('DD/MM/YY') : 'No date'}
                         </InputContainer>
                         { (displayInput === 'date' && visible ) && 
                         ( <InputWrapper  ref={ref} style={{ "zIndex": "2", "backdropFilter": "blur(5px)","backgroundColor": "#303d487a",
                                                              "border": "1px solid #5a5a5a", "width": "230px"}}> 
-                            <SmallCalendar key={window.Date.now()} setDate = {setDate} date = {date}/> 
+                            <SmallCalendar setDate={setDate} date={date}/> 
                         </InputWrapper>)}
                     </FormWrapper>
 

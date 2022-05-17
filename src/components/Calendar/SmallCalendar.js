@@ -7,7 +7,7 @@ import {MdArrowBackIosNew, MdArrowForwardIos} from 'react-icons/md'
 const SmallCalendar = ({date, setDate}) => {
     const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 
-    const [currentMonthIdx, setCurrentMonthIdx] = useState(dayjs().month())
+    const [currentMonthIdx, setCurrentMonthIdx] = useState( date ? dayjs(date.valueOf()).month()  : dayjs().month())
     const [currentMonth, setCurrentMonth] = useState(getMonth(currentMonthIdx))
     const [daySelected, setDaySelected] = useState(date)
  

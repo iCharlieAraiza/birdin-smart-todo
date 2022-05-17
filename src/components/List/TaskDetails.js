@@ -33,7 +33,7 @@ const TaskDetails = () => {
         const wrapperContainer = document.querySelector('.details-container')
         setTimeout(()=>{
             wrapperContainer?.classList.add('open')
-        }, 100)
+        }, 50)
     }, [selectedEvent])
 
     useEffect(() => {
@@ -306,7 +306,7 @@ const Overlay = styled.div`
 
 const TaskMenu = styled.div`
     //background: var(--navbar-bg-color);
-    width: 10rem;
+    width: 12rem;
     height: 100vh;
     padding: 0 1rem;
     //backdrop-filter: blur(3px);

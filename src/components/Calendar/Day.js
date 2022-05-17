@@ -27,11 +27,13 @@ const Day = ({day, month, index}) => {
 
         if (getCurrentDay()){
             className = 'active '
+        }else if (window.Date.now() > day.valueOf()) {
+                className += 'inactive-task'
         }
 
         if (currentDay == slcDay) {
-            className += 'selected '
-        }        
+            className = 'selected '
+        }            
 
         return className
     }
@@ -90,6 +92,7 @@ const DayWrapper = styled.div`
     justify-content: space-between;
     cursor: pointer;
     background-color: var(--day-bg-color);
+    animation: 1s;
     &.selected {
         background-color: var(--selected-bg-color)!important;
         border: var(--border-selected);
@@ -102,6 +105,10 @@ const DayWrapper = styled.div`
     }
     &.completed-task{
         background-color: var(--completed-calendar-bg-color);
+    }
+    &.inactive-task {
+        opacity: 0.6;
+        background-color: #1e3b600d;
     }
 `
 
