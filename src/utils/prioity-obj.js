@@ -1,5 +1,5 @@
 import {FiArrowDown, FiAlertOctagon} from 'react-icons/fi'
-import {BsArrowUpCircle, BsExclamationOctagon} from 'react-icons/bs'
+import {BsArrowUpCircle, BsExclamationOctagon, BsArrowRightCircle} from 'react-icons/bs'
 import {FaRegCircle} from 'react-icons/fa'
 import {IoMdRemoveCircleOutline} from 'react-icons/io'
 
@@ -32,8 +32,14 @@ export const getIcon = (label = '', style)=>{
     if(style) {
       item?.style == "background: black" ? item.icon : '';
     }
-
     return item ? item.icon : '';
+}
+
+export const getIconFixed = (label = '', style)=>{
+   if (label === 'medium') {
+      return <BsArrowRightCircle fill="#00bfff" />
+   }
+   return getIcon(label, style);
 }
 
 export const getPriorityObject = (label = '')=>{

@@ -4,7 +4,9 @@ import GlobalContext from '../../context/GlobalContext'
 import TaskDetails from './TaskDetails'
 import CheckButton from './CheckButton'
 import { ReactSortable } from "react-sortablejs";
-import {MdLabelImportantOutline, MdLabelImportant} from 'react-icons/md'
+import { MdLabelImportantOutline, MdLabelImportant } from 'react-icons/md'
+import { getLabelComponent } from '../../utils/label-obj'
+import { getIconFixed } from '../../utils/prioity-obj'
 
 /*
   2:29 implement the select button
@@ -117,10 +119,12 @@ const ListSection = ({items, setItems, setMoveElement}) => {
                   <CheckButton check={ item.isChecked } handlerCheck={()=>handlerCheck(item)} />
               </SelectButton>
               <Title className='text'  >
+                { item.priority?.label != 'low' && getIconFixed(item.priority.label) }
                 { item.title }
                 <TimeDescription className='text'>
-                { (item.estimatedTime || item.estimatedTime > 0) && 'Estimated time ' + item.estimatedTime + ' ' + (item.kindOfEstimated == undefined ? '' : item.kindOfEstimated) }
-              </TimeDescription>
+                  { (item.estimatedTime || item.estimatedTime > 0) && 'Estimated time ' + item.estimatedTime + ' ' + (item.kindOfEstimated == undefined ? '' : item.kindOfEstimated) }
+                  { item.labels?.label !== "none" && <> {getLabelComponent(item.labels.label)} </>}
+                </TimeDescription>
               </Title>
               <LabelTag>
                   <Square>
@@ -183,6 +187,12 @@ const Title = styled.div`
   margin-right: auto;
   margin-left: 0.5rem;
   width: 100%;
+  svg {
+    font-size: 12px!important;
+    margin-right: 0.4rem;
+    margin-left: 0;
+    padding: 0;
+  }
 `
 
 const LabelTag = styled.div`
@@ -209,6 +219,7 @@ const ButtonContainer = styled.div`
       opacity: 1;
       //background-color: #f7cb4e;
       fill: #f7cb4e;
+    }
     }
 `
  

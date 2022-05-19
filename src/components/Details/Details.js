@@ -11,13 +11,15 @@ import TYPE_OF_TIME from '../../utils/type_of_time.json'
 import Modal from '../Modal'
 import { useModal } from '../../hooks/useModal'
 import { toast } from 'react-toastify';
+import dayjs from 'dayjs'
+import SmallCalendar from '../Calendar/SmallCalendar'
 
 
 const Details = ({item}) => {
     if(item === null) {
         return ''
     }
-    const {dispatchCalEvent} = useContext(GlobalContext)
+    const {dispatchCalEvent, setUpdateCalendar} = useContext(GlobalContext)
 
     
     const [title, setTitle] = useState(item.title)
@@ -29,6 +31,8 @@ const Details = ({item}) => {
     const [description, setDescription] = useState(item.description)
     const [isChecked, setIsChecked] = useState(item.isChecked) 
     const [auxiliarState, setAuxiliarState] = useState(item)
+    const [date, setDate] = useState(item.date != undefined ? dayjs(item.date) : dayjs)
+    const [visible, setVisible] = useState(false)
 
     const {isShowing, toggle} = useModal()
 
@@ -49,6 +53,8 @@ const Details = ({item}) => {
         setDescription(item.description)
         setIsChecked(item.isChecked)
         setAuxiliarState(item);
+        setDate(dayjs(item.date))
+        setVisible(false)
     }, [item])
 
     useEffect(()=>{
@@ -66,7 +72,8 @@ const Details = ({item}) => {
             kindOfEstimated: kindOfEstimated,
             estimatedTime: estimatedTime,
             description: description,
-            isChecked: isChecked
+            isChecked: isChecked,
+            date: new Date(date?.valueOf()).valueOf()
         }
         return newItem
     }
@@ -119,13 +126,21 @@ const Details = ({item}) => {
         dispatchCalEvent({type: 'update', payload: newItem})
     }
 
+    const handleDate = () => {
+        const newItem = getUpdatedObject()
+        newItem.date = new Date(date?.valueOf()).valueOf()
+        dispatchCalEvent({type: 'update', payload: newItem})
+        setUpdateCalendar(newItem.date)
+        toast.success('Date changed')
+    }
+
     const deleteEvent = () => {
         dispatchCalEvent({type: 'delete', payload: item})
         toggle()
         toast.success('Task deleted')
     }
 
-    console.log({isChecked})
+    console.log("Date", dayjs(item.date))
 
     return (
         <>
@@ -151,10 +166,21 @@ const Details = ({item}) => {
                         Date
                     </Label>   
                     <Section>
-                        <SelectDate>
+                        <SelectDate onClick={() => setVisible(!visible)}>
                             <BsCalendar3/>
-                            20/02/22
+                            { date ? date.format('DD/MM/YYYY') : 'No date'}
                         </SelectDate>
+                        { visible && (<>
+                                        <Overlay onClick={() => { 
+                                            setVisible(false)
+                                            handleDate()
+                                        }}/>
+                                        <CalendarContainer>
+                                            <CalendarWrapper>
+                                                <SmallCalendar setDate={setDate} date={date}/>
+                                            </CalendarWrapper>
+                                        </CalendarContainer>
+                                    </>)}
                     </Section> 
                 </Section>
                 <Separator />
@@ -301,6 +327,29 @@ const Description = styled.textarea`
     border: none;
     outline: none;
     resize: none;
+`
+
+const CalendarContainer = styled.div`
+    position: relative;
+    width: 0;
+    `
+    
+const CalendarWrapper = styled.div`
+    position: absolute;
+    right: 0;
+    background-color: #373f50db;
+    top: 18px;
+    z-index: 3;
+    backdrop-filter: blur(6px);
+`
+
+const Overlay = styled.div`
+    position: absolute;
+    top: 0;
+    left: -80vw;
+    height: 100%;
+    width: 100vw;
+    z-index: 3;
 `
 
 export default Details
