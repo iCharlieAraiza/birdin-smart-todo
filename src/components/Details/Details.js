@@ -127,11 +127,18 @@ const Details = ({item}) => {
     }
 
     const handleDate = () => {
-        const newItem = getUpdatedObject()
-        newItem.date = new Date(date?.valueOf()).valueOf()
-        dispatchCalEvent({type: 'update', payload: newItem})
-        setUpdateCalendar(newItem.date)
-        toast.success('Date changed')
+        if(!date) {
+            return
+        }
+        if (dayjs(item.date).format('YYYY-MM-DD') !== dayjs(date).format('YYYY-MM-DD')) {
+            const newItem = getUpdatedObject()
+            newItem.date = new Date(date?.valueOf()).valueOf()
+            dispatchCalEvent({type: 'update', payload: newItem})
+            setUpdateCalendar(window.Date.now())
+            toast.success('Date changed')
+        }else{
+            console.log('Date not changed')
+        }
     }
 
     const deleteEvent = () => {

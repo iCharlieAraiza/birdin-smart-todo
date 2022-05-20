@@ -11,21 +11,26 @@ import LabelDropdown from './Form/LabelDropdown'
 import PriorityDropdown from './Form/PriorityDropdown'
 import {useModal} from '../../hooks/useModal'
 import Modal from '../Modal'
+import SmallCalendarForm from '../Calendar/SmallCalendarForm'
+import { Item } from 'semantic-ui-react'
+import { toast } from 'react-toastify';
 
 const TaskDetails = () => {
-    const { selectedEvent, setSelectedEvent, savedEvents, dispatchCalEvent, leftBarWidth } = useContext(GlobalContext)
+    const { selectedEvent, setSelectedEvent, savedEvents, dispatchCalEvent, leftBarWidth, setUpdateCalendar } = useContext(GlobalContext)
     const [id, setId  ]= useState(selectedEvent.id);
     const [title, setTitle] = useState(selectedEvent.title == undefined ? '' : selectedEvent.title);
     const [description, setDescription] = useState(selectedEvent.description)
-    const [date, setDate] = useState(selectedEvent.date)
+    const [date, setDate] = useState(selectedEvent.date ? dayjs(selectedEvent.date) : dayjs())
     const [labels, setLabels] = useState(selectedEvent.labels)
     const [isChecked, setIsChecked] = useState(selectedEvent.isChecked == undefined ? false : selectedEvent.isChecked)
     const [estimatedTime, setEstimatedTime] = useState(selectedEvent.estimatedTime == undefined ? 0 : selectedEvent.estimatedTime)
     const [kindOfEstimated, setKindOfEstimated] = useState(selectedEvent.kindOfEstimated == undefined ? 'minutes' : selectedEvent.kindOfEstimated)
     const [priority, setPriority] = useState(selectedEvent.priority == undefined ? null : selectedEvent.priority)
     const [important, setImportant] = useState(selectedEvent.important == undefined ? false : selectedEvent.important)
-    const {isShowing, toggle} = useModal()
+    const [visible, setVisible] = useState(false)
+    const [visibleTest, setVisibleTest] = useState(false)
 
+    const {isShowing, toggle} = useModal()
 
     useEffect(() => {
         updateEvent()     
@@ -62,7 +67,7 @@ const TaskDetails = () => {
     const updateEvent = () => {
         setTitle(selectedEvent.title)
         setDescription(selectedEvent.description)
-        setDate(selectedEvent.date)
+        setDate(selectedEvent.date ? dayjs(selectedEvent.date) : dayjs())
         setLabels(selectedEvent.labels == undefined ? null : selectedEvent.labels)
         setId(selectedEvent.id)
         setIsChecked(selectedEvent.isChecked)
@@ -70,6 +75,7 @@ const TaskDetails = () => {
         setKindOfEstimated(selectedEvent.kindOfEstimated  == undefined ? 'minutes' : selectedEvent.kindOfEstimated)
         setPriority(selectedEvent.priority == undefined ? null : selectedEvent.priority)
         setImportant(selectedEvent.important == undefined ? false : selectedEvent.important)
+        //setVisible(true)
         console.log('Is selectedEvent updated: ', selectedEvent)
     }
 
@@ -86,7 +92,7 @@ const TaskDetails = () => {
             position: selectedEvent.position,
             title,
             description,
-            date,
+            date: date.valueOf(),
             id,
             estimatedTime,
             kindOfEstimated,
@@ -95,6 +101,10 @@ const TaskDetails = () => {
             priority,
             important,
         }
+        console.log('Date: ', date.valueOf())
+        console.log('Date format: ', date.format('YYYY-MM-DD'))
+
+
         dispatchCalEvent({type: 'update', payload: newEvent})
         //setSelectedEvent(null)
     }
@@ -132,8 +142,8 @@ const TaskDetails = () => {
                 ...selectedEvent,
                 title: el.target.textContent,
                 description,
-                date,
                 id,
+                date: date.valueOf(),
                 estimatedTime,
                 kindOfEstimated,
                 labels,
@@ -153,7 +163,7 @@ const TaskDetails = () => {
             ...selectedEvent,
             title,
             description,
-            date,
+            date: date.valueOf(),
             id,
             labels,
             kindOfEstimated,
@@ -165,6 +175,17 @@ const TaskDetails = () => {
         setIsChecked(!isChecked)
         console.log('isChecked: ', isChecked)
         dispatchCalEvent({type: 'update', payload: newEvent})
+    }
+
+    const handleDateChange = () => {
+        createUpdateEvent()
+        setUpdateCalendar(date.valueOf()) 
+        if(dayjs(selectedEvent.date).format('DD.MM.YYYY') != date.format('DD.MM.YYYY')){
+            toast.success('Date changed!')
+            setSelectedEvent(null)
+
+        }
+        setVisibleTest(false)
     }
 
     return (
@@ -194,10 +215,26 @@ const TaskDetails = () => {
                 <Separator/>
                 <DateSection>
                     <LabelSection>Date</LabelSection>
-                    <FlexCenter>
-                        <BsCalendar3 /> { date != null && dayjs(date).format('DD / MMMM / YYYY') }
+                    <FlexCenter style={{"cursor":"pointer"}}  onClick={() => {setVisibleTest(true)}} >
+                        <BsCalendar3 />                             
+                        { date != null && dayjs(date).format('DD / MMMM / YYYY') }
                     </FlexCenter>
                 </DateSection>
+
+                
+                { visibleTest && (
+                <>
+                    <CalendarContainer>
+                        <CalendarOverlay id="overlayCalendar" onClick={() => {
+                            handleDateChange()
+                        }}/>
+                        <SmallCalendarForm setDate={setDate} 
+                        date={date} 
+                        handleDate={()=>{
+                            console.log("Hey!")
+                        }}  />
+                    </CalendarContainer>
+                </> )}
                 <Separator/>
                 <Priority>
                     <LabelSection>Priority</LabelSection>
@@ -433,5 +470,19 @@ const Remove = styled.div`
     }
 `
 
+const CalendarContainer = styled.div`
+    position: relative;
+    width: 0;
+    float: right;
+`
+
+const CalendarOverlay = styled.div`
+    position: absolute;
+    top: -170px;
+    left: -84vw;
+    width: 100vw;
+    height: 100vh;
+    z-index: 3;
+`
 
 export default TaskDetails

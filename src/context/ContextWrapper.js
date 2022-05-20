@@ -39,6 +39,7 @@ const ContextWrapper = (props) => {
 
     useEffect(() => {
         localStorage.setItem('saveEvents', JSON.stringify(savedEvents))
+        //setDayStatus(initDateStatus)
         updateDayStatus(daySelected)
     }, [savedEvents])
 

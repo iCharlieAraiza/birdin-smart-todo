@@ -27,6 +27,7 @@ const Todo = () => {
             setLeftBarWidth,
             dayStatus,
             setDayStatus,
+            updateCalendar
         } = useContext(GlobalContext)
 
     const [description, setDescription] = useState('')
@@ -38,10 +39,12 @@ const Todo = () => {
     useEffect(() => {
         setLeftBarWidth(WIDTH_SIZE)
     }, [])
-
+ 
     useEffect(() => {
         const events = savedEvents.sort((a,b)=>a.position-b.position).filter(evt => dayjs(evt.date).format('DD-MM-YYYY') === daySelected.format('DD-MM-YYYY'))
         setDayEvents(events.sort((a,b)=>a.position-b.position))
+        console.table(events)
+        console.log("Day events", events)
     }, [daySelected, savedEvents, moveElement])
 
     const labels = ['Important','Personal', 'Work', 'Shopping', 'Other']
