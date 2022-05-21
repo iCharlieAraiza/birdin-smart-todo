@@ -31,7 +31,8 @@ export function getDayStatus(items) {
         details:{
             completedRatio: `${completedTasks} / ${numberTasks} completed`,
             status: (completedTasks == numberTasks && numberTasks > 0) ? "completed" : "active",
-            isImportant: isImportant
+            isImportant: isImportant,
+            regularTask: items.filter(item => item.important === false && !item.isChecked).length,
         }
     }
 }

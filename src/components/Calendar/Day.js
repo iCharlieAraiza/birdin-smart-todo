@@ -58,10 +58,10 @@ const Day = ({day, month, index}) => {
                             Important task
                         </DayLabel>
                     )}
-                    {
+                    { statusInfo?.details.regularTask > 0 && (
                         <DayLabel>
                             Regular task
-                        </DayLabel> 
+                        </DayLabel> )
                     }
                 </>
                 )}
