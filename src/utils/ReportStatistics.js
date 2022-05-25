@@ -5,8 +5,7 @@ export const getReportStatistics = (SavedEvents) => {
 
     const tasksCount = SavedEvents.length;
     const completedTasksCount = SavedEvents.filter(item => item.isChecked).length; 
-
-
+    
     const today = new Date();
 
     const high = {}
@@ -68,8 +67,7 @@ export const getReportStatistics = (SavedEvents) => {
     }
 
     function getDayStatics() {
-        const format = 'DD-MM-YYYY'
-
+        const format = 'DD/MM/YY'
         const completedByDay = {}
         const allTasksByDay = {}
 
@@ -78,8 +76,6 @@ export const getReportStatistics = (SavedEvents) => {
             completedByDay[date] = { x: date, y: 0}
             allTasksByDay[date] = { x: date, y: 0}
         }
-
-
 
         SavedEvents.forEach((item, index) => {
             const date = dayjs(item.date).format(format)
@@ -92,9 +88,8 @@ export const getReportStatistics = (SavedEvents) => {
                 allTasksByDay[date].y++
             }
         })
-        
 
-        return [completedByDay, allTasksByDay]
+        return {completedByDay, allTasksByDay}
     }
 }
 

@@ -36,6 +36,7 @@ const Statistics = () => {
 }
 
 const StatisticsSection = styled.div`
+  padding-right: 1rem;
 `
 
 
