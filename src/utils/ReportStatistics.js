@@ -67,7 +67,7 @@ export const getReportStatistics = (SavedEvents) => {
     }
 
     function getDayStatics() {
-        const format = 'DD/MM/YY'
+        const format = 'DD/MM'
         const completedByDay = {}
         const allTasksByDay = {}
 
@@ -89,9 +89,22 @@ export const getReportStatistics = (SavedEvents) => {
             }
         })
 
-        return {completedByDay, allTasksByDay}
+        return { completedByDay: refactorArray(completedByDay).reverse(), allTasksByDay: refactorArray(allTasksByDay).reverse() }
     }
 }
+
+function refactorArray(array) {
+    const newArray = []
+    for (let key in array) {
+        newArray.push({
+            x: key,
+            y: array[key].y
+        })  
+    }
+    return newArray
+
+}
+
 
 function getPercentCompleted(tasksCount, completedTasksCount) {
     const percentCompleted = tasksCount > 0 ? (( completedTasksCount * 100 ) / tasksCount) : 0;
