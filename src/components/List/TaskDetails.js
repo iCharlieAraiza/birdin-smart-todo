@@ -179,7 +179,7 @@ const TaskDetails = () => {
 
     const handleDateChange = () => {
         createUpdateEvent()
-        setUpdateCalendar(date.valueOf()) 
+        setUpdateCalendar(window.Date.now()) 
         if(dayjs(selectedEvent.date).format('DD.MM.YYYY') != date.format('DD.MM.YYYY')){
             toast.success('Date changed!')
             setSelectedEvent(null)

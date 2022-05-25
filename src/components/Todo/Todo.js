@@ -28,7 +28,6 @@ const Todo = () => {
             dayStatus,
             setDayStatus,
             updateCalendar,
-            setUpdateCalendar
         } = useContext(GlobalContext)
 
     const [description, setDescription] = useState('')
@@ -62,7 +61,6 @@ const Todo = () => {
         }
 
         dispatchCalEvent({type: 'push', payload: newEvent})
-        setUpdateCalendar(window.Date.now())
         setTitle('')
       }
     };
