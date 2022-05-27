@@ -53,10 +53,11 @@ const BarChart = ({itemList}) => {
             id="charts"
             primaryXAxis={primaryXAxis}
             primaryYAxis={primaryYAxis}
+            height="350px"
             background = 'transparent'
             tooltip={{ enable: true }}
             chartArea={{ border: { width: 0 } }}
-            legendSettings={{ background: 'white' }}
+            legendSettings={{ background: 'transparent' }}
         >
             <Inject services={[StackingColumnSeries, Category, Legend, Tooltip]} />
             <SeriesCollectionDirective>
@@ -70,6 +71,7 @@ const BarChart = ({itemList}) => {
 }
 
 const Wrapper = styled.div`
+    margin: 1rem;
     text {
         font-family: 'Roboto', sans-serif!important;
         font-size: 12px;
