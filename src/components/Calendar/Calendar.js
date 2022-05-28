@@ -44,6 +44,7 @@ const CalendarSection = styled.div`
   margin-top: 1.5rem;
   overflow: scroll;
   min-width: 660px;
+  user-select: none
 `
 
 
