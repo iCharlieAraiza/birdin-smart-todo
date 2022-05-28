@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import LabelData from '../../utils/label-data.json'
@@ -8,14 +8,15 @@ import { BiLayer, BiCalendarCheck } from 'react-icons/bi'
 import { BsFileBarGraph } from 'react-icons/bs'
 import {RiUserFill} from 'react-icons/ri'
 import {MdLabelImportant} from 'react-icons/md'
+import GlobalContext from '../../context/GlobalContext'
 
 const Menu = (props) => {
+    const { pendingCount } = useContext(GlobalContext)
     const [active, setActive] = useState(window.location.pathname)
     
     const user = null
 
     const handlerMenu = (e) => {
-        console.log(e.view.location.pathname)
         setActive(e.view.location.pathname)
     }
 
@@ -29,13 +30,13 @@ const Menu = (props) => {
             </UserCard>
             <MenuList>
                 <MenuItem2 active={active} setActive={setActive} slug="" icon={<BiCalendarCheck/>} title="Calendar"/>
-                <MenuItem2 active={active} setActive={setActive} slug="pending" icon={<BiLayer/>} title="Pending"/>
-                <MenuItem2 active={active} setActive={setActive} slug="important" icon={<MdLabelImportant/>} title="Important"/>
-                <MenuItem2 active={active} setActive={setActive} slug="statistics" icon={<BsFileBarGraph/>} title="Reports"/>
+                <MenuItem2 active={active} setActive={setActive} slug="pending" icon={<BiLayer/>} title="Pending" pendingCount={pendingCount}/>
+                <MenuItem2 active={active} setActive={setActive} slug="important" icon={<MdLabelImportant/>} pendingCount={pendingCount} title="Important"/>
+                <MenuItem2 active={active} setActive={setActive} slug="statistics" icon={<BsFileBarGraph/>}  title="Reports"/>
                 <NoLinkMenuItem>Priority</NoLinkMenuItem>
-                <MenuItem2 active={active} setActive={setActive} category={'priority'} slug="medium" icon={<FiCircle/>} title="Medium" type="list"/>
-                <MenuItem2 active={active} setActive={setActive} category={'priority'} slug="high" icon={<FiArrowUp />} title="High" type="list"/>
-                <MenuItem2 active={active} setActive={setActive} category={'priority'} slug="urgent" icon={<FiAlertOctagon/>} title="Urgent" type="list"/>
+                <MenuItem2 active={active} setActive={setActive} category={'priority'} slug="medium" icon={<FiCircle/>} pendingCount={pendingCount} title="Medium" type="list"/>
+                <MenuItem2 active={active} setActive={setActive} category={'priority'} slug="high" icon={<FiArrowUp />} pendingCount={pendingCount} title="High" type="list"/>
+                <MenuItem2 active={active} setActive={setActive} category={'priority'} slug="urgent" icon={<FiAlertOctagon/>} pendingCount={pendingCount} title="Urgent" type="list"/>
 
             </MenuList>
             <Separator />

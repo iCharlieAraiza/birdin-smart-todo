@@ -37,6 +37,19 @@ export function getDayStatus(items) {
     }
 }
 
+export function getPendingsNumberBySection(items) {
+    const pendings = items.filter(item => item.isChecked === false);
+    const pendingsBySection = {
+        pending: pendings.length,
+        important: pendings.filter(item => item.important === true).length,
+        high: pendings.filter(item => item.priority.label === "high").length,
+        medium: pendings.filter(item => item.priority.label === "medium").length,
+        urgent: pendings.filter(item => item.priority.label === "urgent").length,
+    }
+    return pendingsBySection;
+}
+
+
 export function initDayStatus(items) {
 
 }

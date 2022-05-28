@@ -20,6 +20,7 @@ const GlobalContext = React.createContext({
     setDayStatus: (status) => {},
     updateCalendar: 0,
     setUpdateCalendar: (status) => {},
+    pendingCount: {},
 });
 
 export default GlobalContext;

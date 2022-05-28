@@ -2,9 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 
-
-const MenuItem2 = ({active, setActive, title, icon, slug = "/", type="", category = ""}) => {
-        
+const MenuItem2 = ({active, setActive, title, icon, slug = "/", type="", category = "", pendingCount={}}) => {
     const getPath = () => {
         if(category === "priority"){
             return `/priority/${slug}`
@@ -14,6 +12,9 @@ const MenuItem2 = ({active, setActive, title, icon, slug = "/", type="", categor
 
     const to = getPath();
 
+
+    const count = pendingCount[slug];
+
     return (        
     <Wrapper className={ `${active === `${slug}` && 'active'} ${type}` }>
         <MenuItemLink  onClick={() => setActive(slug)} to={to}>
@@ -21,6 +22,7 @@ const MenuItem2 = ({active, setActive, title, icon, slug = "/", type="", categor
                     {icon}
                 </MenuItemIcon>
                 <MenuItemText>{title}</MenuItemText>
+                { count > 0 && (<CountLabel> { count } </CountLabel>) }
             </MenuItemLink>
     </Wrapper>
     )
@@ -77,6 +79,15 @@ const MenuItemIcon = styled.div`
 
 const MenuItemText = styled.div`
     text-transform: capitalize;
+`
+
+const CountLabel = styled.div`
+    font-size: 12px;
+    background-color: #3c5964;
+    color: white;
+    margin-left: auto;
+    padding: 2px 4px;
+    margin-right: -3px;
 `
 
 
