@@ -8,6 +8,11 @@ export const getReportStatistics = (SavedEvents) => {
     
     const today = new Date();
 
+    const important ={} 
+    important.tasksCount = SavedEvents.filter(item => item.important).length;
+    important.completedTasksCount = SavedEvents.filter(item => item.important && item.isChecked).length;
+    important.percentCompleted = getPercentCompleted(important.taskCount, important.completedTasksCount)
+
     const high = {}
     high.tasksCount = SavedEvents.filter(item => item.priority.label === "high").length
     high.completedTasksCount = SavedEvents.filter(item => item.priority.label === "high" && item.isChecked).length
@@ -20,7 +25,7 @@ export const getReportStatistics = (SavedEvents) => {
 
     const urgent = {}
     urgent.tasksCount = SavedEvents.filter(item => item.priority.label === "urgent").length
-    urgent.completedTasksCount = SavedEvents.filter(item => item.priority.label === "urgent" && item.isChecked).length
+    urgent.completedTasksCount = SavedEvents.filter(item => (item.priority.label === "urgent" && item.isChecked)).length
     urgent.percentCompleted = getPercentCompleted(urgent.tasksCount, urgent.completedTasksCount)
 
 
@@ -32,6 +37,7 @@ export const getReportStatistics = (SavedEvents) => {
         tasksCount,
         completedTasksCount,
         percentCompleted: getPercentCompleted(tasksCount, completedTasksCount),
+        important,
         priority:{
             high,
             medium,
@@ -47,7 +53,7 @@ export const getReportStatistics = (SavedEvents) => {
 
     function getDayStatics ({period = 30}) {
         let days = []
-        const format = 'DD-MM-YYYY'
+        let format = 'DD-MM-YYYY'
         
         for ( let i = 0; i < period; i++ ) {
             const date = dayjs().subtract(i, 'day').format(format)

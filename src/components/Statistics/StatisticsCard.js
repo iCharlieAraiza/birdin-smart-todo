@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 const StatisticsCard = ({DayData}) => {
-    console.log("DayData", DayData.completedTasksCount)
+    console.log("DayData", DayData.priority)
     return (
         <Wrapper>
             <Section>
@@ -37,7 +37,10 @@ const StatisticsCard = ({DayData}) => {
             <Section>
                 <Card>
                     <Figure>
-                        10
+                        {DayData.important.completedTasksCount ? DayData.important.completedTasksCount : 0}
+                        <TotalLabel>
+                            {DayData.important.tasksCount ? DayData.important.tasksCount : 0}
+                        </TotalLabel>
                     </Figure>
                     <Label>
                         Important
@@ -45,7 +48,10 @@ const StatisticsCard = ({DayData}) => {
                 </Card>
                 <Card>
                     <Figure>
-                        3
+                        {DayData.priority.urgent.completedTasksCount ? DayData.priority.urgent.tasksCount : 0}
+                        <TotalLabel>
+                            {DayData.priority.urgent.tasksCount ? DayData.priority.urgent.tasksCount : 0}
+                        </TotalLabel>
                     </Figure>
                     <Label>
                         Urgent
@@ -53,7 +59,10 @@ const StatisticsCard = ({DayData}) => {
                 </Card>
                 <Card>
                     <Figure>
-                        1
+                        {DayData.priority.medium.completedTasksCount ? DayData.priority.medium.completedTasksCount : 0}
+                        <TotalLabel>
+                            {DayData.priority.medium.tasksCount ? DayData.priority.medium.tasksCount : 0}
+                        </TotalLabel>
                     </Figure>
                     <Label>
                         Medium
@@ -62,7 +71,10 @@ const StatisticsCard = ({DayData}) => {
 
                 <Card>
                     <Figure>
-                        1
+                        {DayData.priority.high.completedTasksCount ? DayData.priority.high.completedTasksCount : 0}
+                        <TotalLabel>
+                            {DayData.priority.high.tasksCount ? DayData.priority.high.tasksCount : 0}
+                        </TotalLabel>
                     </Figure>
                     <Label>
                         High
@@ -112,6 +124,14 @@ const Figure = styled.div`
 const Label = styled.div`
     font-weight: 200;
     text-align: center;
+`
+
+const TotalLabel = styled.span`
+    font-size: 16px;
+    color: #c3c3c3;
+    &:before {
+        content: "/";
+    }
 `
 
 export default StatisticsCard

@@ -57,9 +57,9 @@ const BarChart = ({itemList}) => {
             background = 'transparent'
             tooltip={{ enable: true }}
             chartArea={{ border: { width: 0 } }}
-            legendSettings={{ background: 'transparent' }}
+            legendSettings={{ background: 'transparent', display: 'none' }}
         >
-            <Inject services={[StackingColumnSeries, Category, Legend, Tooltip]} />
+            <Inject services={[StackingColumnSeries, Category, Tooltip]} />
             <SeriesCollectionDirective>
             {/* eslint-disable-next-line react/jsx-props-no-spreading */}
             { <SeriesDirective key={window.Date.now()} {...stackedCustomSeries[0]} /> }
@@ -74,7 +74,7 @@ const Wrapper = styled.div`
     margin: 1rem;
     text {
         font-family: 'Roboto', sans-serif!important;
-        font-size: 12px;
+        font-size: 10px;
         fill: #ffffff;
     }
 
