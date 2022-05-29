@@ -124,6 +124,7 @@ const Figure = styled.div`
 const Label = styled.div`
     font-weight: 200;
     text-align: center;
+    user-select: none
 `
 
 const TotalLabel = styled.span`

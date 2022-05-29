@@ -1,6 +1,6 @@
 import React, {useState, useReducer, useEffect} from 'react'
 import GlobalContext from './GlobalContext'
-import { getDayStatus } from '../utils/Report'
+import { getDayStatus, getPendingsNumberBySection } from '../utils/Report'
 import dayjs from 'dayjs'
 
 
@@ -35,12 +35,12 @@ const ContextWrapper = (props) => {
     const [leftBarWidth, setLeftBarWidth] = useState(19*14)
     const [dayStatus, setDayStatus] = useState([])
     const [updateCalendar, setUpdateCalendar] = useState(0)
-
+    const [pendingCount, setPendingCount] = useState({})
 
     useEffect(() => {
         localStorage.setItem('saveEvents', JSON.stringify(savedEvents))
-        //setDayStatus(initDateStatus)
         updateDayStatus(daySelected)
+        setPendingCount(getPendingsNumberBySection(savedEvents))
     }, [savedEvents])
 
     useEffect(() => {
@@ -104,6 +104,7 @@ const ContextWrapper = (props) => {
                                         setDayStatus,
                                         updateCalendar, 
                                         setUpdateCalendar,
+                                        pendingCount,
                                         }}>
             { props.children }
         </GlobalContext.Provider>

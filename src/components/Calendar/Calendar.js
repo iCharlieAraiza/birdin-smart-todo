@@ -45,6 +45,7 @@ const CalendarSection = styled.div`
   overflow: scroll;
   min-width: 660px;
   user-select: none
+
 `
 
 
@@ -54,7 +55,7 @@ const DaysOfWeek = styled.div`
   grid-template-columns: repeat(7, 1fr);
   text-align: center;
   font-weight: bold;
-  font-size: 16px;
+  font-size: 14px;
   margin-bottom: 10px;
 `
 

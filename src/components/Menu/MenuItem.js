@@ -87,7 +87,7 @@ const CountLabel = styled.div`
     color: white;
     margin-left: auto;
     padding: 2px 4px;
-    margin-right: -3px;
+    margin-right: -6px;
 `
 
 

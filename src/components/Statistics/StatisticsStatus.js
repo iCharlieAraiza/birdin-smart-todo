@@ -4,8 +4,8 @@ import styled from 'styled-components'
 const StatisticsStatus = () => {
   return (
     <Section>
-        <span>Reports and lists of tasks:</span>
-        <div>Last 30 days</div>
+        <span>Report period:</span>
+        <div>All time</div>
     </Section>)
 }
 
