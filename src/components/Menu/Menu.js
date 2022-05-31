@@ -9,25 +9,20 @@ import { BsFileBarGraph } from 'react-icons/bs'
 import {RiUserFill} from 'react-icons/ri'
 import {MdLabelImportant} from 'react-icons/md'
 import GlobalContext from '../../context/GlobalContext'
+import Login from '../Login'
+
 
 const Menu = (props) => {
     const { pendingCount } = useContext(GlobalContext)
     const [active, setActive] = useState(window.location.pathname)
     
-    const user = null
-
     const handlerMenu = (e) => {
         setActive(e.view.location.pathname)
     }
 
     return (
         <MenuContainer>
-            <UserCard>
-                <ProfileAvatar>
-                    <RiUserFill/>
-                </ProfileAvatar>    
-                <UserName>{user?.name != null? user.name : 'new user' }</UserName>
-            </UserCard>
+            <Login/>
             <MenuList>
                 <MenuItem2 active={active} setActive={setActive} slug="" icon={<BiCalendarCheck/>} title="Calendar"/>
                 <MenuItem2 active={active} setActive={setActive} slug="pending" icon={<BiLayer/>} title="Pending" pendingCount={pendingCount}/>
@@ -59,7 +54,7 @@ const MenuContainer = styled.div`
 const UserCard = styled.div`
     display: flex;
     align-items: center;
-å    flex-wrap: wrap;
+    flex-wrap: wrap;
 `
 
 const ProfileAvatar = styled.div`
