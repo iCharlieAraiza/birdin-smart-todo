@@ -11,7 +11,7 @@ const Login = () => {
 
     return (
         <Wrapper>
-            <UserCard onClick={() => setOpen(!open)}>
+            <UserCard onClick={() => setOpen(!open)} className={open && 'open'}>
                 <ProfileAvatar>
                     <RiUserFill/>
                 </ProfileAvatar>    
@@ -38,7 +38,10 @@ const UserCard = styled.div`
     flex-wrap: wrap;
     cursor: pointer;
     padding: 7px 6px;
-    &:hover{
+    border: 1px solid transparent;
+    border-radius: 5px;
+    &.open {
+        border: 1px #e0e0e047 solid;
         background-color: #ffffff17;
     }
 `
@@ -77,17 +80,22 @@ const MenuList = styled.div`
     width: 100%;
     left: 0;
     position: absolute;
-    top: 29px;
+    top: 0px;
     backdrop-filter: blur(6px);
     background-color: #818fa361;
     top: 0px;
-    z-index: 10;
+    z-index: 0;
     margin: 0;
-    display: none;
+    transform: translateY(-200px);
+    transition: all 0.4s ease;
+    opacity: 0;
+
     &.open {
+        z-index: 10;
         display: block;
-        transform: translateY(40px);
-        transition: all 0.3s ease-in-out;
+        transform: translateY(100px);
+        opacity: 1;
+        top: 14px;
     }
     li {
         margin: 0;
