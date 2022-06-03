@@ -338,7 +338,7 @@ const Overlay = styled.div`
     background: #0000006e;
     height: 100vh;
     flex-grow: 999; 
-
+    z-index: 2;
 `
 
 const TaskMenu = styled.div`
