@@ -15,23 +15,20 @@ import Login from '../Login'
 const Menu = (props) => {
     const { pendingCount } = useContext(GlobalContext)
     const [active, setActive] = useState(window.location.pathname)
-    
-    const handlerMenu = (e) => {
-        setActive(e.view.location.pathname)
-    }
+
 
     return (
         <MenuContainer>
-            <Login/>
+            <Login setActive={setActive}/>
             <MenuList>
                 <MenuItem2 active={active} setActive={setActive} slug="" icon={<BiCalendarCheck/>} title="Calendar"/>
                 <MenuItem2 active={active} setActive={setActive} slug="pending" icon={<BiLayer/>} title="Pending" pendingCount={pendingCount}/>
                 <MenuItem2 active={active} setActive={setActive} slug="important" icon={<MdLabelImportant/>} pendingCount={pendingCount} title="Important"/>
                 <MenuItem2 active={active} setActive={setActive} slug="statistics" icon={<BsFileBarGraph/>}  title="Reports"/>
                 <NoLinkMenuItem>Priority</NoLinkMenuItem>
-                <MenuItem2 active={active} setActive={setActive} category={'priority'} slug="medium" icon={<FiCircle/>} pendingCount={pendingCount} title="Medium" type="list"/>
-                <MenuItem2 active={active} setActive={setActive} category={'priority'} slug="high" icon={<FiArrowUp />} pendingCount={pendingCount} title="High" type="list"/>
-                <MenuItem2 active={active} setActive={setActive} category={'priority'} slug="urgent" icon={<FiAlertOctagon/>} pendingCount={pendingCount} title="Urgent" type="list"/>
+                <MenuItem2  active={active} setActive={setActive} category={'priority'} slug="medium" icon={<FiCircle/>} pendingCount={pendingCount} title="Medium" type="list"/>
+                <MenuItem2  active={active} setActive={setActive} category={'priority'} slug="high" icon={<FiArrowUp />} pendingCount={pendingCount} title="High" type="list"/>
+                <MenuItem2  active={active} setActive={setActive} category={'priority'} slug="urgent" icon={<FiAlertOctagon/>} pendingCount={pendingCount} title="Urgent" type="list"/>
 
             </MenuList>
             <Separator />

@@ -2,6 +2,7 @@
 import { Switch, Route } from "react-router-dom";
   
 import Main from '../pages/Main/Main'
+import Profile from "../pages/Profile";
 import Statistics from '../pages/Statistics/Statistics'
 import Task from '../pages/Task/'
 
@@ -10,6 +11,9 @@ const AllRoutes = () => {
     <Switch>
         <Route path="/" exact >
             <Main />
+        </Route>
+        <Route path="/profile" exact >
+            <Profile />
         </Route>
         <Route path="/statistics">
           <Statistics />

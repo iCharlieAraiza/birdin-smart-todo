@@ -6,8 +6,10 @@ import { BiLogOut } from 'react-icons/bi'
 import { AiOutlineUser } from 'react-icons/ai'
 import { BsGearFill } from 'react-icons/bs'
 import firebase from '../../utils/firebase'
+import { Link } from 'react-router-dom'
 
-    const Login = () => {
+
+    const Login = ({setActive}) => {
         const user = firebase.auth().currentUser
         console.log({user})
 
@@ -16,6 +18,7 @@ import firebase from '../../utils/firebase'
 
         const handleClick = () => {
             setOpen(!open)
+            setActive('/profile')
         }
 
         const signOut = () => {
@@ -42,7 +45,11 @@ import firebase from '../../utils/firebase'
                         </SelectorArrow>
                     </UserCard>
                     <MenuList className={open && 'open'}>
-                        <Item onClick={handleClick}><AiOutlineUser/>My Profile</Item>
+                        <Link to="/profile">
+                            <Item onClick={handleClick}>    
+                                <AiOutlineUser/>My Profile
+                            </Item>
+                        </Link>
                         <Item onClick={handleClick}><BsGearFill/>Settings</Item>
                         <Separator/>
                         <Item onClick={signOut}> <BiLogOut/>Log Out</Item>
@@ -123,7 +130,7 @@ import firebase from '../../utils/firebase'
         z-index: -10;
         margin: 0;
         transform: translateY(-2rem);
-        transition: all 0.15s ease;
+        transition: all 0.2s ease;
         box-shadow: 1px 1px 9px #00000080;
         border-radius: 4px;
         visibility: hidden;
