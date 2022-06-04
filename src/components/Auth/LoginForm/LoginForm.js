@@ -1,10 +1,11 @@
 import React, {useState} from 'react'
-import { LoginContainer, FormInput, ButtonSection, SubmitButton, ErrorLabel } from '../Components'
+import { LoginContainer, FormInput, ButtonSection, SubmitButton, ErrorLabel, GoogleButton } from '../Components'
 import { validateEmail } from '../../../utils/Validations'
 import { toast } from 'react-toastify';
 import { BeatLoader } from 'react-spinners';
 import firebase from '../../../utils/firebase';
 import { provider } from '../../../utils/SocialMedia';
+import {FcGoogle } from 'react-icons/fc'
 
 const LoginForm = ( {setSelectedForm} ) => {
   
@@ -85,9 +86,8 @@ const LoginForm = ( {setSelectedForm} ) => {
       setLoading(false);
       toast.error(err.message);
     })
-
   }
-
+  
   return (
     <LoginContainer>
       <h1>Welcome!</h1>
@@ -108,7 +108,7 @@ const LoginForm = ( {setSelectedForm} ) => {
               </SubmitButton>
             )}   
         </ButtonSection>
-        <button onClick={signUpByGoogle}>Sign up by Google</button>
+        <GoogleButton onClick={signUpByGoogle}> <FcGoogle /> Sign up by Google</GoogleButton>
       </form>
       <p>Don’t have an account? <a href="#" onClick={ () => setSelectedForm('register') }>Create your account here</a></p>
     </LoginContainer>

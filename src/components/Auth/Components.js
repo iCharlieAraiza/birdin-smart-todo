@@ -71,3 +71,25 @@ export const TaskSectionTitle = styled.div`
     opacity: 0.5;
   }
 `
+export const GoogleButton = styled.button`
+  background-color: #eeeeee;
+  color: #5f5f5f;
+  font-weight: 500;
+  padding: 8px 2rem;
+  width: 100%;
+  max-width: 300px;
+  border-radius: 3px;
+  cursor: pointer;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.1s ease-in-out;
+  &:hover {
+    background-color: #3678b6;
+    color: white;
+  }
+  svg {
+    margin-right: 0.5rem;
+  }
+`  

@@ -1,18 +1,32 @@
-    import React, {useState} from 'react'
-    import styled from 'styled-components'
-    import { RiUserFill } from 'react-icons/ri'
-    import { MdKeyboardArrowDown } from 'react-icons/md'
-    import { BiLogOut } from 'react-icons/bi'
-    import { AiOutlineUser } from 'react-icons/ai'
-    import { BsGearFill } from 'react-icons/bs'
+import React, {useState} from 'react'
+import styled from 'styled-components'
+import { RiUserFill } from 'react-icons/ri'
+import { MdKeyboardArrowDown } from 'react-icons/md'
+import { BiLogOut } from 'react-icons/bi'
+import { AiOutlineUser } from 'react-icons/ai'
+import { BsGearFill } from 'react-icons/bs'
+import firebase from '../../utils/firebase'
 
     const Login = () => {
-        const user = null
+        const user = firebase.auth().currentUser
+        console.log({user})
+
 
         const [open, setOpen] = useState(false)
 
         const handleClick = () => {
             setOpen(!open)
+        }
+
+        const signOut = () => {
+            firebase.auth().signOut()
+        }
+
+        const getUserName = () => {
+            if(user) {
+                return user.displayName.length > 0 ? user.displayName : user.email
+            }
+            return 'Default User'
         }
 
         return (
@@ -22,7 +36,7 @@
                         <ProfileAvatar className='profile-avatar'>
                             <RiUserFill/>
                         </ProfileAvatar>    
-                        <UserName>{user?.name != null? user.name : 'Default User' }</UserName>
+                        <UserName>{ getUserName() }</UserName>
                         <SelectorArrow>
                             <MdKeyboardArrowDown/>
                         </SelectorArrow>
@@ -31,7 +45,7 @@
                         <Item onClick={handleClick}><AiOutlineUser/>My Profile</Item>
                         <Item onClick={handleClick}><BsGearFill/>Settings</Item>
                         <Separator/>
-                        <Item onClick={handleClick}> <BiLogOut/>Log Out</Item>
+                        <Item onClick={signOut}> <BiLogOut/>Log Out</Item>
                     </MenuList> 
                 </Wrapper>
                 {open && (<Overlay onClick={handleClick}/>)}
