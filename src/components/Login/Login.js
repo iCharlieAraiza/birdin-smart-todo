@@ -8,11 +8,9 @@ import { BsGearFill } from 'react-icons/bs'
 import firebase from '../../utils/firebase'
 import { Link } from 'react-router-dom'
 
-
     const Login = ({setActive}) => {
         const user = firebase.auth().currentUser
         console.log({user})
-
 
         const [open, setOpen] = useState(false)
 
@@ -113,6 +111,7 @@ import { Link } from 'react-router-dom'
 
     const SelectorArrow = styled.div`
         margin-left: auto;
+        height: 20px;
         svg {
             font-size: 20px;
         }
