@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import LabelData from '../../utils/label-data.json'
@@ -16,6 +16,9 @@ const Menu = (props) => {
     const { pendingCount } = useContext(GlobalContext)
     const [active, setActive] = useState(window.location.pathname)
 
+    useEffect(() => {
+        setActive( window.location.pathname.substring(1))
+    }, [])
 
     return (
         <MenuContainer>

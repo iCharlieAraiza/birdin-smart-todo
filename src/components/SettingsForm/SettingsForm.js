@@ -3,6 +3,7 @@ import styled from 'styled-components'
 
 
 const SettingsForm = () => {
+
   return (
     <>
         <Section>
@@ -28,22 +29,17 @@ const SettingsForm = () => {
         <Section>
             <Wrapper>
                 <div>
-                    <Label> Email </Label>
-                    <LabelValue> name@email.com </LabelValue>
+                    <FormGroup>
+                        <Label> Email </Label>
+                        <LabelValue> name@email.com </LabelValue>
+                    </FormGroup>
+                    <FormGroup>
+                        <Label> Password </Label>
+                        <LabelValue> ******** </LabelValue>
+                    </FormGroup>
                 </div>
                 <UpdateButton>
                     Update
-                </UpdateButton>
-            </Wrapper>
-        </Section>
-        <Section>
-        <Wrapper>
-                <div>
-                    <Label> Password </Label>
-                    <LabelValue> ******** </LabelValue>
-                </div>
-                <UpdateButton>
-                    Change
                 </UpdateButton>
             </Wrapper>
         </Section>
@@ -54,13 +50,13 @@ const SettingsForm = () => {
 const Section = styled.div`
     margin-bottom: 1.5rem;
     padding: 10px;
-    max-width: 700px;
+    max-width: 780px;
+    margin-left: 2rem;
 `
 
 const Wrapper = styled.div`
     display: flex;
     justify-content: space-between;
-    align-items: center;
 `
 
 const Title =  styled.div`
@@ -78,7 +74,8 @@ const ProfileDisplay = styled.div`
     margin-right: 1rem;
 `
 
-const ProfileDescription = styled.div`
+const FormGroup = styled.div`
+    margin-bottom: 1.5rem;
 `
 
 const UpdateButton = styled.button`
@@ -90,13 +87,11 @@ const UpdateButton = styled.button`
     color: #111111;
     box-shadow: 1px 2px 1px #97bbd8;
     border: none;
+    height: fit-content;
     &:hover {
         background-color: #979797;
         color: white;
     }
-}
-
-
 `
 
 const Label = styled.label`

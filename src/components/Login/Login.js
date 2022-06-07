@@ -160,7 +160,7 @@ import { Link } from 'react-router-dom'
             margin-right: 0.5rem;
         }
         &:hover {
-            background-color: #0573e45e;
+            background-color: var(--selected-menu-color);
         }
     `
 
