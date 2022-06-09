@@ -5,7 +5,7 @@ import { AiOutlineLeft } from 'react-icons/ai'
 import SettingsLayout from '../../layout/SettingsLayout/SettingsLayout'
 
 const Profile = () => {
-
+    
     return (
         <SettingsLayout title={"My Account"} subtitle={"Change account settings"}>
             <SettingsForm />

@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import SettingsFormModal from '../SettingsModal/SettingsFormModal'
 
 
 const SettingsForm = () => {
@@ -43,6 +44,7 @@ const SettingsForm = () => {
                 </UpdateButton>
             </Wrapper>
         </Section>
+        <SettingsFormModal />
     </>
   )
 }
@@ -68,7 +70,7 @@ const ProfileDisplay = styled.div`
     width: 60px;
     height: 60px;
     border-radius: 50%;
-    background-color: #507fbb;
+    background-color: var(--placeholder-profile-blue); 
     overflow: hidden;
     text-align: center;
     margin-right: 1rem;
