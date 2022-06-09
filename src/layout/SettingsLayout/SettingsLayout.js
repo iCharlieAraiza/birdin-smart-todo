@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { TaskSectionTitle } from '../../components/General'
 import SettingsMenu from '../../components/SettingsMenu'
 import { AiOutlineLeft } from 'react-icons/ai'
+import BackButton from '../../components/BackButton/BackButton'
 
 
 const SettingsLayout = (props) => {
@@ -10,9 +11,7 @@ const SettingsLayout = (props) => {
     return ( 
         <>
             <TaskSectionTitle>
-                <span>
-                    <AiOutlineLeft />
-                </span>
+                <BackButton/>
                 {props.title}
             </TaskSectionTitle>
             <div>
