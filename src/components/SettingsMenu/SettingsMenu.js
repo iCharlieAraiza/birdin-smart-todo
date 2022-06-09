@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import styled from 'styled-components'
 import { AiOutlineUser} from 'react-icons/ai'
 import { BsGearFill } from 'react-icons/bs'
+import { Link } from 'react-router-dom'
 
 const SettingsMenu = () => {
 
@@ -16,14 +17,18 @@ const SettingsMenu = () => {
 
     return (
         <MenuWrapper>
-            <Item className='active'>
-                <AiOutlineUser />
-                My Account
-            </Item>
-            <Item className={getClassName("/settings")}>
-                <BsGearFill />
-                Settings
-            </Item>
+            <Link to="/profile">    
+                <Item className={getClassName('/profile')}>
+                    <AiOutlineUser />
+                    My Account
+                </Item>
+            </Link>
+            <Link to="/settings">
+                <Item className={getClassName("/settings")}>
+                    <BsGearFill />
+                    Settings
+                </Item>
+            </Link>
         </MenuWrapper>
     )
 }

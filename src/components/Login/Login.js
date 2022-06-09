@@ -48,7 +48,9 @@ import { Link } from 'react-router-dom'
                                 <AiOutlineUser/>My Profile
                             </Item>
                         </Link>
-                        <Item onClick={handleClick}><BsGearFill/>Settings</Item>
+                        <Link to="/settings">
+                            <Item onClick={handleClick}><BsGearFill/>Settings</Item>
+                        </Link>
                         <Separator/>
                         <Item onClick={signOut}> <BiLogOut/>Log Out</Item>
                     </MenuList> 
