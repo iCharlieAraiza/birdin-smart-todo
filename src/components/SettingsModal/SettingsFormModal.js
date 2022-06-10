@@ -3,7 +3,7 @@ import ModaWrapper from '../Modal/ModaWrapper'
 import styled from 'styled-components'
 import {GrClose} from 'react-icons/gr'
 
-const SettingsFormModal = () => {
+const SettingsFormModal = ({setIsOpen}) => {
 
     return (
         <ModaWrapper toggle={()=>{}}>
@@ -11,7 +11,7 @@ const SettingsFormModal = () => {
                 <ModalTitle>Add &gt; New Task</ModalTitle>
                 <ModalClose>
                     <ModalCloseIcon>
-                        <GrClose onClick={() => setIsShow(false)} />
+                        <GrClose onClick={() => setIsOpen(false)} />
                     </ModalCloseIcon>
                 </ModalClose>
             </ModalHeader>

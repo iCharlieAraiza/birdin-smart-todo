@@ -1,52 +1,59 @@
-import React from 'react'
+import React, {useState} from 'react'
 import styled from 'styled-components'
 import SettingsFormModal from '../SettingsModal/SettingsFormModal'
 
 
 const SettingsForm = () => {
+    const [isOpen, setIsOpen] = useState(false)
+    const [typeOfModal, setTypeOfModal] = useState('')
 
-  return (
-    <>
-        <Section className='fade'>
-            <Wrapper>
-                <Wrapper> 
-                    <ProfileDisplay>
-                        <h2>CA</h2>
-                    </ProfileDisplay>
-                    <div>
-                        <Title>
-                            Default Name
-                        </Title>
-                        <LabelValue>
-                            Personal
-                        </LabelValue>
-                    </div>
+    const toggle = ({type = ''}) => {
+        setIsOpen(true)
+        setTypeOfModal(type)
+    }
+
+    return (
+        <>
+            <Section className='fade'>
+                <Wrapper>
+                    <Wrapper> 
+                        <ProfileDisplay>
+                            <h2>CA</h2>
+                        </ProfileDisplay>
+                        <div>
+                            <Title>
+                                Default Name
+                            </Title>
+                            <LabelValue>
+                                Personal
+                            </LabelValue>
+                        </div>
+                    </Wrapper>
+                    <UpdateButton onClick={() => toggle('profile')}>
+                        Update
+                    </UpdateButton>
                 </Wrapper>
-                <UpdateButton>
-                    Update
-                </UpdateButton>
-            </Wrapper>
-        </Section>
-        <Section>
-            <Wrapper>
-                <div>
-                    <FormGroup>
-                        <Label> Email </Label>
-                        <LabelValue> name@email.com </LabelValue>
-                    </FormGroup>
-                    <FormGroup>
-                        <Label> Password </Label>
-                        <LabelValue> ******** </LabelValue>
-                    </FormGroup>
-                </div>
-                <UpdateButton>
-                    Update
-                </UpdateButton>
-            </Wrapper>
-        </Section>
-        { <SettingsFormModal /> }
-    </>
-  )
+            </Section>
+            <Section>
+                <Wrapper>
+                    <div>
+                        <FormGroup>
+                            <Label> Email </Label>
+                            <LabelValue> name@email.com </LabelValue>
+                        </FormGroup>
+                        <FormGroup>
+                            <Label> Password </Label>
+                            <LabelValue> ******** </LabelValue>
+                        </FormGroup>
+                    </div>
+                    <UpdateButton>
+                        Update
+                    </UpdateButton>
+                </Wrapper>
+            </Section>
+            { (isOpen && typeOfModal == "profile") && <SettingsFormModal setIsOpen={setIsOpen}/> }
+        </>
+    )
 }
 
 const Section = styled.div`
