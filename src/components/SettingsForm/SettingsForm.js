@@ -7,7 +7,7 @@ const SettingsForm = () => {
 
   return (
     <>
-        <Section>
+        <Section className='fade'>
             <Wrapper>
                 <Wrapper> 
                     <ProfileDisplay>
@@ -44,7 +44,7 @@ const SettingsForm = () => {
                 </UpdateButton>
             </Wrapper>
         </Section>
-        <SettingsFormModal />
+        { <SettingsFormModal /> }
     </>
   )
 }

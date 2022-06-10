@@ -1,16 +1,24 @@
 import React,{useState} from 'react'
 import ModaWrapper from '../Modal/ModaWrapper'
 import styled from 'styled-components'
+import {GrClose} from 'react-icons/gr'
 
 const SettingsFormModal = () => {
 
     return (
         <ModaWrapper toggle={()=>{}}>
+            <ModalHeader>
+                <ModalTitle>Add &gt; New Task</ModalTitle>
+                <ModalClose>
+                    <ModalCloseIcon>
+                        <GrClose onClick={() => setIsShow(false)} />
+                    </ModalCloseIcon>
+                </ModalClose>
+            </ModalHeader>
             <Form>
                 <FormGroup>
                     <DisplayImageContainer>
                         <Image>
-
                         </Image>
                     </DisplayImageContainer>
                     <Label className='center'> Change profile picture </Label>
@@ -37,24 +45,24 @@ const SettingsFormModal = () => {
 }
 
 const Form = styled.form`
-    padding: 4rem 1rem;
-
-    .center {
-        text-align: center;
-    }
+    padding: 2rem 1rem;
+    padding-bottom: 2rem; 
 `
 
 const FormGroup = styled.div`
     margin: 0 auto;
     margin-bottom: 1rem;
     width: 100%;
-    max-width: 340px;
+    max-width: 380px;
 `
 
 const Label = styled.label`
     display: block;
     padding: 8px 0;
     font-weight: 500;
+    &.center {
+        text-align: center;
+    }
 `
 
 const Input = styled.input`
@@ -93,6 +101,42 @@ const InputSubmit = styled.input`
     border: none;
     font-weight: 700;
     cursor: pointer;
+`
+
+const FormHeader  = styled.div`
+    padding: 14px 2rem;
+    background-color: #00000033;
+    margin: 0;
+    p {
+        margin: 0;
+    }
+`
+
+const ModalHeader = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px solid #e6e6e642;
+`
+
+
+const ModalTitle = styled.div`
+    font-size: 14px;
+    font-weight: 600;
+`
+
+const ModalClose = styled.div`
+    cursor: pointer;
+`
+
+const ModalCloseIcon = styled.div`
+    opacity: 0.75;
+    svg{
+        margin: 0;
+        font-size: 14px;
+    }
+    filter: invert(100%) sepia(1%) saturate(7469%) hue-rotate(306deg) brightness(103%) contrast(100%);
 `
 
 
