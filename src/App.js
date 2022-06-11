@@ -34,6 +34,10 @@ function App() {
     setUser(null);
   }
 
+  if (isLoading) {
+    return null;
+  }
+
   return (
     <>
       {!user ? <Auth /> : (
