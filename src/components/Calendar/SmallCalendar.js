@@ -44,8 +44,6 @@ const SmallCalendar = ({date, setDate}) => {
         setDate(day)
     }
 
-    console.log(date)
-
     return (
         <CalendarContainer>
             <MonthTitle>

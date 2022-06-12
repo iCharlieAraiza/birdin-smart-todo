@@ -15,14 +15,12 @@ const List = ({title = '', toggle, item, isSelected = false}) => {
     }
 
     function setCheck (){
-        console.log('setCheck')
     }
 
     const check = true;
 
     const handleClick = (item) => {
         toggle(item)
-        console.log(isSelected)
     }
 
     return (

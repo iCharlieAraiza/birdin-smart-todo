@@ -64,9 +64,6 @@ const ListSection = ({items, setItems, setMoveElement}) => {
       item.position = index
       return item;
     })
-    console.log('newItems: ', newItems)
-    console.log('oldItems: ', items)
-    console.log('Array sorted', newItems.sort(function(a,b) {return a.position - b.position}) )
     setMoveElement(newIndex)
     updateLocalstorage(newItems)
     //dispatchCalEvent({type: 'update', payload: newItems})
@@ -74,8 +71,6 @@ const ListSection = ({items, setItems, setMoveElement}) => {
 
   function updateLocalstorage(newState){
     //console.
-    console.log(newState)
-
     const storageEvents = localStorage.getItem('saveEvents')
     const parsedEvents = storageEvents ? JSON.parse(storageEvents) : []
     //update the localstorage

@@ -42,7 +42,6 @@ const PriorityDropdown = ({ priority, setPriority}) => {
     const handleChange = (label) => {
         let item = Priority.find(item => item.label === label);
         if (item) {
-            console.log('Add label', item)
             setPriority(item)
         } else {
             setPriority(Priority[0])
