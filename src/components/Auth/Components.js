@@ -40,9 +40,13 @@ export const SubmitButton = styled.button`
   padding: 0.5rem 2rem;
   background-color: var(--button-color);
   margin: 0.5rem 0;
+  width: 100%;
+  max-width: 180px;
   cursor: pointer;
   &:hover{
     opacity: 0.9;
+    background: white;
+    color: grey;
   }
   &[disabled]{
     opacity: 0.8;
@@ -77,8 +81,9 @@ export const GoogleButton = styled.button`
   font-weight: 500;
   padding: 8px 2rem;
   width: 100%;
-  max-width: 300px;
+  max-width: 180px;
   border-radius: 3px;
+  border-radius: 30px;
   cursor: pointer;
   border: none;
   display: flex;
