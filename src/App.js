@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import firebase from "./utils/firebase";
 import 'firebase/auth'
 import Auth from './pages/Auth';
@@ -10,13 +10,15 @@ import './styles/variables.css'
 import 'react-toastify/dist/ReactToastify.css';
 import './index.css';
 import LoggedLayout from './layout/LoggedLayout';
-
+import GlobalContext from './context/GlobalContext';
 
 
 function App() {
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [reloadApp, setReloadApp] = useState(false);
+  const { setGlobalUser, globalUser } = useContext(GlobalContext);
+
 
 
   firebase.auth().onAuthStateChanged(currentUser => {
@@ -24,6 +26,10 @@ function App() {
       firebase.auth().signOut();
       setUser(null);
     } else {
+      //setGlobalUser(currentUser);
+      if(!globalUser){
+        setGlobalUser(currentUser);
+      }
       setUser(currentUser);
     }
     setIsLoading(false);

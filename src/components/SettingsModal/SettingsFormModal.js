@@ -3,16 +3,29 @@ import ModaWrapper from '../Modal/ModaWrapper'
 import styled from 'styled-components'
 import {GrClose} from 'react-icons/gr'
 import GlobalContext from '../../context/GlobalContext'
+import firebase from '../../utils/firebase'
 
 const SettingsFormModal = ({setIsOpen}) => {
-    const {globalUser, updateGlobalUser} = useContext(GlobalContext)
-    const [userProfile, setUserProfile] = useState({
-        displayName: '',
-        email: '',
-        password: '',
-        confirmPassword: ''
-    })
+    const {globalUser, dispatchUserEvent} = useContext(GlobalContext)
+    const [displayName, setDisplayName] = useState(globalUser.displayName)
 
+    const handleDisplayChange = (e) => {
+        setDisplayName(e.target.value)
+    }
+
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        const userProfile = {
+            displayName: displayName
+        }
+        if(displayName.length > 0 && displayName !== globalUser.displayName){ 
+            firebase.auth().currentUser.updateProfile(userProfile)
+        }
+
+        dispatchUserEvent({type: 'update', payload: userProfile})
+        setIsOpen(false)
+    }
 
 
     return (
@@ -36,7 +49,7 @@ const SettingsFormModal = ({setIsOpen}) => {
 
                 <FormGroup>
                     <Label> Display name </Label>
-                    <Input type='text' placeholder='Display username '/>
+                    <Input type='text' placeholder='Display username ' value={displayName} onChange={handleDisplayChange}/>
                 </FormGroup>
 
                 <FormGroup>
@@ -46,7 +59,7 @@ const SettingsFormModal = ({setIsOpen}) => {
 
                 <FormGroup>
                     <Label> </Label>
-                    <InputSubmit type='submit' value='Update'/>
+                    <InputSubmit type='submit' value='Update' onClick={handleSubmit}/>
                 </FormGroup>
 
             </Form>

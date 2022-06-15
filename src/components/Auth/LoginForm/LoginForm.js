@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useContext} from 'react'
 import { LoginContainer, FormInput, ButtonSection, SubmitButton, ErrorLabel, GoogleButton } from '../Components'
 import { validateEmail } from '../../../utils/Validations'
 import { toast } from 'react-toastify';
@@ -6,6 +6,7 @@ import { BeatLoader } from 'react-spinners';
 import firebase from '../../../utils/firebase';
 import { provider } from '../../../utils/SocialMedia';
 import {FcGoogle } from 'react-icons/fc'
+import GlobalContext from '../../../context/GlobalContext';
 
 const LoginForm = ( {setSelectedForm} ) => {
   

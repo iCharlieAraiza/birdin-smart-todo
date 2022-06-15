@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useContext} from 'react'
 import styled from 'styled-components'
 import { RiUserFill } from 'react-icons/ri'
 import { MdKeyboardArrowDown } from 'react-icons/md'
@@ -7,10 +7,11 @@ import { AiOutlineUser } from 'react-icons/ai'
 import { BsGearFill } from 'react-icons/bs'
 import firebase from '../../utils/firebase'
 import { Link } from 'react-router-dom'
+import GlobalContext from '../../context/GlobalContext'
 
     const Login = ({setActive}) => {
-        const user = firebase.auth().currentUser
-        console.log({user})
+        const {globalUser, dispatchUserEvent} = useContext(GlobalContext)
+        let user = globalUser
 
         const [open, setOpen] = useState(false)
 

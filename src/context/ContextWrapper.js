@@ -2,7 +2,7 @@ import React, {useState, useReducer, useEffect} from 'react'
 import GlobalContext from './GlobalContext'
 import { getDayStatus, getPendingsNumberBySection } from '../utils/Report'
 import dayjs from 'dayjs'
-
+import firebase from '../utils/firebase'
 
 function savedEventsReducer(state, {type, payload}){
     switch (type) {
@@ -24,6 +24,33 @@ function initEvents() {
 }
 
 
+const userReducer = (state, {type, payload}) => {
+    switch (type) {
+        case 'set':
+            return payload
+        case 'update':
+            return {...state, ...payload}
+        default:
+            throw new Error(`Unhandled action type: ${type}`)
+    }
+}
+
+const initUserEvents = () => {
+    const user = firebase.auth().currentUser
+    if (user) {
+        return {
+            displayName: user.displayName,
+            email: user.email,
+            photoURL: user.photoURL,
+            uid: user.uid
+        }
+    }
+    else{
+        return {}
+    }
+}
+
+
 const ContextWrapper = (props) => {
     const [monthIndex, setMonthIndex] = useState(dayjs().month())
     const [currentYear, setCurrentYear] = useState(dayjs().year())
@@ -36,12 +63,18 @@ const ContextWrapper = (props) => {
     const [dayStatus, setDayStatus] = useState([])
     const [updateCalendar, setUpdateCalendar] = useState(0)
     const [pendingCount, setPendingCount] = useState({})
+    const [globalUser, setGlobalUser] = useState(null)
+    const [userEvents, dispatchUserEvent] = useReducer(userReducer, [], initUserEvents)
 
     useEffect(() => {
         localStorage.setItem('saveEvents', JSON.stringify(savedEvents))
         updateDayStatus(daySelected)
         setPendingCount(getPendingsNumberBySection(savedEvents))
     }, [savedEvents])
+
+    useEffect(() => {
+        setGlobalUser(userEvents)
+    }, [userEvents])
 
     useEffect(() => {
         setDayStatus(initDateStatus)
@@ -53,6 +86,11 @@ const ContextWrapper = (props) => {
         //setDayStatus(updateCalendar)
         setDayStatus(initDateStatus)
     }, [updateCalendar])
+
+
+    const updateGlobalUser = () => {
+        setGlobalUser(firebase.auth().currentUser)
+    }
 
 
     function initDateStatus(){
@@ -105,6 +143,10 @@ const ContextWrapper = (props) => {
                                         updateCalendar, 
                                         setUpdateCalendar,
                                         pendingCount,
+                                        updateGlobalUser,
+                                        globalUser,
+                                        dispatchUserEvent,
+                                        setGlobalUser
                                         }}>
             { props.children }
         </GlobalContext.Provider>

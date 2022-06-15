@@ -21,6 +21,9 @@ const GlobalContext = React.createContext({
     updateCalendar: 0,
     setUpdateCalendar: (status) => {},
     pendingCount: {},
+    globalUser: null,
+    updateGlobalUser: () => {},
+    dispatchUserEvent: () => {}
 });
 
 export default GlobalContext;

@@ -1,13 +1,20 @@
-import React, {useState} from 'react'
+import React, {useState, useContext} from 'react'
 import styled from 'styled-components'
 import SettingsFormModal from '../SettingsModal/SettingsFormModal'
+import GlobalContext from '../../context/GlobalContext'
 
-
-const SettingsForm = () => {
+const SettingsForm = () => {    
     const [isOpen, setIsOpen] = useState(false)
     const [typeOfModal, setTypeOfModal] = useState('')
+    const {globalUser, updateGlobalUser} = useContext(GlobalContext)
 
-    const toggle = ({type = ''}) => {
+    let user = globalUser
+    if (!user) {
+        updateGlobalUser()
+        user = globalUser
+    }
+
+    const toggle = (type) => {
         setIsOpen(true)
         setTypeOfModal(type)
     }
@@ -22,7 +29,7 @@ const SettingsForm = () => {
                         </ProfileDisplay>
                         <div>
                             <Title>
-                                Default Name
+                                {user?.displayName}
                             </Title>
                             <LabelValue>
                                 Personal
