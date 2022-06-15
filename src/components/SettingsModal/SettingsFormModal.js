@@ -1,9 +1,19 @@
-import React,{useState} from 'react'
+import React,{useState, useContext} from 'react'
 import ModaWrapper from '../Modal/ModaWrapper'
 import styled from 'styled-components'
 import {GrClose} from 'react-icons/gr'
+import GlobalContext from '../../context/GlobalContext'
 
 const SettingsFormModal = ({setIsOpen}) => {
+    const {globalUser, updateGlobalUser} = useContext(GlobalContext)
+    const [userProfile, setUserProfile] = useState({
+        displayName: '',
+        email: '',
+        password: '',
+        confirmPassword: ''
+    })
+
+
 
     return (
         <ModaWrapper toggle={()=>{}}>

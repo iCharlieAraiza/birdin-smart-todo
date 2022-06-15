@@ -62,7 +62,6 @@ const RegisterForm = ( { setSelectedForm} ) => {
             setLoading(true)
             firebase.auth().createUserWithEmailAndPassword(formData.email, formData.password).then(() => {
                 sendVerificationEmail();
-                console.log('User was created')
                 //setSelectedForm('login')
             }).catch(err => {
                 console.log(err)
