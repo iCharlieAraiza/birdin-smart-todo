@@ -36,7 +36,7 @@ import GlobalContext from '../../context/GlobalContext'
                 <Wrapper>
                     <UserCard onClick={handleClick} className={open && 'open'}>
                         <ProfileAvatar className='profile-avatar'>
-                            <RiUserFill/>
+                            { !user.photoURL ? <RiUserFill/> : <img src={user.photoURL}/>}
                         </ProfileAvatar>    
                         <UserName>{ getUserName() }</UserName>
                         <SelectorArrow>
@@ -105,6 +105,11 @@ import GlobalContext from '../../context/GlobalContext'
             width: 80%;
             height: 80%;
             margin-bottom: -2px;
+        }
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
         }
     `
 

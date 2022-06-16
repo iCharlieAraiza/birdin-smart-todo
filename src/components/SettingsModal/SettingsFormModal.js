@@ -4,6 +4,8 @@ import styled from 'styled-components'
 import {GrClose} from 'react-icons/gr'
 import GlobalContext from '../../context/GlobalContext'
 import firebase from '../../utils/firebase'
+import {FaRegHandPaper} from 'react-icons/fa'
+import DropImage from './DropImage'
 
 const SettingsFormModal = ({setIsOpen}) => {
     const {globalUser, dispatchUserEvent} = useContext(GlobalContext)
@@ -16,7 +18,7 @@ const SettingsFormModal = ({setIsOpen}) => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        const userProfile = {
+        const userProfile = {...globalUser,
             displayName: displayName
         }
         if(displayName.length > 0 && displayName !== globalUser.displayName){ 
@@ -41,10 +43,14 @@ const SettingsFormModal = ({setIsOpen}) => {
             <Form>
                 <FormGroup>
                     <DisplayImageContainer>
-                        <Image>
-                        </Image>
+                        <DropImage dispatchUserEvent={dispatchUserEvent} globalUser={globalUser}>
+                            <Image>
+                                { !globalUser.photoURL ? <Placeholder>{displayName?.substring(0, 2)}</Placeholder>
+                                : (<><img src={globalUser.photoURL}/></>)}
+                            </Image>
+                            <Label className='center'> Change profile picture </Label>
+                        </DropImage>
                     </DisplayImageContainer>
-                    <Label className='center'> Change profile picture </Label>
                 </FormGroup>
 
                 <FormGroup>
@@ -106,6 +112,8 @@ const DisplayImageContainer = styled.div`
 
 
 const Image = styled.div`
+    border: 3px dashed #d2d2d2;
+    border-box: border-box;
     overflow: hidden;
     border-radius: 50%;
     width: 100px;
@@ -113,6 +121,26 @@ const Image = styled.div`
     background-color: var(--placeholder-profile-blue); 
     margin: 0 auto;
     cursor: pointer;
+    position relative ;
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+    &:hover {
+        &:after {
+            content: "✊";
+            background: #2626269e;
+            width: 100%;
+            font-size: 3rem;
+            text-align: center;
+            position: absolute;
+            z-index: 479;
+            height: 100%;
+            left: 0;
+            padding-top: 2rem;
+        }
+    }
 `
 
 const InputSubmit = styled.input`
@@ -160,6 +188,16 @@ const ModalCloseIcon = styled.div`
         font-size: 14px;
     }
     filter: invert(100%) sepia(1%) saturate(7469%) hue-rotate(306deg) brightness(103%) contrast(100%);
+`
+
+const Placeholder = styled.h2`
+    color: #fff;
+    text-transform: uppercase;
+    position: absolute;
+    top: 26%;
+    left: 25%;
+    margin: auto;
+    font-size: 34px;
 `
 
 
