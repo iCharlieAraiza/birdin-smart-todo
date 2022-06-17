@@ -46,7 +46,9 @@ const SettingsForm = () => {
                     <div>
                         <FormGroup>
                             <Label> Email </Label>
-                            <LabelValue> name@email.com </LabelValue>
+                            <LabelValue> 
+                                {user?.email}
+                            </LabelValue>
                         </FormGroup>
                         <FormGroup>
                             <Label> Password </Label>

@@ -43,7 +43,7 @@ const SettingsFormModal = ({setIsOpen}) => {
             <Form>
                 <FormGroup>
                     <DisplayImageContainer>
-                        <DropImage dispatchUserEvent={dispatchUserEvent} globalUser={globalUser}>
+                        <DropImage dispatchUserEvent={dispatchUserEvent} globalUser={globalUser} firebase={firebase}>
                             <Image>
                                 { !globalUser.photoURL ? <Placeholder>{displayName?.substring(0, 2)}</Placeholder>
                                 : (<><img src={globalUser.photoURL}/></>)}
