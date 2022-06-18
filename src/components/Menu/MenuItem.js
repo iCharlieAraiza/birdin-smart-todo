@@ -58,7 +58,7 @@ const MenuItemLink = styled(Link)`
 
 const MenuItemIcon = styled.div`
     width: 1.5rem;
-    padding-right: 0.8rem;
+    padding-right: 0.6rem;
     height: 1.5rem;
     /*
     &.list{
