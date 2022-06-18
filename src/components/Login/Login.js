@@ -35,7 +35,7 @@ import GlobalContext from '../../context/GlobalContext'
             <>
                 <Wrapper>
                     <UserCard onClick={handleClick} className={open && 'open'}>
-                        <ProfileAvatar className='profile-avatar'>
+                        <ProfileAvatar className={`profile-avatar ${user.photoURL && 'has-avatar'}`}>
                             { !user.photoURL ? <RiUserFill/> : <img src={user.photoURL}/>}
                         </ProfileAvatar>    
                         <UserName>{ getUserName() }</UserName>
@@ -101,6 +101,9 @@ import GlobalContext from '../../context/GlobalContext'
         justify-content: center;
         overflow: hidden;
         transition: 0.2s ease-in-out;
+        &.has-avatar {
+            border: 2px solid #efefef;
+        }
         svg{
             width: 80%;
             height: 80%;
@@ -108,7 +111,6 @@ import GlobalContext from '../../context/GlobalContext'
         }
         img {
             width: 100%;
-            height: 100%;
             object-fit: contain;
         }
     `
