@@ -2,6 +2,8 @@ import React, { useState, useContext } from "react";
 import styled from "styled-components";
 import SettingsFormModal from "../SettingsModal/SettingsFormModal";
 import GlobalContext from "../../context/GlobalContext";
+import {AiOutlineRight} from 'react-icons/ai'
+
 
 const SettingsForm = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -32,7 +34,16 @@ const SettingsForm = () => {
               <LabelValue>Personal</LabelValue>
             </div>
           </Wrapper>
-          <UpdateButton onClick={() => toggle("profile")}>Update</UpdateButton>
+          <ButtonWrapp>
+            {
+              /*
+              <UpdateButton onClick={() => toggle("profile")}>Update</UpdateButton>
+              */
+            }
+            <ButtonContainer>
+              <AiOutlineRight />
+            </ButtonContainer>
+          </ButtonWrapp>
         </Wrapper>
       </Section>
       <Section>
@@ -42,6 +53,13 @@ const SettingsForm = () => {
               <Label> Email </Label>
               <LabelValue>{user?.email}</LabelValue>
             </FormGroup>
+          </div>
+          <UpdateButton>Update</UpdateButton>
+        </Wrapper>
+      </Section>
+      <Section>
+        <Wrapper>
+          <div>
             <FormGroup>
               <Label> Password </Label>
               <LabelValue> ******** </LabelValue>
@@ -111,6 +129,23 @@ const Label = styled.label`
     content: ":";
   }
 `;
+
+const ButtonWrapp = styled.div`
+  font-size: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+` 
+
+const ButtonContainer = styled.div`
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  padding: 5px;
+  &:hover {
+    background-color: #ffffff3b;
+  }
+`
 
 const LabelValue = styled.span``;
 
