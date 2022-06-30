@@ -2,8 +2,8 @@ import React, { useState, useContext } from "react";
 import styled from "styled-components";
 import SettingsFormModal from "../SettingsModal/SettingsFormModal";
 import GlobalContext from "../../context/GlobalContext";
-import {AiOutlineRight} from 'react-icons/ai'
-
+import {AiOutlineRight, AiOutlineMail} from 'react-icons/ai'
+import {BsKey} from 'react-icons/bs'
 
 const SettingsForm = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -23,7 +23,7 @@ const SettingsForm = () => {
 
   return (
     <>
-      <Section className="fade">
+      <Section className="fade" onClick={() => toggle("profile")}>
         <Wrapper>
           <Wrapper>
             <ProfileDisplay>
@@ -48,24 +48,41 @@ const SettingsForm = () => {
       </Section>
       <Section>
         <Wrapper>
-          <div>
+          <ImageContainer className="center-v">
+            <BsKey />
+          </ImageContainer>
+          <div className="center-v auto-right">
             <FormGroup>
               <Label> Email </Label>
               <LabelValue>{user?.email}</LabelValue>
             </FormGroup>
           </div>
-          <UpdateButton>Update</UpdateButton>
+          <ButtonWrapp>
+            <ButtonContainer>
+              <AiOutlineRight />
+            </ButtonContainer>
+          </ButtonWrapp>
         </Wrapper>
       </Section>
       <Section>
         <Wrapper>
-          <div>
+          <ImageContainer className="center-v">
+            <AiOutlineMail/>
+          </ImageContainer>  
+
+
+          <div className="center-v auto-right">
             <FormGroup>
               <Label> Password </Label>
               <LabelValue> ******** </LabelValue>
             </FormGroup>
           </div>
-          <UpdateButton>Update</UpdateButton>
+          
+          <ButtonWrapp>
+            <ButtonContainer>
+              <AiOutlineRight />
+            </ButtonContainer>
+          </ButtonWrapp>
         </Wrapper>
       </Section>
       {isOpen && typeOfModal == "profile" && (
@@ -76,10 +93,16 @@ const SettingsForm = () => {
 };
 
 const Section = styled.div`
-  margin-bottom: 1.5rem;
-  padding: 10px;
+  padding: 15px;
   max-width: 780px;
   margin-left: 2rem;
+  border-radius: 4px;
+  cursor: pointer;
+  border-bottom: 1px solid #fbfbfb24;  
+  &:hover {
+    background-color: #e1e1e117;
+    transition: 0.4s;
+  }
 `;
 
 const Wrapper = styled.div`
@@ -103,7 +126,8 @@ const ProfileDisplay = styled.div`
 `;
 
 const FormGroup = styled.div`
-  margin-bottom: 1.5rem;
+  //margin-bottom: 1.5rem;
+  margin: auto 0;
 `;
 
 const UpdateButton = styled.button`
@@ -144,6 +168,14 @@ const ButtonContainer = styled.div`
   padding: 5px;
   &:hover {
     background-color: #ffffff3b;
+  }
+`
+
+const ImageContainer = styled.div`
+  font-size: 30px;
+  margin-right: 1rem;
+  svg {
+    fill: var( --placeholder-profile-blue);
   }
 `
 

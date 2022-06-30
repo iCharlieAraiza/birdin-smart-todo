@@ -75,3 +75,17 @@ from {
       margin-right: -5%;
     }
 }
+
+
+.center-v {
+  display: flex;
+  align-items: center!important;
+}
+
+.auto-right {
+  margin-right: auto;
+}
+
+.auto-left {
+  margin-left: auto;
+}
