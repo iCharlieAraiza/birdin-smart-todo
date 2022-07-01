@@ -10,15 +10,16 @@ const SettingsLayout = (props) => {
     console.log(props)
     return ( 
         <>
-            <TaskSectionTitle>
-                <BackButton/>
-                {props.title}
-            </TaskSectionTitle>
-            <div>
-                <p>{props.subtitle}</p>
-            </div>
             <Section>
-                <SettingsMenu />
+                <SettingsMenu>
+                    <TaskSectionTitle>
+                        <BackButton/>
+                        {props.title}
+                    </TaskSectionTitle>
+                    <div>
+                        <p>{props.subtitle}</p>
+                    </div>
+                </SettingsMenu>
                 <FormContainer>
                     {props.children}
                 </FormContainer>
@@ -37,6 +38,7 @@ const FormContainer = styled.div`
     width: 100%;
     max-width: 800px;
     padding-right: 2rem;
+    padding-top: var(--top-padding);
     @media (min-width: 500px) {
         width: 70%;
     }

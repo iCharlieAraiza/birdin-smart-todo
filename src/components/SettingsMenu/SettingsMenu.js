@@ -4,7 +4,7 @@ import { AiOutlineUser} from 'react-icons/ai'
 import { BsGearFill } from 'react-icons/bs'
 import { Link } from 'react-router-dom'
 
-const SettingsMenu = () => {
+const SettingsMenu = (props) => {
 
     const globalPath = window.location.pathname
 
@@ -17,6 +17,7 @@ const SettingsMenu = () => {
 
     return (
         <MenuWrapper>
+            {props.children}
             <Link to="/profile">    
                 <Item className={getClassName('/profile')}>
                     <AiOutlineUser />
