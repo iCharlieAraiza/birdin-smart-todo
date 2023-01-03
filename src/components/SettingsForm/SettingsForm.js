@@ -99,9 +99,6 @@ const Section = styled.div`
   border-radius: 4px;
   cursor: pointer;
   border-bottom: 1px solid #fbfbfb24;  
-  &:first-child {
-    border-top: 1px solid #fbfbfb24;
-  }
   &:hover {
     background-color: #e1e1e117;
     transition: 0.4s;
